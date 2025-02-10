@@ -22,8 +22,8 @@ public class Song {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "author", nullable = false)
-    private String author;
+    @Column(name = "artist_id", nullable = false)
+    private Long artistId;
 
     @Lob
     @Column(name = "cover", nullable = false)
@@ -31,5 +31,10 @@ public class Song {
 
     @Column(name = "cover_content_type", nullable = false)
     private String coverContentType;
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "genre", nullable = false)
+    private Genre genre;
 
 }

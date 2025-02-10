@@ -5,6 +5,9 @@ import com.omar.user_service.shared.AbstractAuditingEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -33,4 +36,20 @@ public class User extends AbstractAuditingEntity {
 
     @Column(name = "image_url")
     private String imageUrl;
+
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
+    @JoinTable(
+            name = "user_authority",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")}
+    )
+    private Set<Authority> authorities = new HashSet<>();
+
+    public void updateFromUser(User user) {
+        this.email = user.getEmail();
+        this.lastName = user.getLastName();
+        this.firstName = user.getFirstName();
+        this.imageUrl = user.getImageUrl();
+    }
+
 }
