@@ -5,6 +5,7 @@ import {FaIconLibrary, FontAwesomeModule} from "@fortawesome/angular-fontawesome
 import {fontAwesomeIcons} from "./shared/font-awesome-icons";
 import {NavigationComponent} from "./layout/navigation/navigation.component";
 import {LibraryComponent} from "./layout/library/library.component";
+import {Oauth2AuthService} from "./auth/oauth2-auth.service";
 
 @Component({
   selector: 'app-root',
@@ -17,13 +18,19 @@ export class AppComponent implements OnInit {
   title = 'Music Streaming Platform';
 
   private faIconLibrary = inject(FaIconLibrary);
+  private oauth2Service = inject(Oauth2AuthService);
 
   ngOnInit(): void {
     this.initFontAwesome();
+    this.initAuthentication();
   }
 
   private initFontAwesome() {
     this.faIconLibrary.addIcons(...fontAwesomeIcons);
+  }
+
+  private initAuthentication(): void {
+    this.oauth2Service.initAuthentication();
   }
 
 
