@@ -2,6 +2,7 @@ package com.omar.user_service.mapper;
 
 
 import com.omar.user_service.entity.Authority;
+import com.omar.user_service.entity.Subscription;
 import com.omar.user_service.entity.User;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,7 @@ public class UserMapper {
                 .email(email)
                 .imageUrl(imageUrl)
                 .authorities(authorities)
+                .subscription(Subscription.FREE)
                 .build();
     }
 
