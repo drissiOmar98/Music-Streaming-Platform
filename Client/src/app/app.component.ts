@@ -6,11 +6,12 @@ import {fontAwesomeIcons} from "./shared/font-awesome-icons";
 import {NavigationComponent} from "./layout/navigation/navigation.component";
 import {LibraryComponent} from "./layout/library/library.component";
 import {Oauth2AuthService} from "./auth/oauth2-auth.service";
+import {HeaderComponent} from "./layout/header/header.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FontAwesomeModule, NavigationComponent, LibraryComponent],
+  imports: [CommonModule, RouterOutlet, FontAwesomeModule, NavigationComponent, LibraryComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

@@ -19,6 +19,20 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
+    private final String[] freeResourceUrls = {
+            "/api/public/**",
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/v3/api-docs/**",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui/**",
+            "/webjars/**",
+            "/swagger-ui.html"
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -26,19 +40,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF for stateless APIs
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
-                                "/api/public/**",
-                                "/v2/api-docs",
-                                "/v3/api-docs",
-                                "/v3/api-docs/**",
-                                "/swagger-resources",
-                                "/swagger-resources/**",
-                                "/configuration/ui",
-                                "/configuration/security",
-                                "/swagger-ui/**",
-                                "/webjars/**",
-                                "/swagger-ui.html")
+                                freeResourceUrls)
                         .permitAll() // Public endpoints
-                        .requestMatchers("/api/users/**").authenticated() // Specific endpoint for authenticated users
                         .anyRequest().authenticated()// All other endpoints require authentication
                 )
                 .sessionManagement(session -> session
@@ -51,6 +54,7 @@ public class SecurityConfig {
                 )
                 .build();
     }
+
 
     @Bean
     public JwtDecoder jwtDecoder() {

@@ -10,7 +10,7 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: customer-server
+        - id: user-service
           uri: http://localhost:8090
           predicates:
             - Path=/api/v1/users/**
