@@ -15,3 +15,8 @@ spring:
           predicates:
             - Path=/api/v1/users/**
 
+        - id: artist-service
+          uri: http://localhost:8050
+          predicates:
+            - Path=/api/v1/artists/**
+
