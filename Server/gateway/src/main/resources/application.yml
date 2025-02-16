@@ -8,3 +8,20 @@ spring:
     import: optional:configserver:http://localhost:8888
   application:
     name: gateway-server
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: API Gateway
+        url: /v3/api-docs
+      - name: Music Service
+        url: /aggregate/music-service/v3/api-docs
+      - name: Artist Service
+        url: /aggregate/artist-service/v3/api-docs
+      - name: User Service
+        url: /aggregate/user-service/v3/api-docs
+
+music-service.url: http://localhost:8060
+artist-service.url: http://localhost:8050
+user-service.url: http://localhost:8090

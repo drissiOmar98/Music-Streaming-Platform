@@ -21,7 +21,10 @@ import java.util.Arrays;
 public class SecurityConfig {
 
     private final String[] freeResourceUrls = {"/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**",
-            "/swagger-resources/**", "/api-docs/**", "/aggregate/**", "/actuator/prometheus"};
+            "/swagger-resources/**", "/api-docs/**", "/swagger-ui/**",
+            "/webjars/**",
+            "/swagger-ui.html",
+            "/api/v1/v3/api-docs", "/aggregate/**", "/actuator/prometheus"};
 
 
     @Bean

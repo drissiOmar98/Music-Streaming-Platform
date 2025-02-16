@@ -25,3 +25,5 @@ spring:
           predicates:
             - Path=/api/v1/songs/**
 
+
+
