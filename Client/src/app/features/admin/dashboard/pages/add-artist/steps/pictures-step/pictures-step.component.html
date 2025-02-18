@@ -1,0 +1,31 @@
+<div class="mb-3">
+  <h1 class="mb-1">Add photos of your Artist</h1>
+  <!-- Upload Button -->
+  <div class="flex align-items-center justify-content-center mt-3">
+    <input
+      type="file"
+      id="pictures"
+      accept=".jpg,.jpeg,.png,.svg"
+      multiple
+      (change)="onUploadNewPicture($event.target)">
+  </div>
+</div>
+
+<!-- Photo Gallery -->
+@if (pictures()) {
+  <div class="mt-2 flex flex-wrap w-full h-full gallery-container">
+    @for (picture of pictures(); track picture.file.name) {
+      <div class="border-1 relative border-transparent border-round-3xl container-picture">
+        <!-- Trash Icon -->
+        <button class="absolute trash-btn p-button" (click)="onTrashPicture(picture)">
+          <fa-icon icon="trash-can"></fa-icon>
+        </button>
+        <!-- Display Image -->
+        <div
+          class="border-1 border-transparent border-round-3xl bg-cover bg-no-repeat gallery-item"
+          [style.background-image]="'url(' + picture.urlDisplay + ')'">
+        </div>
+      </div>
+    }
+  </div>
+}

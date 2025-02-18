@@ -1,0 +1,104 @@
+/* Additional Styling for Stats Cards */
+.stat-card {
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+  background: rgba(23, 22, 22, 0.9); /* Dark gray background for the cards */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Slightly bigger shadow */
+  backdrop-filter: blur(12px); /* Optional blurred background for modern look */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border-radius: 15px; /* Increased border-radius for rounded corners */
+  position: relative;
+  overflow: hidden; /* Ensures that hover effect doesn’t go outside card */
+}
+
+.stat-card:hover {
+  transform: translateY(-12px); /* Lift effect on hover */
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+  background-color: rgba(45, 72, 58, 0.9); /* Darker shade on hover */
+}
+
+.stat-card .text-center {
+  flex: 1;
+  margin-left: 16px;
+}
+
+.stat-card .text-center h3 {
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 8px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Added text shadow for depth */
+}
+
+.stat-card .text-center p {
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.stat-card .text-5xl {
+  font-size: 4rem; /* Slightly bigger icons */
+  margin-right: 16px;
+  transition: transform 0.3s ease-in-out; /* Smooth icon zoom effect */
+}
+
+.stat-card:hover .text-5xl {
+  transform: scale(1.1); /* Slight zoom on icon when hovered */
+}
+
+/* Icon color adjustments and sizes */
+.stat-card:nth-child(1) .text-5xl {
+  color: #4CAF50; /* Green icon color for total songs */
+}
+
+.stat-card:nth-child(2) .text-5xl {
+  color: #9C27B0; /* Purple icon color for total albums */
+}
+
+.stat-card:nth-child(3) .text-5xl {
+  color: #FF9800; /* Orange icon color for total artists */
+}
+
+.stat-card:nth-child(4) .text-5xl {
+  color: #03A9F4; /* Blue icon color for total users */
+}
+
+/* Animations for Cards */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stat-card {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* For larger screen sizes */
+@media (min-width: 1024px) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem; /* Larger gap between cards */
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+h3 {
+  font-size: 1.2rem; /* 3xl font size */
+  font-weight: bold;
+  margin: 0;
+}

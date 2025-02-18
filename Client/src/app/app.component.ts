@@ -1,17 +1,19 @@
 import {Component, inject, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 import {FaIconLibrary, FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {fontAwesomeIcons} from "./shared/font-awesome-icons";
 import {NavigationComponent} from "./layout/navigation/navigation.component";
 import {LibraryComponent} from "./layout/library/library.component";
 import {Oauth2AuthService} from "./auth/oauth2-auth.service";
 import {HeaderComponent} from "./layout/header/header.component";
+import {ToastService} from "./service/toast.service";
+import {NgbToast} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FontAwesomeModule, NavigationComponent, LibraryComponent, HeaderComponent],
+  imports: [CommonModule, RouterOutlet, FontAwesomeModule, NavigationComponent, LibraryComponent, HeaderComponent, NgbToast],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -20,6 +22,12 @@ export class AppComponent implements OnInit {
 
   private faIconLibrary = inject(FaIconLibrary);
   private oauth2Service = inject(Oauth2AuthService);
+  toastService = inject(ToastService);
+  private router = inject(Router);
+
+  isAdminPage(): boolean {
+    return this.router.url.startsWith('/dashboard'); // Adjust if needed
+  }
 
   ngOnInit(): void {
     this.initFontAwesome();

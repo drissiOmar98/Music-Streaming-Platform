@@ -1,0 +1,25 @@
+<div class="px-4">
+@switch (this.currentStep.id) {
+
+  @case (INFO) {
+    <div class="mb-5">
+      <app-infos-step [infos]="newArtist.infos"
+                            (infoChange)="onInfoChange($event)"
+                            (stepValidityChange)="onValidityChange($event)"></app-infos-step>
+    </div>
+  }
+  @case (PHOTOS) {
+    <app-pictures-step [pictures]="newArtist.pictures"
+                      (picturesChange)="onPictureChange($event)"
+                      (stepValidityChange)="onValidityChange($event)"></app-pictures-step>
+  }
+
+}
+</div>
+<app-footer-step [currentStep]="currentStep"
+                 [isAllStepsValid]="isAllStepsValid()"
+                 [loading]="loadingCreation"
+                 (finish)="createArtist()"
+                 (next)="nextStep()"
+                 (previous)="previousStep()">
+</app-footer-step>

@@ -1,0 +1,130 @@
+/* Global styles for card container */
+.card {
+  background-color: #181818;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+/* Card header with a clean Spotify-like look */
+.card-header {
+  padding: 16px;
+  background-color: #121212;
+  border-bottom: 1px solid #333;
+}
+
+.card-header h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.card-header  p{
+  color: #b3b3b3;
+  font-size: 1rem;
+}
+
+/* Add Song Button positioning */
+.card-header .flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Add Song Button styling */
+.card-header button {
+  background-color: #1db954; /* Spotify Green */
+  color: white;
+  border: none;
+  border-radius: 10%;
+  padding: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.card-header button:hover {
+  background-color: #1ed760; /* Lighter Spotify Green */
+}
+
+/* Card content */
+.card-content {
+  padding: 24px;
+  background-color: #121212;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Helvetica Neue', sans-serif;
+  color: #f3f3f3;
+}
+
+table th,
+table td {
+  padding: 16px;
+  text-align: left;
+}
+
+table th {
+  font-size: 1rem;
+  color: #a8a8a8;
+  border-bottom: 2px solid #333;
+}
+
+table td {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+table tr:hover {
+  background-color: #333333;
+}
+
+table img {
+  border-radius: 50%;
+}
+
+/* Action button styles */
+button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Trash button style */
+button.text-red-400 {
+  color: #f56565;
+  background-color: transparent;
+  border: none;
+}
+
+button.text-red-400:hover {
+  color: white;
+}
+
+/* Add Song Button styling */
+button.bg-green-500 {
+  background-color: #1db954;
+  color: white;
+}
+
+button.bg-green-500:hover {
+  background-color: #1ed760;
+}
+
+/* Responsiveness for smaller screens */
+@media (max-width: 768px) {
+  table {
+    font-size: 0.875rem;
+  }
+  table th,
+  table td {
+    padding: 12px;
+  }
+  .card-header h2 {
+    font-size: 1.875rem;
+  }
+  .card-header p {
+    font-size: 0.875rem;
+  }
+}

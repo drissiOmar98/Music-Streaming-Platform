@@ -7,16 +7,16 @@ import {
   faCircleNotch,
   faCirclePause,
   faCirclePlay,
-  faCircleXmark,
+  faCircleXmark, faCompactDisc,
   faForwardStep,
   faHeart,
-  faHome,
+  faHome, faMicrophoneAlt, faMusic,
   faPlus,
-  faSearch,
-  faUser,
+  faSearch, faTrash,
+  faUser, faUsers,
   faVolumeHigh,
   faVolumeLow,
-  faVolumeMute
+  faVolumeMute, faCalendar, faTrashCan
 } from "@fortawesome/free-solid-svg-icons";
 
 export const fontAwesomeIcons: IconDefinition[] = [
@@ -37,5 +37,12 @@ export const fontAwesomeIcons: IconDefinition[] = [
   faVolumeLow,
   faVolumeHigh,
   faHeart,
-  faHeartRegular
+  faHeartRegular,
+  faMusic,
+  faCompactDisc,
+  faMicrophoneAlt,
+  faUsers,
+  faTrash,
+  faCalendar,
+  faTrashCan
 ]

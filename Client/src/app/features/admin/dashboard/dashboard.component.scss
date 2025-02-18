@@ -1,0 +1,84 @@
+/* Tab Container */
+.tabs-list {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding: 0.5rem;
+  background: rgba(39, 39, 42, 0.7); /* Slightly darker background */
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Tab Buttons */
+.tab-button {
+  background: transparent;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  color: #a1a1aa; /* Lighter text color */
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+}
+
+.tab-button:hover {
+  color: #65d46a; /* Emerald green hover color */
+  background: rgba(101, 212, 106, 0.1); /* Light background on hover */
+}
+
+/* Active Tab */
+.tab-button.active {
+  color: #65d46a; /* Active tab color */
+  background: rgba(101, 212, 106, 0.1); /* Light background for active tab */
+  box-shadow: 0 2px 4px rgba(101, 212, 106, 0.2); /* Subtle shadow */
+}
+
+/* Tab Content */
+.tab-content {
+  margin-top: 1.5rem;
+}
+
+/* Fade-in Animation */
+.fade-in {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Additional Enhancements */
+.main-content {
+
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.content {
+  background: rgba(24, 24, 27, 0.8); /* Slightly darker background for content */
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .tabs-list {
+    gap: 0.5rem;
+  }
+
+  .tab-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}

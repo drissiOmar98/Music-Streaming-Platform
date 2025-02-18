@@ -1,0 +1,44 @@
+<div class="form-container">
+  <h1 class="form-header">Now, let's give your Artist a title and Bio</h1>
+  <form #formDescription="ngForm" novalidate class="form-content">
+    <!-- Title Input -->
+    <div class="form-group">
+      <input
+        #titleInput="ngModel"
+        name="title"
+        placeholder="Enter your artist title"
+        required
+        class="form-input title-input"
+        type="text"
+        [ngModel]="infos().name"
+        (ngModelChange)="onTitleChange($event)"
+      />
+
+      @if (titleInput.dirty && titleInput.invalid) {
+        <small id="title-required" class="error-message">Title is required</small>
+      } @else {
+        <div class="placeholder-validation"></div>
+      }
+    </div>
+
+    <!-- Description Input -->
+    <div class="form-group">
+      <textarea
+        #descriptionInput="ngModel"
+        name="description"
+        class="form-input description-input"
+        required
+        placeholder="Provide a short Bio about your Artist"
+        rows="5"
+        cols="30"
+        [ngModel]="infos().bio"
+        (ngModelChange)="onDescriptionChange($event)"
+      ></textarea>
+      @if (descriptionInput.dirty && descriptionInput.invalid) {
+        <small id="description-required" class="error-message">Bio is required</small>
+      } @else {
+        <div class="placeholder-validation"></div>
+      }
+    </div>
+  </form>
+</div>

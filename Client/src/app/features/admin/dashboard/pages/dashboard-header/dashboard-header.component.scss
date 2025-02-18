@@ -1,0 +1,37 @@
+/* Flex container for logo and text */
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-3 {
+  gap: 1rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+/* Ensure the logo and text are aligned horizontally */
+img {
+  display: inline-block;
+}
+
+
+
+h1 {
+  font-size: 1.875rem; /* 3xl font size */
+  font-weight: bold;
+  margin: 0;
+}
+
+p {
+  margin-top: 0.25rem; /* Small gap under the title */
+  color: #b3b3b3;
+  font-size: 1rem;
+}

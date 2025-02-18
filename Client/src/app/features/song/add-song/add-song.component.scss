@@ -1,0 +1,33 @@
+::ng-deep .custom-modal-header {
+  background-image: url('/assets/images/cover.jpg'); // Change to your desired image path
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+}
+
+/* Style the modal title */
+::ng-deep .custom-modal-header .modal-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Style the close button */
+::ng-deep .custom-modal-header .btn-close {
+  filter: invert(1); /* Makes the close button white */
+  opacity: 0.8;
+}
+
+::ng-deep .custom-modal-header .btn-close:hover {
+  opacity: 1;
+}
+.file > label {
+  padding: 9px 0 0 10px;
+  height: auto;
+}

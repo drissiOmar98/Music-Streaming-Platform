@@ -1,0 +1,37 @@
+<div class="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black text-zinc-100 p-8">
+  <app-dashboard-header></app-dashboard-header>
+  <app-dashboard-stats [stats]="stats"></app-dashboard-stats>
+  <div class="content mt-8">
+    <div class="main-content">
+      <div class="tabs">
+        <!-- Tab Buttons -->
+        <div class="tabs-list p-1 bg-zinc-800/50 rounded-lg shadow-lg">
+          <button
+            (click)="setActiveTab('songs')"
+            [class.active]="activeTab === 'songs'"
+            class="tab-button transition-all duration-300 ease-in-out hover:text-emerald-500"
+          >
+            Songs
+          </button>
+          <button
+            (click)="setActiveTab('artist')"
+            [class.active]="activeTab === 'artist'"
+            class="tab-button transition-all duration-300 ease-in-out hover:text-emerald-500"
+          >
+            Artists
+          </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content mt-6">
+          <div *ngIf="activeTab === 'songs'" class="fade-in">
+            <app-songs-tab-content></app-songs-tab-content>
+          </div>
+          <div *ngIf="activeTab === 'artist'" class="fade-in">
+            <app-artists-tab-content></app-artists-tab-content>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
