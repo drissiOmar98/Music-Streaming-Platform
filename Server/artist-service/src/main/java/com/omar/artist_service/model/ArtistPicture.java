@@ -23,7 +23,7 @@ public class ArtistPicture extends AbstractAuditingEntity<Long> {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "artist_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "artist_id", referencedColumnName = "id")
     private Artist artist;
 
     @Lob

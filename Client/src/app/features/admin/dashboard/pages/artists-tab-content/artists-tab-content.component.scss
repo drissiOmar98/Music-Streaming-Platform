@@ -128,3 +128,12 @@ button.bg-green-500:hover {
     font-size: 0.875rem;
   }
 }
+.artist-image {
+  width: 100%;
+  max-width: 200px;
+  height: 200px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+}

@@ -26,6 +26,7 @@ public class Artist {
     @Column(name = "bio")
     private String bio;
 
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.REMOVE)
     private Set<ArtistPicture> pictures = new HashSet<>();
 }

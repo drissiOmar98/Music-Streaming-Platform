@@ -7,16 +7,31 @@ import {
   faCircleNotch,
   faCirclePause,
   faCirclePlay,
-  faCircleXmark, faCompactDisc,
+  faCircleXmark,
+  faCompactDisc,
   faForwardStep,
   faHeart,
-  faHome, faMicrophoneAlt, faMusic,
+  faHome,
+  faMicrophoneAlt,
+  faMusic,
   faPlus,
-  faSearch, faTrash,
-  faUser, faUsers,
+  faSearch,
+  faTrash,
+  faUser,
+  faUsers,
   faVolumeHigh,
   faVolumeLow,
-  faVolumeMute, faCalendar, faTrashCan
+  faVolumeMute,
+  faCalendar,
+  faTrashCan,
+  faGuitar,
+  faStar,
+  faFire,
+  faHeadphones,
+  faBroadcastTower,
+  faSun,
+  faHatCowboy,
+  faDrum, faSkull, faLeaf, faRecordVinyl, faPlay
 } from "@fortawesome/free-solid-svg-icons";
 
 export const fontAwesomeIcons: IconDefinition[] = [
@@ -44,5 +59,26 @@ export const fontAwesomeIcons: IconDefinition[] = [
   faUsers,
   faTrash,
   faCalendar,
-  faTrashCan
+  faTrashCan,
+  faGuitar,
+  faCompactDisc,
+  faStar,
+  faFire,
+  faHeadphones,
+  faBroadcastTower,
+  faSun,
+  faHatCowboy,
+  faDrum,
+  faSkull,
+  faLeaf,
+  faRecordVinyl,
+  faPlay
+
+
+
+
+
+
+
+
 ]

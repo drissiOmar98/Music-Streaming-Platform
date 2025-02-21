@@ -51,9 +51,9 @@ export class ArtistService {
     this.create$.set(State.Builder<CreatedArtist>().forInit())
   }
 
-  getAll(pageRequest: Pagination, categoryId: number | null): void {
+  getAll(pageRequest: Pagination): void {
     let params = createPaginationOption(pageRequest);
-    const url = `${environment.API_URL}/products/get-all`;
+    const url = `${environment.API_URL}/artists/get-all`;
     this.http.get<Page<CardArtist>>(url, { params })
       .subscribe({
         next: (artists) => this.getAllArtist$.set(State.Builder<Page<CardArtist>>().forSuccess(artists)),
