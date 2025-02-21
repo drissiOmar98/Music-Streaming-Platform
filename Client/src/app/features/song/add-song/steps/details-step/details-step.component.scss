@@ -1,0 +1,221 @@
+/* General Styles */
+.form-container {
+
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.form-header {
+  color: #ffffff;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Form Group Styles */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Input Styles */
+.form-input {
+  background-color: #282828; /* Darker input background */
+  border: 1px solid #404040;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    border-color: #1db954; /* Spotify green */
+    box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.3);
+  }
+}
+
+.title-input {
+  width: 100%;
+}
+
+/* File Upload Label */
+.file-upload-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #282828;
+  border: 2px dashed #404040;
+  border-radius: 8px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    background-color: #333333;
+    border-color: #1db954;
+  }
+
+  span {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  input[type="file"] {
+    display: none; /* Hide the default file input */
+  }
+}
+
+/* Cover Image Preview */
+.cover-preview-container {
+  margin-top: 1rem;
+}
+
+.cover-preview {
+  position: relative;
+  width: 150px; /* Adjust as needed */
+  height: 150px; /* Adjust as needed */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover; /* Ensure the image covers the container */
+  background-position: center; /* Center the image */
+}
+
+/* Trash Button */
+.trash-btn1 {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 0, 0, 1);
+    transform: scale(1.1);
+  }
+
+  fa-icon {
+    font-size: 1rem;
+  }
+}
+
+/* Error Message */
+.error-message {
+  color: #ff4d4d;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Placeholder Validation */
+.placeholder-validation {
+  height: 1.5rem; /* Maintain spacing even when no error is shown */
+}
+
+/* Audio File Preview */
+.audio-preview-container {
+  margin-top: 1rem;
+}
+
+.audio-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #282828;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.audio-name {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Audio Player Placeholder */
+/* Audio Player Placeholder */
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.play-btn {
+  background-color: #1db954;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: #1ed760;
+    transform: scale(1.1);
+  }
+
+  fa-icon {
+    font-size: 1.25rem;
+  }
+}
+
+
+/* Upload Progress Bar */
+.upload-progress {
+  margin-top: 1rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #404040;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress {
+  height: 100%;
+  background-color: #1db954;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  display: block;
+  margin-top: 0.5rem;
+  color: #ffffff;
+  font-size: 0.875rem;
+  text-align: center;
+}

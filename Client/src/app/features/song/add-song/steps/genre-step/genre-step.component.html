@@ -1,0 +1,17 @@
+
+<div class="categories flex flex-column align-items-center py-5">
+  <h1 class="text-white text-xl font-bold mb-4">Pick a genre to explore</h1>
+
+  <div class="genre-container flex flex-wrap align-items-center justify-content-center gap-4">
+    @for(genreToDisplay of genres; track genreToDisplay.technicalName) {
+      @if(genreToDisplay.technicalName !== 'ALL') {
+        <div class="genre-card cursor-pointer p-5 flex flex-column align-items-center justify-content-center border-round-xl"
+             (click)="onSelectGenre(genreToDisplay.technicalName)"
+             [class.category-selected]="categoryName() == genreToDisplay.technicalName">
+          <fa-icon class="icon" [icon]="genreToDisplay.icon" size="3x"></fa-icon>
+          <div class="font-bold mt-3">{{genreToDisplay.displayName}}</div>
+        </div>
+      }
+    }
+  </div>
+</div>

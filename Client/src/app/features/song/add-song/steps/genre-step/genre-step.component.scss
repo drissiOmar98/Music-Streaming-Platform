@@ -1,0 +1,40 @@
+
+.categories {
+  text-align: center;
+  padding: 2rem 0;
+
+  .genre-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .genre-card {
+    width: 130px;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: #181818; // Spotify card background
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, background 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      background: #282828; // Slightly lighter hover effect
+    }
+
+    &.category-selected {
+      background: #1db954; // Spotify green for selection
+      color: white;
+      box-shadow: 0 0 10px rgba(29, 185, 84, 0.7);
+    }
+
+    .icon {
+      color: #ffffff; // White icons
+    }
+  }
+}

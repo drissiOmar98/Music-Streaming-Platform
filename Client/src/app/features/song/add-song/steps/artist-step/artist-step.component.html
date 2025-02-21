@@ -1,0 +1,35 @@
+
+<div class="categories flex flex-column align-items-center py-5">
+  <h1 class="text-white text-xl font-bold mb-4">Select Your Favorite Artist</h1>
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <fa-icon [icon]="faSearch" class="search-icon"></fa-icon>
+    <input type="text" class="search-input" placeholder="Search for an artist..." (input)="onSearch($event)">
+  </div>
+
+
+  <!-- Artists Grid -->
+  <div class="artist-container flex flex-wrap align-items-center justify-content-center gap-4">
+    @for (artist of artists; track artist.id) {
+      <div
+        class="artist-card cursor-pointer p-4 flex flex-column align-items-center justify-content-center border-round-xl"
+        [class.artist-selected]="selectedArtist() === artist.id"
+        (click)="onSelectArtist(artist.id)"
+      >
+        <div class="image-container">
+          <div
+            [style.background-image]="'url(' + 'data:' + artist.cover.fileContentType + ';base64,' + artist.cover.file + ')' "
+            class="artist-image"
+          ></div>
+        </div>
+        <h2 class="artist-name">{{ artist.name }}</h2>
+      </div>
+    }
+  </div>
+
+  <!-- Loading Indicator -->
+  @if (loadingFetchAll) {
+    <p class="loading-text">Loading artists...</p>
+  }
+</div>

@@ -1,0 +1,90 @@
+<div class="form-container">
+  <h1 class="form-header">Now, let's add your song details</h1>
+  <form #detailsForm="ngForm" novalidate class="form-content">
+    <!-- Title Input -->
+    <div class="form-group">
+      <input
+        #titleInput="ngModel"
+        name="title"
+        placeholder="Enter the song title"
+        required
+        class="form-input title-input"
+        type="text"
+        [ngModel]="infos().title"
+        (ngModelChange)="onTitleChange($event)"
+      />
+      @if (titleInput.dirty && titleInput.invalid) {
+        <small id="title-required" class="error-message">Title is required</small>
+      } @else {
+        <div class="placeholder-validation"></div>
+      }
+    </div>
+
+    <!-- Cover Image Upload -->
+    <div class="form-group">
+      <label for="cover" class="file-upload-label">
+        <span>Upload Cover Image</span>
+        <input
+          #coverInput
+          type="file"
+          class="form-control"
+          id="cover"
+          accept=".jpg,.jpeg,.png,.svg"
+          (change)="onUploadCover($event.target)"
+        />
+      </label>
+    </div>
+
+    <!-- Display Uploaded Cover Image -->
+    @if (infos().cover) {
+      <div class="cover-preview-container">
+        <div class="cover-preview">
+          <!-- Trash Icon -->
+          <button class="trash-btn1" (click)="onTrashCover(coverInput)">
+            <fa-icon icon="trash-can"></fa-icon>
+          </button>
+          <!-- Display Image -->
+          <div
+            class="cover-image"
+            [style.background-image]="'url(' + infos().cover?.urlDisplay + ')'">
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Audio File Upload -->
+    <div class="form-group">
+      <label for="file" class="file-upload-label">
+        <span>Upload Audio File (MP3/WAV)</span>
+        <input
+          #fileInput
+          type="file"
+          class="form-control"
+          id="file"
+          accept=".wav,.mp3"
+          (change)="onUploadFile($event.target)"
+        />
+      </label>
+    </div>
+
+
+    <!-- Display Uploaded Audio File -->
+    @if (infos().file) {
+      <div class="audio-preview-container">
+        <div class="audio-preview">
+          <span class="audio-name">{{ infos().file?.name }}</span>
+          <button class="trash-btn" (click)="onTrashFile(fileInput)">
+            <fa-icon icon="trash-can"></fa-icon>
+          </button>
+        </div>
+        <!-- Simulated Upload Progress Bar -->
+        <div class="upload-progress">
+          <div class="progress-bar">
+            <div class="progress" [style.width.%]="uploadProgress"></div>
+          </div>
+          <span class="progress-text">{{ uploadProgress }}%</span>
+        </div>
+      </div>
+    }
+  </form>
+</div>

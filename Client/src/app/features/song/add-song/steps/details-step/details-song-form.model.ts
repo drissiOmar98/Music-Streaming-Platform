@@ -1,6 +1,6 @@
 import {FormControl} from "@angular/forms";
 
-export type CreateSongFormContent = {
+export type detailsSongFormContent = {
   title: FormControl<string>;
   cover: FormControl<File | null>;
   file: FormControl<File | null>;
