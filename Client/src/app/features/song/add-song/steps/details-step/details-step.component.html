@@ -1,24 +1,39 @@
 <div class="form-container">
   <h1 class="form-header">Now, let's add your song details</h1>
-  <form #detailsForm="ngForm" novalidate class="form-content">
+  <form  #detailsForm="ngForm" novalidate class="form-content">
     <!-- Title Input -->
     <div class="form-group">
-      <input
-        #titleInput="ngModel"
-        name="title"
-        placeholder="Enter the song title"
-        required
-        class="form-input title-input"
-        type="text"
-        [ngModel]="infos().title"
-        (ngModelChange)="onTitleChange($event)"
-      />
+      <div class="input-wrapper">
+        <input
+          #titleInput="ngModel"
+          name="title"
+          placeholder="Enter the song title"
+          required
+          class="form-input title-input"
+          type="text"
+          [ngModel]="infos().title"
+          (ngModelChange)="onTitleChange($event)"
+        />
+
+        <!-- Validation Icons -->
+        @if (titleInput.valid) {
+          <div class="input-icon valid">
+            <fa-icon icon="check-circle" class="valid-icon"></fa-icon>
+          </div>
+        }
+        @if (titleInput.dirty && titleInput.invalid) {
+          <div class="input-icon error">
+            <fa-icon icon="exclamation-circle" class="error-icon"></fa-icon>
+          </div>
+        }
+      </div>
+
+      <!-- Error Message -->
       @if (titleInput.dirty && titleInput.invalid) {
         <small id="title-required" class="error-message">Title is required</small>
-      } @else {
-        <div class="placeholder-validation"></div>
       }
     </div>
+
 
     <!-- Cover Image Upload -->
     <div class="form-group">

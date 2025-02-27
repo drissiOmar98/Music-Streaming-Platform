@@ -8,14 +8,14 @@
         <div class="tabs-list p-1 bg-zinc-800/50 rounded-lg shadow-lg">
           <button
             (click)="setActiveTab('songs')"
-            [class.active]="activeTab === 'songs'"
+            [class.active]="(tabService.activeTab$ | async) === 'songs'"
             class="tab-button transition-all duration-300 ease-in-out hover:text-emerald-500"
           >
             Songs
           </button>
           <button
-            (click)="setActiveTab('artist')"
-            [class.active]="activeTab === 'artist'"
+            (click)="setActiveTab('artists')"
+            [class.active]="(tabService.activeTab$ | async) === 'artists'"
             class="tab-button transition-all duration-300 ease-in-out hover:text-emerald-500"
           >
             Artists
@@ -24,12 +24,15 @@
 
         <!-- Tab Content -->
         <div class="tab-content mt-6">
-          <div *ngIf="activeTab === 'songs'" class="fade-in">
-            <app-songs-tab-content></app-songs-tab-content>
-          </div>
-          <div *ngIf="activeTab === 'artist'" class="fade-in">
-            <app-artists-tab-content></app-artists-tab-content>
-          </div>
+          @if ((tabService.activeTab$ | async) === 'songs') {
+            <div class="fade-in">
+              <app-songs-tab-content></app-songs-tab-content>
+            </div>
+          } @else if ((tabService.activeTab$ | async) === 'artists') {
+            <div class="fade-in">
+              <app-artists-tab-content></app-artists-tab-content>
+            </div>
+          }
         </div>
       </div>
     </div>

@@ -9,11 +9,12 @@ import {Oauth2AuthService} from "./auth/oauth2-auth.service";
 import {HeaderComponent} from "./layout/header/header.component";
 import {ToastService} from "./service/toast.service";
 import {NgbToast} from "@ng-bootstrap/ng-bootstrap";
+import {PlayerComponent} from "./layout/player/player.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FontAwesomeModule, NavigationComponent, LibraryComponent, HeaderComponent, NgbToast],
+  imports: [CommonModule, RouterOutlet, FontAwesomeModule, NavigationComponent, LibraryComponent, HeaderComponent, NgbToast, PlayerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -30,9 +31,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //this.initAuthentication();
     this.initFontAwesome();
-    this.initAuthentication();
   }
+
 
   private initFontAwesome() {
     this.faIconLibrary.addIcons(...fontAwesomeIcons);

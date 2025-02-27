@@ -7,6 +7,8 @@ import {ToastService} from "../../../../../service/toast.service";
 import {ArtistService} from "../../../../../service/artist.service";
 import {CardArtist} from "../../../../../service/model/artist.model";
 import {Pagination} from "../../../../../shared/model/request.model";
+import {TabService} from "../../../../../service/tab.service";
+import {filter, Subject, takeUntil} from "rxjs";
 
 
 @Component({
@@ -23,6 +25,9 @@ export class ArtistsTabContentComponent implements OnInit , OnDestroy{
 
   toastService = inject(ToastService);
   artistService = inject (ArtistService);
+  tabService = inject(TabService);
+  private destroy$ = new Subject<void>();
+
 
 
   loadingFetchAll = false;
@@ -40,42 +45,26 @@ export class ArtistsTabContentComponent implements OnInit , OnDestroy{
 
 
   ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+    this.artistService.resetGetAllArtist();
   }
 
   ngOnInit(): void {
-    this.fetchArtists();
+    this.tabService.activeTab$.pipe(
+      filter(tab => tab === 'artists'), // Only react to 'artists' tab
+      takeUntil(this.destroy$)
+    ).subscribe(() => {
+      this.fetchArtists();
+    });
   }
 
-  // Mock song data
-  mockSongs = [
-    {
-      _id: '1',
-      title: 'Song One',
-      artist: 'Artist One',
-      imageUrl: 'https://via.placeholder.com/50',
-      createdAt: '2025-02-15T00:00:00Z',
-    },
-    {
-      _id: '2',
-      title: 'Song Two',
-      artist: 'Artist Two',
-      imageUrl: 'https://via.placeholder.com/50',
-      createdAt: '2025-02-16T00:00:00Z',
-    },
-    {
-      _id: '3',
-      title: 'Song Three',
-      artist: 'Artist Three',
-      imageUrl: 'https://via.placeholder.com/50',
-      createdAt: '2025-02-17T00:00:00Z',
-    },
-  ];
 
-  // Mock delete method (just logs the song to the console for now)
+
+
   deleteSong(song: any) {
     console.log(`Song to delete: ${song.title}`);
-    // Here you can add logic to delete the song from the list, like:
-    // this.mockSongs = this.mockSongs.filter(s => s._id !== song._id);
+
   }
 
   openAddArtistModal() {
@@ -84,8 +73,6 @@ export class ArtistsTabContentComponent implements OnInit , OnDestroy{
       size: 'lg'
     });
 
-    // You can also pass data to the modal if needed:
-    // modalRef.componentInstance.someInput = 'value';
   }
 
   private fetchArtists() {

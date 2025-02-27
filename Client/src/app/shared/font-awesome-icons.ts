@@ -31,7 +31,7 @@ import {
   faBroadcastTower,
   faSun,
   faHatCowboy,
-  faDrum, faSkull, faLeaf, faRecordVinyl, faPlay
+  faDrum, faSkull, faLeaf, faRecordVinyl, faPlay, faCheckCircle, faExclamationCircle
 } from "@fortawesome/free-solid-svg-icons";
 
 export const fontAwesomeIcons: IconDefinition[] = [
@@ -72,7 +72,10 @@ export const fontAwesomeIcons: IconDefinition[] = [
   faSkull,
   faLeaf,
   faRecordVinyl,
-  faPlay
+  faPlay,
+  faExclamationCircle,
+  faCheckCircle
+
 
 
 

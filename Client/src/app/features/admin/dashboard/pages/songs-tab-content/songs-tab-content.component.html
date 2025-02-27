@@ -23,38 +23,45 @@
       <tr class="hover:bg-zinc-800/50">
         <th class="px-6 py-4 text-left">#</th>
         <th class="px-6 py-4 text-left">Title</th>
-        <th class="px-6 py-4 text-left">Artist</th>
-        <th class="px-6 py-4 text-left">Release Date</th>
+        <th class="px-6 py-4 text-left">Genre</th>
         <th class="px-6 py-4 text-right">Actions</th>
       </tr>
       </thead>
 
       <tbody>
-      <!-- Mock Song Data -->
-      <tr *ngFor="let song of mockSongs" class="hover:bg-zinc-800/50">
-        <td class="px-6 py-4">
-          <img [src]="song.imageUrl" [alt]="song.title" class="w-12 h-12 rounded-full object-cover" />
-        </td>
-        <td class="px-6 py-4 font-medium">{{ song.title }}</td>
-        <td class="px-6 py-4">{{ song.artist }}</td>
-        <td class="px-6 py-4">
-            <span class="inline-flex items-center gap-1 text-zinc-400">
-              <fa-icon [icon]="['fas', 'calendar']" class="h-4 w-4 text-zinc-400"></fa-icon>
-              {{ song.createdAt.split('T')[0] }}
-            </span>
-        </td>
-        <td class="px-6 py-4 text-right">
-          <div class="flex gap-4 justify-end">
-            <button
-              (click)="deleteSong(song)"
-              class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-3 rounded-full"
-              aria-label="Delete Song"
-            >
-              <fa-icon [icon]="['fas', 'trash']" class="text-lg"></fa-icon>
-            </button>
-          </div>
-        </td>
-      </tr>
+        @for (song of allSongs; track song.id) {
+          <tr   class="hover:bg-zinc-800/50">
+            <td class="px-6 py-4">{{  song.id+1  }}</td>
+
+            <!-- Artist Name + Image -->
+            <td class="px-6 py-4 font-medium">
+              <div class="artist-details flex align-items-center">
+                <div
+                  class="image-container"
+                  style="width: 100px; height: 100px; margin-right: 10px; border-radius: 4px; overflow: hidden; border: 1px solid #f1f1f1;"
+                >
+                  <img class="card-img-top card-img-bottom"
+                       [src]="'data:' + song.coverContentType + ';base64,' + song.cover" alt="cover"/>
+                </div>
+                <div>{{ song.title }}</div>
+              </div>
+            </td>
+
+            <td class="px-6 py-4">{{ song.genre}}</td>
+
+            <td class="px-6 py-4 text-right">
+              <div class="flex gap-4 justify-end">
+                <button
+                  (click)="deleteSong(song)"
+                  class="text-red-400 hover:text-red-300 hover:bg-red-400/10 p-3 rounded-full"
+                  aria-label="Delete Artist"
+                >
+                  <fa-icon [icon]="['fas', 'trash']" class="text-lg"></fa-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>

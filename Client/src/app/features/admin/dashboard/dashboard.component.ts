@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, inject, Inject} from '@angular/core';
 import {DashboardHeaderComponent} from "./pages/dashboard-header/dashboard-header.component";
 import {DashboardStatsComponent} from "./pages/dashboard-stats/dashboard-stats.component";
 import {SongsTabContentComponent} from "./pages/songs-tab-content/songs-tab-content.component";
 import {ArtistsTabContentComponent} from "./pages/artists-tab-content/artists-tab-content.component";
 import {CommonModule} from "@angular/common";
+import {TabService} from "../../../service/tab.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -19,10 +20,12 @@ import {CommonModule} from "@angular/common";
 })
 export class DashboardComponent {
 
+  tabService = inject(TabService);
+
   activeTab: string = 'songs';
 
   setActiveTab(tab: string) {
-    this.activeTab = tab;
+    this.tabService.setActiveTab(tab);
   }
 
   stats = {

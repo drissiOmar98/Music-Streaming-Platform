@@ -32,6 +32,7 @@ export interface ReadSong extends SongBase {
   displayPlay: boolean; // Used for UI play button state
 }
 
+
 // DTO for reading full song content
 export interface SongContent extends ReadSong {
   songId: number;
@@ -44,26 +45,6 @@ export interface SongContent extends ReadSong {
 export interface SongDetailsResponse {
   songInfo: ReadSong;
   songContent: SongContent;
-}
-
-// Enum for song genres
-export enum Genre {
-  ALL = "ALL",
-  POP = "POP",
-  ROCK = "ROCK",
-  JAZZ = "JAZZ",
-  HIP_HOP = "HIP_HOP",
-  ELECTRONIC = "ELECTRONIC",
-  CLASSICAL = "CLASSICAL",
-  METAL = "METAL",
-  RNB = "RNB",
-  REGGAE = "REGGAE",
-  COUNTRY = "COUNTRY",
-  BLUES = "BLUES",
-  LATIN = "LATIN",
-  FOLK = "FOLK",
-  SOUL = "SOUL",
-  FUNK = "FUNK"
 }
 
 

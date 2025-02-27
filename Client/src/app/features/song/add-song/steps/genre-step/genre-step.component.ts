@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, input, Output} from '@angular/core';
+import {Component, EventEmitter, inject, input, OnInit, Output} from '@angular/core';
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {Genre, GenreName} from "../../../../../service/model/genre.model";
 import {GenreService} from "../../../../../service/genre.service";
@@ -14,7 +14,7 @@ import {GenreService} from "../../../../../service/genre.service";
 })
 
 
-export class GenreStepComponent {
+export class GenreStepComponent implements OnInit {
 
   categoryName = input.required<GenreName>();
 

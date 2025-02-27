@@ -219,3 +219,61 @@
   font-size: 0.875rem;
   text-align: center;
 }
+/* Input Wrapper */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Input Styling */
+.form-input {
+  width: 100%;
+  padding: 12px 40px 12px 15px; /* Space for the icon */
+  font-size: 16px;
+  border: 2px solid #282828;
+  border-radius: 8px;
+  background-color: #121212;
+  color: #fff;
+  outline: none;
+  transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Input Focus */
+.form-input:focus {
+  border-color: #1db954; /* Spotify green */
+}
+
+/* Error State (Red Border Glow) */
+.form-input.ng-invalid.ng-dirty {
+  border-color: #ff4d4d;
+  box-shadow: 0 0 8px #ff4d4d;
+}
+
+/* Input Icon Positioning */
+.input-icon {
+  position: absolute;
+  right: 12px;
+  display: flex;
+  align-items: center;
+}
+
+/* Valid Input Icon (Green Check) */
+.valid-icon {
+  color: #1db954;
+  font-size: 1.25rem;
+}
+
+/* Error Input Icon (Red Exclamation) */
+.error-icon {
+  color: #ff4d4d;
+  font-size: 1.25rem;
+}
+
+/* Error Message */
+.error-message {
+  color: #ff4d4d;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
