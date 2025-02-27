@@ -1,7 +1,7 @@
-import {Component, effect, inject, OnInit} from '@angular/core';
+import {Component, effect, inject} from '@angular/core';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {Oauth2AuthService} from "../../auth/oauth2-auth.service";
-import {BaseUser, ConnectedUser} from "../../shared/model/user.model";
+import {ConnectedUser} from "../../shared/model/user.model";
 import {Location} from "@angular/common";
 
 @Component({
@@ -34,8 +34,6 @@ export class HeaderComponent {
       }
     });
   }
-
-
 
 
 
