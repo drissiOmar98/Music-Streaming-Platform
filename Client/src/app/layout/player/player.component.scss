@@ -1,0 +1,156 @@
+//@import "../../../assets/scss/bootstrap-variables";
+//
+//.player {
+//  margin-left: 14px;
+//  margin-right: 12px;
+//  margin-bottom: 9px;
+//  height: $footer-height;
+//
+//  .control {
+//    font-size: 25px;
+//    color: $secondary;
+//  }
+//
+//  .control:hover{
+//    color: $white;
+//  }
+//
+//  .play-icon {
+//    font-size: 33px;
+//    color: $white;
+//    cursor: pointer;
+//  }
+//
+//  .play-icon:hover {
+//    transform: scale(1.09);
+//  }
+//
+//  .volume {
+//    width: 130px;
+//
+//    .volume-icon {
+//      fa-icom {
+//        width: 30px;
+//        font-size: 17px;
+//      }
+//    }
+//
+//    .form-range {
+//      width: 100px;
+//    }
+//  }
+//}
+//
+//.song-played {
+//  width: 250px;
+//}
+@import "../../../assets/scss/bootstrap-variables";
+
+.player {
+  margin-left: 14px;
+  margin-right: 12px;
+  margin-bottom: 9px;
+  height: $footer-height;
+  background-color: #121212;
+  padding: 10px;
+  border-radius: 8px;
+
+  .song-played {
+    width: 250px;
+  }
+
+  .player-controls {
+    flex: 1;
+    max-width: 600px;
+
+    .progress-bar {
+      input[type="range"] {
+        width: 100%;
+        height: 4px;
+        background: #535353;
+        border-radius: 2px;
+        outline: none;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 12px;
+          height: 12px;
+          background: #1DB954;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .control {
+      font-size: 20px;
+      color: #B3B3B3;
+      cursor: pointer;
+      transition: color 0.2s;
+
+      &:hover {
+        color: #FFFFFF;
+      }
+    }
+
+    .play-icon {
+      font-size: 40px;
+      color: #FFFFFF;
+      cursor: pointer;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .volume {
+    width: 130px;
+
+    .volume-icon {
+      fa-icon {
+        width: 30px;
+        font-size: 17px;
+        color: #B3B3B3;
+        cursor: pointer;
+        transition: color 0.2s;
+
+        &:hover {
+          color: #FFFFFF;
+        }
+      }
+    }
+
+    .form-range {
+      width: 100px;
+      height: 4px;
+      background: #535353;
+      border-radius: 2px;
+      outline: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 12px;
+        height: 12px;
+        background: #1DB954;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+    }
+  }
+}
