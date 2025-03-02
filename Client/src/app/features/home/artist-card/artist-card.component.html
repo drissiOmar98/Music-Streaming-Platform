@@ -1,0 +1,31 @@
+
+<!--<div class="artist-card">-->
+<!--  <div class="artist-image-container">-->
+<!--    <div-->
+<!--      class="artist-image"-->
+<!--      [style.background-image]="'url(' + 'data:' + artist().cover.fileContentType + ';base64,' + artist().cover.file + ')'"-->
+<!--    ></div>-->
+<!--  </div>-->
+<!--  <div class="artist-name">{{ artist().name }}</div>-->
+<!--</div>-->
+<div
+  class="artist-card"
+  (click)="navigateToArtistDetails()"
+  (mouseover)="onHoverPlay(true)"
+  (mouseleave)="onHoverPlay(false)"
+>
+  <div class="artist-image-container">
+    <div
+      class="artist-image"
+      [style.background-image]="'url(' + 'data:' + artist().cover.fileContentType + ';base64,' + artist().cover.file + ')'"
+    ></div>
+
+    @if (isHovered) {
+      <div class="overlay">
+        <fa-icon class="play-icon" [icon]="'circle-play'"></fa-icon>
+      </div>
+    }
+  </div>
+  <div class="artist-name">{{ artist().name }}</div>
+</div>
+

@@ -20,7 +20,9 @@
       <div [ngClass]="{'full-height-main-content': !isAdminPage()}"
            class="rounded-bottom-2 p-3 bg-dark overflow-scroll">
         <router-outlet></router-outlet>
+        <app-footer></app-footer>
       </div>
+
     </div>
   </div>
   <footer *ngIf="!isAdminPage()" >

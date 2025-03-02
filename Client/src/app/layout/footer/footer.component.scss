@@ -1,0 +1,88 @@
+footer {
+  width: 100%;
+  background-color: #121212;
+  padding-top: 2%;
+  margin-bottom: 5%;
+}
+
+.top {
+  display: flex;
+}
+
+.list {
+  display: flex;
+  justify-content: space-between;
+  gap: 5%;
+}
+
+.list ul {
+  list-style: none;
+  margin-bottom: 5%;
+}
+
+.list ul li {
+  margin-bottom: 10%;
+}
+
+.list ul a {
+  text-decoration: none;
+  color: #a7a7a7;
+  transition: ease-in-out .3s;
+  font-size: .95rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.list ul a:hover {
+  color: whitesmoke;
+  text-decoration: underline;
+}
+
+hr {
+  width: 95%;
+  border-width: 1px medium medium;
+  border-style: solid none none;
+  border-color: rgb(41, 41, 41) currentcolor currentcolor;
+}
+
+.bottom {
+  width: 100%;
+  padding-top: 2%;
+  padding-bottom: 3%;
+}
+
+.bottom ul {
+  width: 90%;
+  list-style: none;
+  display: flex;
+}
+
+.bottom ul li {
+  margin-right: 2%;
+  color: #a7a7a7;
+  font-size: .85rem;
+}
+
+.bottom ul li:last-child {
+  margin-left: auto;
+}
+
+.bottom ul li a {
+  text-decoration: none;
+  color: #a7a7a7;
+  font-size: .85rem;
+  cursor: pointer;
+}
+
+.top .socialmedia {
+  margin-left: auto;
+  display: flex;
+  margin-right: 4%;
+}
+
+.top .socialmedia ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}

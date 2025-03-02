@@ -10,11 +10,12 @@ import {HeaderComponent} from "./layout/header/header.component";
 import {ToastService} from "./service/toast.service";
 import {NgbToast} from "@ng-bootstrap/ng-bootstrap";
 import {PlayerComponent} from "./layout/player/player.component";
+import {FooterComponent} from "./layout/footer/footer.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FontAwesomeModule, NavigationComponent, LibraryComponent, HeaderComponent, NgbToast, PlayerComponent],
+  imports: [CommonModule, RouterOutlet, FontAwesomeModule, NavigationComponent, LibraryComponent, HeaderComponent, NgbToast, PlayerComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
