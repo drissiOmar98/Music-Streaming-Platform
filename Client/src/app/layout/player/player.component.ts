@@ -5,13 +5,14 @@ import {SmallSongCardComponent} from "../../shared/small-song-card/small-song-ca
 import {ReadSong, SongContent} from "../../service/model/song.model";
 import {SongContentService} from "../../service/song-content.service";
 import {Howl} from "howler";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-player',
   standalone: true,
-  imports: [ FontAwesomeModule,
+  imports: [FontAwesomeModule,
     FormsModule,
-    SmallSongCardComponent,],
+    SmallSongCardComponent, NgClass,],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss'
 })
@@ -181,6 +182,65 @@ export class PlayerComponent {
       this.currentProgress = newProgress; // Update the progress bar
     }
   }
+
+  formatTime(seconds?: number): string {
+    if (!seconds || isNaN(seconds)) return "0:00";
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+  }
+
+  onRandom(): void {
+    if (this.nextQueue.length > 1) {
+      for (let i = this.nextQueue.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.nextQueue[i], this.nextQueue[j]] = [this.nextQueue[j], this.nextQueue[i]];
+      }
+    }
+  }
+
+  isLooping: boolean = false; // Add this variable to the class
+
+  onLoop(): void {
+    this.isLooping = !this.isLooping; // Toggle the looping state
+    if (this.currentHowlInstance) {
+      this.currentHowlInstance.loop(this.isLooping);
+    }
+  }
+
+  isShuffled: boolean = false; // Add this variable for shuffle state
+
+  onShuffle(): void {
+    this.isShuffled = !this.isShuffled;
+    if (this.isShuffled) {
+      this.shuffleQueue();
+    } else {
+      // Restore the original queue order if needed
+    }
+  }
+
+  shuffleQueue(): void {
+    if (this.nextQueue.length > 1) {
+      for (let i = this.nextQueue.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.nextQueue[i], this.nextQueue[j]] = [this.nextQueue[j], this.nextQueue[i]];
+      }
+    }
+  }
+
+  onQueue(): void {
+    // Implement queue functionality
+    console.log('Queue clicked');
+  }
+
+  onFullscreen(): void {
+    // Implement fullscreen functionality
+    console.log('Fullscreen clicked');
+  }
+
+
+
+
 
 
 
