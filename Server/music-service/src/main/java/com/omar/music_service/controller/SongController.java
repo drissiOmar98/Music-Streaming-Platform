@@ -74,8 +74,14 @@ public class SongController {
         return ResponseEntity.ok(songService.getAll());
     }
 
+
+    @GetMapping("/artist/{artistId}")
+    public ResponseEntity<List<ReadSongInfoDTO>> getSongsByArtist(@PathVariable Long artistId) {
+        return ResponseEntity.ok(songService.getSongsByArtistId(artistId));
+    }
+
     @GetMapping("/get-content")
-    public ResponseEntity<SongContentDTO> getSongContent(@PathVariable Long songId) {
+    public ResponseEntity<SongContentDTO> getSongContent(@RequestParam Long songId) {
         return songService.getOneById(songId)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());

@@ -55,6 +55,14 @@ public class SongServiceImpl implements SongService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<ReadSongInfoDTO> getSongsByArtistId(Long artistId) {
+        return songRepository.findByArtistId(artistId).stream()
+                .map(songMapper::songToReadSongInfoDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Optional<SongContentDTO> getOneById(Long songId) {
         return songContentRepository.findById(songId)
                 .map(songContentMapper::songContentToSongContentDTO);
