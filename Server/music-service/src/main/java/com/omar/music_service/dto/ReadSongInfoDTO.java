@@ -1,5 +1,6 @@
 package com.omar.music_service.dto;
 
+import com.omar.music_service.client.Artist.DisplayCardArtistDTO;
 import com.omar.music_service.entities.Genre;
 import lombok.*;
 
@@ -16,4 +17,5 @@ public class ReadSongInfoDTO {
     private byte[] cover;
     private String coverContentType;
     private Genre genre;
+    private DisplayCardArtistDTO artistInfo;
 }

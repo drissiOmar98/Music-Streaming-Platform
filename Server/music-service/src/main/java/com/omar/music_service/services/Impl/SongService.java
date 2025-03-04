@@ -14,6 +14,8 @@ public interface SongService {
 
     List<ReadSongInfoDTO> getAll();
 
+    Optional<ReadSongInfoDTO> getSongInfoById(Long songId);
+
     List<ReadSongInfoDTO> getSongsByArtistId(Long artistId);
 
     Optional<SongContentDTO> getOneById(Long songId);

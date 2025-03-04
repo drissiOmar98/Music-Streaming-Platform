@@ -1,5 +1,7 @@
 package com.omar.music_service.services.Impl;
 
+import com.omar.music_service.client.Artist.ArtistClient;
+import com.omar.music_service.client.Artist.DisplayCardArtistDTO;
 import com.omar.music_service.dto.ReadSongInfoDTO;
 import com.omar.music_service.dto.SongContentDTO;
 import com.omar.music_service.dto.SongDetailsResponse;
@@ -24,12 +26,14 @@ public class SongServiceImpl implements SongService {
     private final SongContentRepository songContentRepository;
     private final SongMapper songMapper;
     private final SongContentMapper songContentMapper;
+    private final ArtistClient artistClient;
 
-    public SongServiceImpl(SongRepository songRepository, SongContentRepository songContentRepository, SongMapper songMapper, SongContentMapper songContentMapper) {
+    public SongServiceImpl(SongRepository songRepository, SongContentRepository songContentRepository, SongMapper songMapper, SongContentMapper songContentMapper, ArtistClient artistClient) {
         this.songRepository = songRepository;
         this.songContentRepository = songContentRepository;
         this.songMapper = songMapper;
         this.songContentMapper = songContentMapper;
+        this.artistClient = artistClient;
     }
 
 
@@ -49,15 +53,26 @@ public class SongServiceImpl implements SongService {
     @Transactional(readOnly = true)
     public List<ReadSongInfoDTO> getAll() {
         return songRepository.findAll().stream()
-                .map(songMapper::songToReadSongInfoDTO)
+                //.map(songMapper::songToReadSongInfoDTO)
+                .map(this::enrichSongInfoWithArtistDetails)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<ReadSongInfoDTO> getSongInfoById(Long songId) {
+        return songRepository.findById(songId)
+                .map(this::enrichSongInfoWithArtistDetails);
+                //.map(songMapper::songToReadSongInfoDTO);
+
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ReadSongInfoDTO> getSongsByArtistId(Long artistId) {
         return songRepository.findByArtistId(artistId).stream()
-                .map(songMapper::songToReadSongInfoDTO)
+                .map(this::enrichSongInfoWithArtistDetails)
+                //.map(songMapper::songToReadSongInfoDTO)
                 .collect(Collectors.toList());
     }
 
@@ -79,8 +94,11 @@ public class SongServiceImpl implements SongService {
     public Optional<SongDetailsResponse> getSongDetails(Long songId) {
         return songRepository.findById(songId)
                 .map(song -> {
+                    // Fetch artist details using ArtistClient
+                    DisplayCardArtistDTO artistDetails = artistClient.getArtistDetailsById(song.getArtistId());
+
                     // Map song to ReadSongInfoDTO
-                    ReadSongInfoDTO songInfo = songMapper.songToReadSongInfoDTO(song);
+                    ReadSongInfoDTO songInfo = songMapper.songToReadSongInfoDTO(song,artistDetails);
 
                     // Fetch song content
                     SongContentDTO songContent = songContentRepository.findById(songId)
@@ -90,6 +108,14 @@ public class SongServiceImpl implements SongService {
                     // Return combined response
                     return new SongDetailsResponse(songInfo, songContent);
                 });
+    }
+
+
+    private ReadSongInfoDTO enrichSongInfoWithArtistDetails(Song song) {
+        // Fetch artist details using ArtistClient
+        DisplayCardArtistDTO artistDetails = artistClient.getArtistDetailsById(song.getArtistId());
+        // Use the mapper to convert Song and artistDetails to ReadSongInfoDTO
+        return songMapper.songToReadSongInfoDTO(song, artistDetails);
     }
 
 }

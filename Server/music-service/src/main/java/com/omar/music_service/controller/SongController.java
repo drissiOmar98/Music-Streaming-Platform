@@ -87,6 +87,13 @@ public class SongController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/get-info")
+    public ResponseEntity<ReadSongInfoDTO> getSongInfo(@RequestParam Long songId) {
+        return songService.getSongInfoById(songId)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 
 
 
