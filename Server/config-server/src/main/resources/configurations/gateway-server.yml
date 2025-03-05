@@ -25,5 +25,10 @@ spring:
           predicates:
             - Path=/api/v1/songs/**
 
+        - id: favorites-service
+          uri: http://localhost:8040
+          predicates:
+            - Path=/api/v1/favourites/**
+
 
 
