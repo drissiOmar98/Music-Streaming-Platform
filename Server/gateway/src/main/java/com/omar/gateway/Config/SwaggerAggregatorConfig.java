@@ -20,6 +20,9 @@ public class SwaggerAggregatorConfig {
     @Value("${user-service.url}")
     private String userServiceUrl;
 
+    @Value("${favorites-service.url}")
+    private String favoritesServiceUrl;
+
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
@@ -37,6 +40,11 @@ public class SwaggerAggregatorConfig {
                 .route("user-service-api-docs", r -> r.path("/aggregate/user-service/v3/api-docs")
                         .filters(f -> f.rewritePath("/aggregate/user-service/v3/api-docs", "/v3/api-docs"))
                         .uri(userServiceUrl))
+
+                // Route for Favourite Service API Docs
+                .route("favorites-service-api-docs", r -> r.path("/aggregate/favorites-service/v3/api-docs")
+                        .filters(f -> f.rewritePath("/aggregate/favorites-service/v3/api-docs", "/v3/api-docs"))
+                        .uri(favoritesServiceUrl))
 
                 .build();
     }
