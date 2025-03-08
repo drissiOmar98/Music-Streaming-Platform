@@ -1,0 +1,10 @@
+<!-- home-category.component.html -->
+<div class="category">
+  <div class="title">
+    <a class="first">{{ section?.section }}</a>
+    <a class="last" (click)="section && linkSection(section)" *ngIf="!isRightLink()">
+      Show all
+    </a>
+  </div>
+  <ng-content select=".list"></ng-content>
+</div>

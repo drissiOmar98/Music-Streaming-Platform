@@ -1,6 +1,6 @@
 .artist-card {
   position: relative;
-  width: 160px;
+  width: 190px;
   padding: 15px;
   border-radius: 12px;
   background-color: #181818;
@@ -15,8 +15,8 @@
 
 .artist-image-container {
   position: relative;
-  width: 130px;
-  height: 130px;
+  width: 160px;
+  height: 160px;
   overflow: hidden;
   border-radius: 50%;
 }
@@ -30,8 +30,8 @@
 
 .overlay {
   position: absolute;
-  bottom: 10px; /* Position at bottom */
-  right: 10px;  /* Position at right */
+  bottom:15px; /* Position at bottom */
+  right: 15px;  /* Position at right */
   background: rgba(0, 0, 0, 0.6);
   width: 40px;
   height: 40px;

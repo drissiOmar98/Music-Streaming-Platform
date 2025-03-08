@@ -1,22 +1,120 @@
+//@import "../../../../assets/scss/bootstrap-variables";
+//
+//.card-body {
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//  text-align: center;
+//}
+//
+//.card-img-top {
+//  width: 160px;  // Fixed width
+//  height: 160px; // Fixed height
+//  object-fit: cover; // Ensures image fills the area without distortion
+//  border-radius: 8px; // Slight rounding for a modern look
+//}
+//
+//.title, .author {
+//  text-overflow: ellipsis;
+//  white-space: nowrap;
+//  overflow: hidden;
+//  text-align: center;
+//  margin-top: 10px;
+//}
+//
+//.title {
+//  font-size: 16px;
+//  font-weight: bold;
+//  color: #fff;
+//}
+//
+//.author {
+//  font-size: 14px;
+//  color: #b3b3b3;
+//}
+//
+//.play fa-icon {
+//  font-size: 45px;
+//}
+//
+//.play {
+//  bottom: 90px;  // Adjusted to match new image size
+//  right: 25px;
+//  border-radius: 50px;
+//  background-color: $dark;
+//  border-style: none;
+//  width: 40px;
+//  height: 40px;
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//}
+
+
 @import "../../../../assets/scss/bootstrap-variables";
 
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.2); // Slight transparent effect for a premium look
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card-body:hover {
+  transform: scale(1.05); // Subtle zoom effect on hover
+}
+
+.card-img-top {
+  width: 160px;  // Bigger fixed size for better visibility
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); // Soft shadow for depth
+}
 
 .title, .author {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  text-align: center;
+  max-width: 180px; // Matches image width for consistency
+}
+
+.title {
+  font-size: 18px;  // Slightly bigger for readability
+  font-weight: 600;
+  color: #fff;
+  margin-top: 12px;
+}
+
+.author {
+  font-size: 14px;
+  color: #b3b3b3;
+  margin-top: 3px;
 }
 
 .play fa-icon {
-  font-size: 45px;
+  font-size: 50px;
 }
 
 .play {
-  bottom: 105px;
-  right: 32px;
+  bottom: 90px;  // Adjusted to match new image size
+  right: 30px;
   border-radius: 50px;
-  background-color: $dark;
-  border-style: none;
-  width: 35px;
-  height: 35px;
+  background-color: rgba(0, 0, 0, 0.7); // More transparent for a cleaner look
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.play:hover {
+  background-color: rgba(0, 0, 0, 0.9); // Darker on hover
+  transform: scale(1.1); // Slight enlargement effect for interaction
 }

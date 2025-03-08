@@ -1,0 +1,57 @@
+.category {
+  max-width: 100%;
+  min-width: 100%;
+  display: grid;
+  padding-top: 3%;
+}
+
+.category .title .first {
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: bold;
+  letter-spacing: .01px;
+  cursor: pointer;
+  color: whitesmoke;
+}
+
+.category .title .last {
+  font-size: .813rem;
+  font-weight: 700;
+  color: #a7a7a7;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.category .title a:hover {
+  text-decoration: 1px underline;
+}
+
+.title {
+  max-width: 100%;
+  min-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2%;
+}
+
+.list {
+  max-width: 100%;
+  min-width: 100%;
+  overflow: hidden;
+}
+
+.list a {
+  background-color: green;
+  display: block;
+  text-decoration: none;
+  width: 16.5%;
+  height: 26vh;
+  float: left;
+  margin: 0 1.5% 1.5% 0;
+  border-radius: 7px;
+  color: whitesmoke;
+  font-size: 1.313rem;
+  font-weight: 700;
+  padding: 2% 0 0 2%;
+}

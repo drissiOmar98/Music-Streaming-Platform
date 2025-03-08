@@ -9,6 +9,9 @@ import {ArtistCardComponent} from "./artist-card/artist-card.component";
 import {CardArtist} from "../../service/model/artist.model";
 import {ArtistService} from "../../service/artist.service";
 import {Pagination} from "../../shared/model/request.model";
+import {Section} from "../../service/model/section.model";
+import {HomeCategoryComponent} from "./home-category/home-category.component";
+import {NgForOf, NgIf} from "@angular/common";
 
 
 @Component({
@@ -17,7 +20,10 @@ import {Pagination} from "../../shared/model/request.model";
   imports: [
     SongCardComponent,
     FavoriteSongCardComponent,
-    ArtistCardComponent
+    ArtistCardComponent,
+    HomeCategoryComponent,
+    NgIf,
+    NgForOf
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -36,10 +42,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   pageRequest: Pagination = {size: 20, page: 0, sort: ["name", "ASC"]};
 
   loadingFetchAll = false;
-
-
-
   isLoading = false;
+
+
+  sections: Section[] = [
+    { section: 'Popular Artists', type: 'artist', category: 'null' },
+    { section: 'Popular Songs', type: 'song', category: 'null' },
+    { section: 'Popular Playlists', type: 'playlist', category: 'null' },
+    { section: 'Popular Albums', type: 'album', category: 'null' },
+  ];
 
 
   constructor() {
@@ -93,5 +104,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.artistRandom();
+    this.fetchSongs();
+  }
+
+  private fetchSongs() {
+    this.isLoading = true;
+    this.songService.getSongs();
   }
 }

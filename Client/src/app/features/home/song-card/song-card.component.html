@@ -5,7 +5,7 @@
     <img class="card-img-top card-img-bottom"
          [src]="'data:' + songDisplay.coverContentType + ';base64,' + songDisplay.cover" alt="cover"/>
     <h5 class="title mt-3">{{ songDisplay.title}}</h5>
-    <p class="author">{{ songDisplay.genre }}</p>
+    <p class="author">{{ songDisplay.artistInfo?.name}}</p>
   </div>
   @if (songDisplay.displayPlay) {
     <div class="play position-absolute d-flex align-items-center" [@inOutAnimation]>

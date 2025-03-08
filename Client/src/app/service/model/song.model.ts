@@ -1,5 +1,6 @@
 // Common properties for all song-related models
 import {GenreName} from "./genre.model";
+import {CardArtist} from "./artist.model";
 
 export interface SongBase {
   title: string;
@@ -30,6 +31,7 @@ export interface ReadSong extends SongBase {
   cover?: string; // URL or Base64 string for image display
   coverContentType?: string;
   displayPlay: boolean; // Used for UI play button state
+  artistInfo: CardArtist;
 }
 
 

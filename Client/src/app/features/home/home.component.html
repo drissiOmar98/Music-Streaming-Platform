@@ -1,31 +1,78 @@
-<h1 class="mb-3">
-  Playlists
-</h1>
-<app-favorite-song-card/>
+<!--<h1 class="mb-3">-->
+<!--  Playlists-->
+<!--</h1>-->
+<!--<app-favorite-song-card/>-->
 
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <h1 class="mb-3">Popular Artists</h1>
-  <button class="btn btn-link" (click)="showAllArtists()">Show All</button>
-</div>
-<div class="d-flex flex-wrap">
-  @for (artist of artists; track artist.id) {
-    <app-artist-card class="card artist-card mt-0 mb-4 ms-0 me-4" [artist]="artist" />
-  }
-</div>
+<!--<div class="d-flex justify-content-between align-items-center mb-3">-->
+<!--  <h1 class="mb-3">Popular Artists</h1>-->
+<!--  <button class="btn btn-link" (click)="showAllArtists()">Show All</button>-->
+<!--</div>-->
+<!--<div class="d-flex flex-wrap">-->
+<!--  @for (artist of artists; track artist.id) {-->
+<!--    <app-artist-card class="card artist-card mt-0 mb-4 ms-0 me-5" [artist]="artist" />-->
+<!--  }-->
+<!--</div>-->
 
-<h1 class="mb-3 mt-3">Good morning</h1>
-@if (isLoading) {
-  <div class="d-flex justify-content-center align-items-center">
-    <div class="spinner-grow text-primary loader" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
-} @else {
-  <div class="d-flex flex-wrap">
-    @for (song of allSongs; track song.id) {
-      <app-song-card class="card song-card-background mt-0 mb-4 ms-0 me-4"
-                     [song]="song" (songToPlay$)="onPlaySong($event)"/>
+<!--<div class="d-flex justify-content-between align-items-center mb-3">-->
+<!--  <h1 class="mb-3">Popular Tracks</h1>-->
+<!--  <button class="btn btn-link" (click)="showAllArtists()">Show All</button>-->
+<!--</div>-->
+<!--@if (isLoading) {-->
+<!--  <div class="d-flex justify-content-center align-items-center">-->
+<!--    <div class="spinner-grow text-primary loader" role="status">-->
+<!--      <span class="visually-hidden">Loading...</span>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--} @else {-->
+<!--  <div class="d-flex flex-wrap">-->
+<!--    @for (song of allSongs; track song.id) {-->
+<!--      <app-song-card class="card song-card-background mt-0 mb-4 ms-0 me-4"-->
+<!--                     [song]="song" (songToPlay$)="onPlaySong($event)"/>-->
+<!--    }-->
+<!--  </div>-->
+<!--}-->
+<!-- home.component.html -->
+<h1 class="mb-3">Playlists</h1>
+<app-favorite-song-card />
+
+@for (section of sections; track section.section) {
+  <app-home-category [section]="section">
+
+    @if(section.type === 'artist'){
+      <div class="list">
+        <div class="d-flex flex-wrap">
+          @for (artist of artists; track artist.id) {
+            <app-artist-card class="card artist-card mt-0 mb-4 ms-0 me-5" [artist]="artist" />
+          }
+        </div>
+      </div>
     }
-  </div>
+
+    @if (section.type === 'song'){
+      <div class="list">
+        @if (isLoading) {
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="spinner-grow text-primary loader" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        } @else {
+          <div class="d-flex flex-wrap">
+            @for (song of allSongs; track song.id) {
+              <app-song-card class="card song-card-background mt-0 mb-4 ms-0 me-4"
+                             [song]="song" (songToPlay$)="onPlaySong($event)"/>
+            }
+          </div>
+        }
+      </div>
+    }
+
+<!--    <div class="list" *ngIf="section.type === 'playlist'">-->
+<!--      <app-playlist-card *ngFor="let playlist of playlists" [playlist]="playlist"></app-playlist-card>-->
+<!--    </div>-->
+<!--    <div class="list" *ngIf="section.type === 'album'">-->
+<!--      <app-album-card *ngFor="let album of albums" [album]="album"></app-album-card>-->
+<!--    </div>-->
+  </app-home-category>
 }

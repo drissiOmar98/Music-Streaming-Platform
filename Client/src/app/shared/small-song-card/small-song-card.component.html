@@ -3,6 +3,6 @@
        [src]="'data:' + song().coverContentType + ';base64,'+ song().cover"/>
   <div class="d-flex flex-column justify-content-center ms-2">
     <div class="mb-1 title">{{ song().title}}</div>
-    <div class="author">{{ song().genre }}</div>
+    <div class="author">{{ song().artistInfo.name }}</div>
   </div>
 </div>
