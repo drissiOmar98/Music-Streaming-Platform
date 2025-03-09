@@ -1,26 +1,202 @@
-<div class="mt-2 rounded-top-2 py-2 ps-2 pe-3 bg-dark">
-  <div class="d-flex justify-content-between align-items-center text-secondary">
-    <div class="d-flex align-items-center ms-3">
-      <fa-icon class="nav-icon me-3" icon="book"></fa-icon>
-      <div>Your Library</div>
+<!--<div class="mt-2 rounded-top-2 py-2 ps-2 pe-3 bg-dark">-->
+<!--  <div class="d-flex justify-content-between align-items-center text-secondary">-->
+<!--    <div class="d-flex align-items-center ms-3">-->
+<!--      <fa-icon class="nav-icon me-3" icon="book"></fa-icon>-->
+<!--      <div>Your Library</div>-->
+<!--    </div>-->
+<!--    <a routerLink="/add-song">-->
+<!--      <fa-icon class="nav-icon" icon="plus"></fa-icon>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="d-flex flex-column rounded-bottom-2 library-height overflow-scroll bg-dark p-2">-->
+<!--  @if (isLoading) {-->
+<!--    <div class="d-flex justify-content-center align-items-center h-100">-->
+<!--      <div class="spinner-grow text-primary loader" role="status">-->
+<!--        <span class="visually-hidden">Loading...</span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  } @else {-->
+<!--    @for (song of songs; track song.id) {-->
+<!--      <div class="mt-1 library-song-card p-1">-->
+<!--        <app-small-song-card [song]="song" (songToPlay$)="onPlaySong($event)"/>-->
+<!--      </div>-->
+<!--    }-->
+<!--  }-->
+<!--</div>-->
+
+
+
+<!--<div class="mt-2 rounded-top-2 py-2 ps-2 pe-3 bg-dark">-->
+<!--  <div class="d-flex justify-content-between align-items-center text-secondary">-->
+<!--    <a routerLink="/library" class="d-flex align-items-center ms-3 text-decoration-none text-secondary">-->
+<!--      <fa-icon class="nav-icon me-3" icon="book"></fa-icon>-->
+<!--      <div>Your Library</div>-->
+<!--    </a>-->
+<!--    <a routerLink="/add-song">-->
+<!--      <fa-icon class="nav-icon" icon="plus"></fa-icon>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<div class="library-container">
+  <!-- Part One: Your Library Header -->
+  <div class="mt-2 rounded-top-2 py-2 ps-2 pe-3 bg-dark">
+    <div class="d-flex justify-content-between align-items-center text-secondary">
+      <a routerLink="/library" class="d-flex align-items-center ms-3 text-decoration-none text-secondary">
+        <fa-icon class="nav-icon me-3" icon="book"></fa-icon>
+        <div>Your Library</div>
+      </a>
+      <a routerLink="/add-song">
+        <fa-icon class="nav-icon" icon="plus"></fa-icon>
+      </a>
     </div>
-    <a routerLink="/add-song">
-      <fa-icon class="nav-icon" icon="plus"></fa-icon>
-    </a>
   </div>
-</div>
-<div class="d-flex flex-column rounded-bottom-2 library-height overflow-scroll bg-dark p-2">
-  @if (isLoading) {
-    <div class="d-flex justify-content-center align-items-center h-100">
-      <div class="spinner-grow text-primary loader" role="status">
-        <span class="visually-hidden">Loading...</span>
+
+  <!-- Part Two: Filter Links -->
+<!--  <div class="part-two bg-dark p-3">-->
+<!--    <div class="d-flex justify-content-between">-->
+<!--      <a class="filter-link">Playlists</a>-->
+<!--      <a class="filter-link">Artists</a>-->
+<!--      <a class="filter-link">Albums</a>-->
+<!--      <a class="filter-link">Podcasts & Shows</a>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Part Two: Filter Links &ndash;&gt;-->
+<!--  <div class="part-two bg-dark p-3">-->
+<!--    <div class="d-flex justify-content-between">-->
+<!--      <a class="filter-link" [ngClass]="{'active': activeFilter === 'playlists'}" (click)="setActiveFilter('playlists')">-->
+<!--        Playlists-->
+<!--      </a>-->
+<!--      <a class="filter-link" [ngClass]="{'active': activeFilter === 'artists'}" (click)="setActiveFilter('artists')">-->
+<!--        Artists-->
+<!--      </a>-->
+<!--      <a class="filter-link" [ngClass]="{'active': activeFilter === 'albums'}" (click)="setActiveFilter('albums')">-->
+<!--        Albums-->
+<!--      </a>-->
+<!--      <a class="filter-link" [ngClass]="{'active': activeFilter === 'podcasts'}" (click)="setActiveFilter('podcasts')">-->
+<!--        Podcasts & Shows-->
+<!--      </a>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <!-- Part Two: Filter Links -->
+  <div class="part-two bg-dark p-3">
+    <div class="d-flex flex-wrap gap-2">
+      <button class="filter-btn" [ngClass]="{'active': activeFilter === 'playlists'}" (click)="setActiveFilter('playlists')">
+        Playlists
+      </button>
+      <button class="filter-btn" [ngClass]="{'active': activeFilter === 'artists'}" (click)="setActiveFilter('artists')">
+        Artistes
+      </button>
+<!--      <button class="filter-btn" [ngClass]="{'active': activeFilter === 'albums'}" (click)="setActiveFilter('albums')">-->
+<!--        Albums-->
+<!--      </button>-->
+<!--      <button class="filter-btn" [ngClass]="{'active': activeFilter === 'podcasts'}" (click)="setActiveFilter('podcasts')">-->
+<!--        Podcasts & Shows-->
+<!--      </button>-->
+    </div>
+  </div>
+
+
+  <!-- Part Three: Search and Content -->
+  <div class="part-three bg-dark p-3">
+    <!-- Search Bar -->
+    <div class="nav-part-three mb-3">
+      <div class="input-search d-flex align-items-center">
+        <fa-icon class="nav-icon me-2" icon="search"></fa-icon>
+        <input (input)="onInputChange($event)" type="text" placeholder="Search in Your Library" class="w-100">
       </div>
     </div>
-  } @else {
-    @for (song of songs; track song.id) {
-      <div class="mt-1 library-song-card p-1">
-        <app-small-song-card [song]="song" (songToPlay$)="onPlaySong($event)"/>
-      </div>
-    }
-  }
+
+    <!-- Content List -->
+    <div class="content-part-three">
+      <ul *ngIf="!isCorrect">
+        <!-- Liked Songs -->
+        <li>
+          <a class="content_part_three_other d-flex align-items-center" [routerLink]="['/liked']">
+            <img src="assets/images/like.png" alt="Liked Songs" class="me-3" style="width: 50px; height: 50px; border-radius: 8px;">
+            <div>
+              <div class="fw-bold">Liked Songs</div>
+              <div class="text-secondary">
+                <fa-icon [icon]="['fab', 'spotify']" class="me-1"></fa-icon>
+                Playlist · {{ wishListCount}} songs
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- User Playlists -->
+<!--        <li *ngFor="let playlist of userPlaylists">-->
+<!--          <a class="content_part_three_other d-flex align-items-center" [routerLink]="['/playlist']" [fragment]="playlist.namePlaylist | encryption">-->
+<!--            <img src="assets/img/user_playlist/{{ playlist.profilePicture }}.jpg" alt="{{ playlist.namePlaylist }}" class="me-3" style="width: 50px; height: 50px; border-radius: 8px;">-->
+<!--            <div>-->
+<!--              <div class="fw-bold">{{ playlist.namePlaylist }}</div>-->
+<!--              <div class="text-secondary">Playlist · {{ user.profileName }}</div>-->
+<!--            </div>-->
+<!--          </a>-->
+<!--        </li>-->
+
+        <!-- Albums -->
+<!--        <li *ngFor="let album of albums">-->
+<!--          <a class="content_part_three_other d-flex align-items-center" [routerLink]="['/album']" [fragment]="album.titleAlbum | encryption">-->
+<!--            <img src="assets/img/album/{{ album.profilePicture }}.jpg" alt="{{ album.titleAlbum }}" class="me-3" style="width: 50px; height: 50px; border-radius: 8px;">-->
+<!--            <div>-->
+<!--              <div class="fw-bold">{{ album.titleAlbum }}</div>-->
+<!--              <div class="text-secondary">Album · {{ album.artist.nameArtist }}</div>-->
+<!--            </div>-->
+<!--          </a>-->
+<!--        </li>-->
+
+        <!-- Artists -->
+<!--        <li *ngFor="let artist of artists">-->
+<!--          <a class="content_part_three_artist d-flex align-items-center" [routerLink]="['/artist']" [fragment]="artist.nameArtist | encryption">-->
+<!--            <img src="assets/img/artist/profil/{{ artist.profilePicture }}.jpg" alt="{{ artist.nameArtist }}" class="me-3" style="width: 50px; height: 50px; border-radius: 50%;">-->
+<!--            <div>-->
+<!--              <div class="fw-bold">{{ artist.nameArtist }}</div>-->
+<!--              <div class="text-secondary">Artist</div>-->
+<!--            </div>-->
+<!--          </a>-->
+<!--        </li>-->
+      </ul>
+
+      <!-- Filtered Content -->
+      <ul *ngIf="isCorrect">
+        <!-- Filtered Playlists -->
+<!--        <li *ngFor="let playlist of s_userPlaylists">-->
+<!--          <a class="content_part_three_other d-flex align-items-center" [routerLink]="['/playlist']" [fragment]="playlist.namePlaylist | encryption">-->
+<!--            <img src="assets/img/user_playlist/{{ playlist.profilePicture }}.jpg" alt="{{ playlist.namePlaylist }}" class="me-3" style="width: 50px; height: 50px; border-radius: 8px;">-->
+<!--            <div>-->
+<!--              <div class="fw-bold">{{ playlist.namePlaylist }}</div>-->
+<!--              <div class="text-secondary">Playlist · {{ user.profileName }}</div>-->
+<!--            </div>-->
+<!--          </a>-->
+<!--        </li>-->
+
+<!--        &lt;!&ndash; Filtered Albums &ndash;&gt;-->
+<!--        <li *ngFor="let album of s_albums">-->
+<!--          <a class="content_part_three_other d-flex align-items-center" [routerLink]="['/album']" [fragment]="album.titleAlbum | encryption">-->
+<!--            <img src="assets/img/album/{{ album.profilePicture }}.jpg" alt="{{ album.titleAlbum }}" class="me-3" style="width: 50px; height: 50px; border-radius: 8px;">-->
+<!--            <div>-->
+<!--              <div class="fw-bold">{{ album.titleAlbum }}</div>-->
+<!--              <div class="text-secondary">Album · {{ album.artist.nameArtist }}</div>-->
+<!--            </div>-->
+<!--          </a>-->
+<!--        </li>-->
+
+<!--        &lt;!&ndash; Filtered Artists &ndash;&gt;-->
+<!--        <li *ngFor="let artist of s_artists">-->
+<!--          <a class="content_part_three_artist d-flex align-items-center" [routerLink]="['/artist']" [fragment]="artist.nameArtist | encryption">-->
+<!--            <img src="assets/img/artist/profil/{{ artist.profilePicture }}.jpg" alt="{{ artist.nameArtist }}" class="me-3" style="width: 50px; height: 50px; border-radius: 50%;">-->
+<!--            <div>-->
+<!--              <div class="fw-bold">{{ artist.nameArtist }}</div>-->
+<!--              <div class="text-secondary">Artist</div>-->
+<!--            </div>-->
+<!--          </a>-->
+<!--        </li>-->
+      </ul>
+    </div>
+  </div>
 </div>

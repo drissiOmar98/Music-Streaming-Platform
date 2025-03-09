@@ -1,64 +1,55 @@
 import {Component, effect, inject, OnDestroy, OnInit} from '@angular/core';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {RouterModule} from "@angular/router";
+import {Router, RouterModule} from "@angular/router";
 import {SongService} from "../../service/song.service";
 import {ReadSong} from "../../service/model/song.model";
 import {SongContentService} from "../../service/song-content.service";
 import {SmallSongCardComponent} from "../../shared/small-song-card/small-song-card.component";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {FavouriteService} from "../../service/favourite.service";
 
 @Component({
   selector: 'app-library',
   standalone: true,
   imports: [
-    FontAwesomeModule, RouterModule, SmallSongCardComponent,
+    FontAwesomeModule, RouterModule, SmallSongCardComponent, NgForOf, NgIf, NgClass,
   ],
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'
 })
-export class LibraryComponent implements OnInit, OnDestroy {
+export class LibraryComponent {
 
-  songService = inject(SongService);
-  songContentService = inject(SongContentService);
+  wishListCount: number = 0;
 
-  isLoading = false;
+  constructor(
 
-  songs: Array<ReadSong> = [];
+    private router: Router,
+    private favouriteService: FavouriteService,
 
-  constructor() {
-    this.listenFetchAll()
-
+  ) {
+    this.subscribeToWishlistCount();
   }
 
-  ngOnInit(): void {
-    this.fetchSongs();
-  }
-
-
-
-
-  private fetchSongs() {
-    this.isLoading = true;
-    this.songService.getSongs();
-  }
-
-  onPlaySong(songToPlayFirst: ReadSong): void {
-    this.songContentService.createNewQueue(songToPlayFirst, this.songs!);
-  }
-
-  private listenFetchAll(){
+  subscribeToWishlistCount(): void {
+    // Using computed signals to track any updates to the wishlist count
     effect(() => {
-      if(this.songService.getAllSig().status === "OK") {
-        this.songs = this.songService.getAllSig().value!;
-      }
-      this.isLoading = false;
+      this.wishListCount = this.favouriteService.wishListCountSig();
     });
-
-  }
-
-  ngOnDestroy(): void {
-    this.songService.resetGetAllState();
   }
 
 
 
+
+  onInputChange($event: Event) {
+
+  }
+
+  isCorrect = false;
+  countLikedTrack = 0;
+  activeFilter: string = 'playlists'; // Default active filter
+
+  setActiveFilter(filter: string) {
+    this.activeFilter = filter;
+    // Add logic to filter content based on the selected filter
+  }
 }

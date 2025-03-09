@@ -28,6 +28,7 @@ export interface NewSong extends SongBase {
 // DTO for reading basic song info (without content)
 export interface ReadSong extends SongBase {
   id: number;
+  songId?: number; // Optional, to support both `id` and `songId`
   cover?: string; // URL or Base64 string for image display
   coverContentType?: string;
   displayPlay: boolean; // Used for UI play button state

@@ -16,3 +16,107 @@
   background-color: $card-hover-background;
   border-radius: $card-border-radius;
 }
+
+
+/* Part Two: Filter Links */
+///* Part Two: Filter Links */
+//.part-two {
+//  background-color: #121212; /* Dark background */
+//  padding: 16px 24px; /* Increased padding */
+//  border-bottom: 1px solid #333; /* Divider line */
+//}
+//
+//.filter-link {
+//  color: #b3b3b3; /* Light gray text */
+//  text-decoration: none;
+//  font-size: 14px;
+//  font-weight: 500;
+//  padding: 8px 12px; /* Padding for clickable area */
+//  border-radius: 4px; /* Rounded corners */
+//  transition: all 0.2s ease; /* Smooth transitions */
+//  cursor: pointer; /* Pointer cursor on hover */
+//}
+//
+//.filter-link:hover {
+//  color: #fff; /* White text on hover */
+//  background-color: #282828; /* Dark background on hover */
+//}
+//
+//.filter-link.active {
+//  color: #fff; /* White text for active state */
+//  background-color: #1db954; /* Spotify green for active state */
+//  font-weight: 600; /* Bold text for active state */
+//}
+
+/* Part Two: Filter Links */
+.part-two {
+  background-color: #121212; /* Dark background */
+  padding: 16px 24px; /* Increased padding */
+  border-bottom: 1px solid #333; /* Divider line */
+}
+
+/* Spotify-style pill buttons */
+.filter-btn {
+  background-color: #242424; /* Dark button background */
+  color: #fff; /* White text */
+  font-size: 14px;
+  font-weight: 500;
+  border: none; /* Remove default border */
+  padding: 10px 20px; /* Inner padding */
+  border-radius: 50px; /* Rounded pill shape */
+  cursor: pointer; /* Pointer on hover */
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Hover effect */
+.filter-btn:hover {
+  background-color: #2a2a2a;
+}
+
+/* Active (selected) filter style */
+.filter-btn.active {
+  background-color: #fff; /* White background */
+  color: #000; /* Black text */
+  font-weight: 600;
+}
+
+/* Part Three: Search and Content */
+.input-search {
+  background-color: #282828; /* Dark background for search bar */
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.input-search input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  outline: none;
+}
+
+.input-search input::placeholder {
+  color: #b3b3b3; /* Placeholder text color */
+}
+
+/* Content List */
+.content-part-three ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.content-part-three li {
+  margin-bottom: 12px;
+}
+
+.content_part_three_other, .content_part_three_artist {
+  text-decoration: none;
+  color: #fff;
+  transition: background-color 0.2s ease;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.content_part_three_other:hover, .content_part_three_artist:hover {
+  background-color: #282828; /* Dark background on hover */
+}
