@@ -3,6 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import {AddSongComponent} from "./features/song/add-song/add-song.component";
 import {SearchComponent} from "./features/search/search.component";
 import {ArtistDetailsComponent} from "./features/artist/artist-details/artist-details.component";
+import {MusicItemComponent} from "./shared/music-item/music-item.component";
+import {MainLibraryComponent} from "./features/playlist/main-library/main-library.component";
+import {ShowAllComponent} from "./features/home/show-all/show-all.component";
+import {LikedComponent} from "./features/liked/liked/liked.component";
 
 
 
@@ -26,6 +30,13 @@ export const routes: Routes = [
     component: SearchComponent
   },
   { path: 'artist/:id', component: ArtistDetailsComponent }, // Route for artist details
+  { path: 'music-item/:id', component: MusicItemComponent },
+  { path: 'library', component: MainLibraryComponent },
+  { path: 'section', component: ShowAllComponent },
+  {
+    path: 'liked',
+    component: LikedComponent,
+  },
 
 
 

@@ -1,5 +1,5 @@
 <div (click)="addRemoveItemWishlist(song())">
-  @if (song().id ?? song().songId; as songId) {
+  @if (song().id || song().songId; as songId) {
     <fa-icon [icon]="getButtonLikeClass(songId)" class="favorite text-primary"></fa-icon>
   } @else {
     <fa-icon [icon]="['far', 'heart']" class="favorite text-primary"></fa-icon>
