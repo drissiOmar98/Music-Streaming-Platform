@@ -30,5 +30,10 @@ spring:
           predicates:
             - Path=/api/v1/favourites/**
 
+        - id: follow-service
+          uri: http://localhost:8030
+          predicates:
+            - Path=/api/v1/follows/**
+
 
 
