@@ -120,3 +120,8 @@
 .content_part_three_other:hover, .content_part_three_artist:hover {
   background-color: #282828; /* Dark background on hover */
 }
+.scrollable-container {
+  max-height: 400px; // Adjust based on your sidebar height
+  overflow-y: auto; // Enable vertical scrolling
+  padding-right: 8px; // Add padding to avoid scrollbar overlapping content
+}

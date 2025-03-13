@@ -1,0 +1,44 @@
+.artist-card {
+  display: flex;
+  align-items: center;
+  gap: 12px; // Space between the image and the text
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1); // Light hover effect
+  }
+
+  .artist-image-container {
+    width: 50px; // Adjust the size of the image container
+    height: 50px; // Adjust the size of the image container
+    border-radius: 50%; // Make the image circular
+    overflow: hidden; // Ensure the image stays within the circular container
+
+    .artist-image {
+      width: 100%;
+      height: 100%;
+      background-size: cover; // Ensure the image covers the container
+      background-position: center; // Center the image
+    }
+  }
+
+  .artist-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px; // Space between the name and the label
+
+    .artist-name {
+      font-size: 0.875rem; // Adjust font size
+      font-weight: 600; // Make the name bold
+      color: #fff; // White text color
+    }
+
+    .artist-label {
+      font-size: 0.75rem; // Smaller font size for the label
+      color: rgba(255, 255, 255, 0.7); // Semi-transparent text color
+    }
+  }
+}

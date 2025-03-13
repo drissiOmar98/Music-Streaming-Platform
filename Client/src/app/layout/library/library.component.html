@@ -107,12 +107,12 @@
     <div class="nav-part-three mb-3">
       <div class="input-search d-flex align-items-center">
         <fa-icon class="nav-icon me-2" icon="search"></fa-icon>
-        <input (input)="onInputChange($event)" type="text" placeholder="Search in Your Library" class="w-100">
+        <input type="text" placeholder="Search in Your Library" class="w-100">
       </div>
     </div>
 
     <!-- Content List -->
-    <div class="content-part-three">
+    <div class=" scrollable-container content-part-three">
       <ul *ngIf="!isCorrect">
         <!-- Liked Songs -->
         <li>
@@ -127,6 +127,16 @@
             </div>
           </a>
         </li>
+
+        <!-- Artists -->
+        <li>
+          @for (artist of followedList; track artist.artistId) {
+            <div class="artist-item">
+              <app-small-artist-card [artist]="artist.artistDetails"></app-small-artist-card>
+            </div>
+          }
+        </li>
+
 
         <!-- User Playlists -->
 <!--        <li *ngFor="let playlist of userPlaylists">-->
