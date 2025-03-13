@@ -1,0 +1,10 @@
+<div
+  (click)="followOrUnfollowArtist(artist())"
+  [class]="getButtonFollowCLass(artist().id)"
+  class="follow-btn"
+  [ngClass]="{'following': isFollowed.get(artist().id)}">
+  <span *ngIf="!isFollowed.get(artist().id)" class="follow-text">Follow</span>
+  <span *ngIf="isFollowed.get(artist().id)" class="following-text">
+    <i class="fas fa-check"></i> Following
+  </span>
+</div>

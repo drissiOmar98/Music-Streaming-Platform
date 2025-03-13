@@ -1,0 +1,75 @@
+.follow-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: transparent;
+  padding: 8px 24px;
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-width: 100px; // Ensure consistent width
+  height: 40px; // Fixed height for better alignment
+
+  &:hover {
+    border-color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+
+    .unfollow-text {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &.following {
+    background-color: #1ed760;
+    color: #000;
+    border-color: #1ed760;
+
+    &:hover {
+      background-color: #1db954;
+      border-color: #1db954;
+
+      .unfollow-text {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  span {
+    display: inline-block;
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap; // Prevent text from wrapping
+  }
+
+  .follow-text {
+    opacity: 1;
+  }
+
+  .following-text {
+    display: flex;
+    align-items: center;
+    gap: 8px; // Space between icon and text
+    opacity: 1;
+
+    i {
+      font-size: 0.75rem;
+    }
+  }
+
+  .unfollow-text {
+    opacity: 0;
+    transform: translateY(20px); // Start below the button
+    color: #fff;
+  }
+}
