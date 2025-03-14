@@ -30,4 +30,4 @@ spring:
 
 application:
   config:
-    artist-url: http://localhost:8222/api/v1/follows
+    artist-url: http://localhost:8222/api/v1/artists
