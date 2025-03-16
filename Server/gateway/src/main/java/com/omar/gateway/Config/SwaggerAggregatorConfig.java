@@ -26,6 +26,9 @@ public class SwaggerAggregatorConfig {
     @Value("${follow-service.url}")
     private String followServiceUrl;
 
+    @Value("${playlist-service.url}")
+    private String playlistServiceUrl;
+
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
@@ -53,6 +56,11 @@ public class SwaggerAggregatorConfig {
                 .route("follow-service-api-docs", r -> r.path("/aggregate/follow-service/v3/api-docs")
                         .filters(f -> f.rewritePath("/aggregate/follow-service/v3/api-docs", "/v3/api-docs"))
                         .uri(followServiceUrl))
+
+                // Route for Playlist Service API Docs
+                .route("playlist-service-api-docs", r -> r.path("/aggregate/playlist-service/v3/api-docs")
+                        .filters(f -> f.rewritePath("/aggregate/playlist-service/v3/api-docs", "/v3/api-docs"))
+                        .uri(playlistServiceUrl))
 
                 .build();
     }

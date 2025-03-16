@@ -25,9 +25,12 @@ springdoc:
         url: /aggregate/favorites-service/v3/api-docs
       - name: Follow Service
         url: /aggregate/follow-service/v3/api-docs
+      - name: Playlist Service
+        url: /aggregate/playlist-service/v3/api-docs
 
 music-service.url: http://localhost:8060
 artist-service.url: http://localhost:8050
 user-service.url: http://localhost:8090
 favorites-service.url: http://localhost:8040
 follow-service.url: http://localhost:8030
+playlist-service.url: http://localhost:8020
