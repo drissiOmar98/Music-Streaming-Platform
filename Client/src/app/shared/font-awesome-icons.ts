@@ -43,7 +43,7 @@ import {
   faShuffle,
   faExpand,
   faListUl,
-  faThLarge, faList
+  faThLarge, faList, faUpload
 } from "@fortawesome/free-solid-svg-icons";
 import {faSpotify} from "@fortawesome/free-brands-svg-icons";
 
@@ -95,7 +95,8 @@ export const fontAwesomeIcons: IconDefinition[] = [
   faExpand,
   faThLarge,
   faList,
-  faSpotify
+  faSpotify,
+  faUpload
 
 
 
