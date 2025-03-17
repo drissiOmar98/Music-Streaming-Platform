@@ -1,0 +1,239 @@
+
+.modal-content {
+  background-color: #181818;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+
+.playlist-image-container {
+  width: 210px;
+  height: 200px;
+  background-color: #282828;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.playlist-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upload-label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.upload-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.upload-label:hover .upload-overlay {
+  opacity: 1;
+}
+
+.upload-icon {
+  font-size: 24px;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.upload-text {
+  font-size: 14px;
+  color: white;
+  text-align: center;
+}
+
+.placeholder-text {
+  color: #b3b3b3;
+  font-size: 14px;
+  text-align: center;
+}
+
+.upload-label {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+.btn-light {
+  background-color: white;
+  color: black;
+  border-radius: 24px;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.btn-light:disabled {
+  background-color: #b3b3b3;
+  cursor: not-allowed;
+}
+
+.btn-light:hover:not(:disabled) {
+  background-color: #1db954;
+  color: white;
+}
+
+
+/* Form Group Styles */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Input Styles */
+.form-input {
+  background-color: #282828; /* Darker input background */
+  border: 1px solid #404040;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    border-color: #1db954; /* Spotify green */
+    box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.3);
+  }
+}
+
+.title-input {
+  width: 100%;
+}
+
+/* Error Message */
+.error-message {
+  color: #ff4d4d;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Placeholder Validation */
+.placeholder-validation {
+  height: 1.5rem; /* Maintain spacing even when no error is shown */
+}
+
+/* Input Wrapper */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Input Styling */
+.form-input {
+  width: 100%;
+  padding: 12px 40px 12px 15px; /* Space for the icon */
+  font-size: 16px;
+  border: 2px solid #282828;
+  border-radius: 8px;
+  background-color: #121212;
+  color: #fff;
+  outline: none;
+  transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Input Focus */
+.form-input:focus {
+  border-color: #1db954; /* Spotify green */
+}
+
+/* Error State (Red Border Glow) */
+.form-input.ng-invalid.ng-dirty {
+  border-color: #ff4d4d;
+  box-shadow: 0 0 8px #ff4d4d;
+}
+
+/* Input Icon Positioning */
+.input-icon {
+  position: absolute;
+  right: 12px;
+  display: flex;
+  align-items: center;
+}
+
+/* Valid Input Icon (Green Check) */
+.valid-icon {
+  color: #1db954;
+  font-size: 1.25rem;
+}
+
+/* Error Input Icon (Red Exclamation) */
+.error-icon {
+  color: #ff4d4d;
+  font-size: 1.25rem;
+}
+
+/* Error Message */
+.error-message {
+  color: #ff4d4d;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+
+.cover-preview {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+}
+
+.trash-btn1 {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.trash-btn1:hover {
+  background: rgba(255, 0, 0, 0.7);
+}

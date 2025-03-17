@@ -1,0 +1,109 @@
+<div class="modal-content bg-dark text-white p-4 rounded">
+  <!-- Modal Header -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="modal-title fw-bold">Add New Playlist</h5>
+    <button class="btn-close btn-close-white" (click)="activeModal.dismiss()"></button>
+  </div>
+
+  <form  #detailsForm="ngForm" novalidate class="form-content">
+    <!-- Modal Body -->
+    <div class="d-flex">
+      <!-- Playlist Image -->
+      <div class="playlist-image-container me-3">
+        <label for="playlist-image-upload" class="upload-label">
+          <!-- Default Image or Uploaded Cover -->
+          @if (!newPlaylist.cover) {
+            <img src="./assets/images/user_playlist/billy.jpg" class="playlist-image" alt="Playlist Image">
+          } @else {
+            <div class="cover-preview">
+              <!-- Trash Icon -->
+              <button class="trash-btn1" (click)="onTrashCover(coverInput)">
+                <fa-icon icon="trash-can"></fa-icon>
+              </button>
+              <!-- Display Uploaded Image -->
+              <div
+                class="cover-image"
+                [style.background-image]="'url(' + newPlaylist.cover?.urlDisplay + ')'">
+              </div>
+            </div>
+          }
+          <!-- Upload Overlay -->
+          <div class="upload-overlay">
+            <fa-icon [icon]="['fas', 'upload']" class="upload-icon"></fa-icon>
+            <span class="upload-text">Upload Cover</span>
+          </div>
+        </label>
+        <input
+          #coverInput
+          type="file"
+          class="d-none"
+          id="playlist-image-upload"
+          accept=".jpg,.jpeg,.png,.svg"
+          (change)="onUploadCover($event.target)"
+        />
+      </div>
+
+      <!-- Input Fields -->
+      <div class="form-group flex-grow-1">
+        <label class="text-secondary small">Title</label>
+        <div class="input-wrapper">
+          <input
+            #titleInput="ngModel"
+            name="title"
+            placeholder="Enter playlist title"
+            required
+            class="form-input title-input"
+            type="text"
+            [(ngModel)]="newPlaylist.title"
+          />
+          <!-- Validation Icons -->
+          @if (titleInput.valid) {
+            <div class="input-icon valid">
+              <fa-icon icon="check-circle" class="valid-icon"></fa-icon>
+            </div>
+          }
+          @if (titleInput.dirty && titleInput.invalid) {
+            <div class="input-icon error">
+              <fa-icon icon="exclamation-circle" class="error-icon"></fa-icon>
+            </div>
+          }
+        </div>
+        <!-- Error Message -->
+        @if (titleInput.dirty && titleInput.invalid) {
+          <small id="title-required" class="error-message">Title is required</small>
+        }
+
+        <label class="text-secondary small">Description</label>
+        <textarea name="description"  class="form-input title-input"
+                  placeholder="Add an optional description"
+                  [(ngModel)]="newPlaylist.description"></textarea>
+      </div>
+    </div>
+  </form>
+
+
+
+
+  <!-- Footer Section -->
+<!--  <div class="mt-4">-->
+<!--    <button class="btn btn-light w-100 py-2 fw-bold" (click)="createPlaylist()" [disabled]="!playlistName">-->
+<!--      Save Playlist-->
+<!--    </button>-->
+<!--  </div>-->
+  <!-- Footer Section --><!-- Footer Section -->
+  <div class="mt-4">
+    <button class="btn btn-light w-100 py-2 fw-bold" (click)="createPlaylist()" [disabled]="!newPlaylist.title?.trim()">
+      Save Playlist
+    </button>
+<!--    &lt;!&ndash; Debug Message &ndash;&gt;-->
+<!--    <div class="text-secondary small mt-2">-->
+<!--      Debug: Title = "{{ newPlaylist.title }}", Disabled = {{ !newPlaylist.title?.trim() }}-->
+<!--    </div>-->
+  </div>
+
+  <!-- Legal Note -->
+  <p class="text-secondary text-center mt-3 small">
+    By continuing, you grant Spotify the rights to the image you upload.
+    Make sure you have the right to upload this image.
+  </p>
+</div>
