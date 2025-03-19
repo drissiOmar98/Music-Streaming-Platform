@@ -1,0 +1,36 @@
+<div class="playlist-details">
+  <div class="left" [style.background-image]="'url(' + (playlist?.cover ? 'data:' + playlist?.coverContentType + ';base64,' + playlist?.cover : '') + ')'" (click)="toggleEditPlaylistName()">
+  </div>
+  <div class="right">
+    <ul>
+      <li>Playlist</li>
+      <li (click)="toggleEditPlaylistName()">{{playlist?.title}}</li>
+      <li>{{playlist?.description}}</li>
+      <li>Playlist . </li>
+    </ul>
+  </div>
+</div>
+
+<div class="content-editdetails" *ngIf="showEditDetails == true">
+  <div class="editDetails">
+    <div class="part1">
+      <h2>Edit details</h2>
+      <svg (click)="toggleEditPlaylistName()" xmlns="http://www.w3.org/2000/svg" class="ionicon" height="1.3rem" fill="#a7a7a7" viewBox="0 0 512 512"><path fill="#a7a7a7" d="M289.94 256l95-95A24 24 0 00351 127l-95 95-95-95a24 24 0 00-34 34l95 95-95 95a24 24 0 1034 34l95-95 95 95a24 24 0 0034-34z"/></svg>
+    </div>
+    <div class="part2">
+      <div class="leftPart2" [style.background-image]="'url(' + (playlist?.cover ? 'data:' + playlist?.coverContentType + ';base64,' + playlist?.cover : '') + ')'">
+        <input type="file" name="" id="">
+      </div>
+      <div class="rightPart2">
+        <input type="text" name="" [value]="playlist?.title">
+        <textarea name="" id="" cols="30" rows="8" [value]="playlist?.description"></textarea>
+      </div>
+    </div>
+    <div class="part3">
+      <button>Save</button>
+    </div>
+    <div class="part4">
+      By proceeding, you agree to give Spotify access to the image you choose to upload. Please make sure you have the right to upload the image.
+    </div>
+  </div>
+</div>
