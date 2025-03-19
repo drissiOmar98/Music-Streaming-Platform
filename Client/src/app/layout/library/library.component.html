@@ -48,9 +48,22 @@
         <fa-icon class="nav-icon me-3" icon="book"></fa-icon>
         <div>Your Library</div>
       </a>
-      <a routerLink="/add-song">
+      <a (click)="openNewPlaylistDialog()">
         <fa-icon class="nav-icon" icon="plus"></fa-icon>
       </a>
+<!--      <div class="dropdown" [ngClass]="{'show': isDropdownOpen}">-->
+<!--        &lt;!&ndash; Dropdown Trigger &ndash;&gt;-->
+<!--        <a (click)="toggleDropdown($event)" class="dropdown-toggle">-->
+<!--          <fa-icon class="nav-icon" icon="plus"></fa-icon>-->
+<!--        </a>-->
+<!--        &lt;!&ndash; Dropdown Menu &ndash;&gt;-->
+<!--        <div class="dropdown-menu" [ngClass]="{'show': isDropdownOpen}">-->
+<!--          <a class="dropdown-item" routerLink="/add-playlist">-->
+<!--            <fa-icon class="me-2" icon="music"></fa-icon>-->
+<!--            Create Playlist-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </div>
 
@@ -133,6 +146,15 @@
           @for (artist of followedList; track artist.artistId) {
             <div class="artist-item">
               <app-small-artist-card [artist]="artist.artistDetails"></app-small-artist-card>
+            </div>
+          }
+        </li>
+
+        <!-- Playlists -->
+        <li>
+          @for (playlist of playlists; track playlist.id) {
+            <div class="playlist-item">
+              <app-small-playlist-card [playlist]="playlist"></app-small-playlist-card>
             </div>
           }
         </li>

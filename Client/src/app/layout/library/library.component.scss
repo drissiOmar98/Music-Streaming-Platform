@@ -125,3 +125,53 @@
   overflow-y: auto; // Enable vertical scrolling
   padding-right: 8px; // Add padding to avoid scrollbar overlapping content
 }
+//
+///* Dropdown Container */
+//.dropdown {
+//  position: relative;
+//  display: inline-block;
+//}
+//
+///* Dropdown Menu */
+//.dropdown-menu {
+//  position: absolute;
+//  top: 100%;
+//  right: 0;
+//  z-index: 1000;
+//  display: none;
+//  min-width: 200px; /* Wider dropdown for better readability */
+//  padding: 0.5rem 0;
+//  margin: 0.5rem 0 0;
+//  font-size: 0.9rem;
+//  color: #fff;
+//  background-color: #282828; /* Spotify-like dark background */
+//  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+//  border-radius: 4px; /* Rounded corners */
+//  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+//}
+//
+///* Show Dropdown */
+//.dropdown-menu.show {
+//  display: block;
+//}
+//
+///* Dropdown Items */
+//.dropdown-item {
+//  display: flex;
+//  align-items: center;
+//  padding: 0.75rem 1.5rem;
+//  color: #fff;
+//  text-decoration: none;
+//  transition: background-color 0.2s ease;
+//}
+//
+///* Hover Effect for Dropdown Items */
+//.dropdown-item:hover {
+//  background-color: #383838; /* Slightly lighter background on hover */
+//}
+//
+///* Font Awesome Icons in Dropdown */
+//.dropdown-item fa-icon {
+//  margin-right: 0.75rem;
+//  font-size: 1rem;
+//}

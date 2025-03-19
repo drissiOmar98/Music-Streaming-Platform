@@ -1,0 +1,14 @@
+<div class="playlist-card" (click)="navigateToPlaylistDetails()">
+  <div class="playlist-content">
+    <!-- Playlist Cover -->
+    <img class="playlist-cover rounded-2"
+         [src]="'data:' + playlist().coverContentType + ';base64,' + playlist().cover"
+         alt="Playlist Cover" />
+
+    <!-- Playlist Info -->
+    <div class="playlist-info">
+      <div class="playlist-title">{{ playlist().title }}</div>
+      <div class="playlist-type text-secondary">Playlist</div>
+    </div>
+  </div>
+</div>

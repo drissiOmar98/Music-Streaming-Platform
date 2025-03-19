@@ -1,0 +1,41 @@
+.playlist-card {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.playlist-card:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
+}
+
+.playlist-content {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Space between cover and info */
+}
+
+.playlist-cover {
+  width: 55px;
+  height: 55px;
+  object-fit: cover; /* Ensure the image covers the area */
+}
+
+.playlist-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.playlist-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+}
+
+.playlist-type {
+  font-size: 12px;
+  color: #b3b3b3; /* Secondary text color */
+}
