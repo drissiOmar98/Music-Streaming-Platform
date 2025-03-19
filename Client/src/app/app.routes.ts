@@ -7,6 +7,7 @@ import {MusicItemComponent} from "./shared/music-item/music-item.component";
 import {MainLibraryComponent} from "./features/playlist/main-library/main-library.component";
 import {ShowAllComponent} from "./features/home/show-all/show-all.component";
 import {LikedComponent} from "./features/liked/liked/liked.component";
+import {PlaylistComponent} from "./features/playlist/playlist/playlist.component";
 
 
 
@@ -36,6 +37,10 @@ export const routes: Routes = [
   {
     path: 'liked',
     component: LikedComponent,
+  },
+  {
+    path: 'playlist/:id',
+    component: PlaylistComponent,
   },
 
 

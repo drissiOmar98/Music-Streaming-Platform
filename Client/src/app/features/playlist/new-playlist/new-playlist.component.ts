@@ -30,22 +30,15 @@ export class NewPlaylistComponent implements OnDestroy {
 
   newPlaylist: NewPlaylist = this.initializeNewPlaylist();
 
-  playlistName = 'Ma playlist n° 1';
-  playlistDescription = '';
-  playlistImageUrl: string | ArrayBuffer | null = './assets/images/user_playlist/billy.jpg'; // Default image
-
-
   @ViewChild('detailsForm') formDescription: NgForm | undefined;
   @ViewChild('coverInput') coverInput!: ElementRef<HTMLInputElement>;
 
   loadingCreation = false;
 
   constructor() {
-    //this.trackSongCreationStatus();
     this.listenPlaylistCreation();
+    this.trackPlaylistCreationStatus();
   }
-
-
 
   private initializeNewPlaylist(): NewPlaylist {
     return {
@@ -57,22 +50,6 @@ export class NewPlaylistComponent implements OnDestroy {
     };
   }
 
-
-
-
-  onImageUpload(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.playlistImageUrl = reader.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-
-
   private validateForm(): boolean {
     return !!this.formDescription?.valid;
   }
@@ -83,11 +60,18 @@ export class NewPlaylistComponent implements OnDestroy {
     this.activeModal.dismiss();  // This will close the modal
   }
 
+
   trackPlaylistCreationStatus() {
     // Start a reactive effect to monitor changes in the creation status signal.
     effect(() => {
-      if (this.playlistService.addSig().status === "OK") {
-        this.router.navigate(["/dashboard"]);
+      const createdPlaylistState = this.playlistService.addSig();
+      if (createdPlaylistState.status === "OK") {
+        const playlistId = createdPlaylistState.value; // Get the ID of the created playlist
+        if (playlistId) {
+          this.router.navigate(["/playlist", playlistId]); // Navigate to the playlist details page
+        } else {
+          console.error("Created playlist ID is missing.");
+        }
       }
     });
   }
