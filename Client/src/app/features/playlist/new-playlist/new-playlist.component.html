@@ -23,7 +23,7 @@
               <!-- Display Uploaded Image -->
               <div
                 class="cover-image"
-                [style.background-image]="'url(' + newPlaylist.cover?.urlDisplay + ')'">
+                [style.background-image]="'url(' + newPlaylist.cover.urlDisplay + ')'">
               </div>
             </div>
           }
@@ -92,7 +92,7 @@
 <!--  </div>-->
   <!-- Footer Section --><!-- Footer Section -->
   <div class="mt-4">
-    <button class="btn btn-light w-100 py-2 fw-bold" (click)="createPlaylist()" [disabled]="!newPlaylist.title?.trim()">
+    <button class="btn btn-light w-100 py-2 fw-bold" (click)="createPlaylist()" [disabled]="!newPlaylist.title.trim()">
       Save Playlist
     </button>
 <!--    &lt;!&ndash; Debug Message &ndash;&gt;-->

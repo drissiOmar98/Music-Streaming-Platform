@@ -1,0 +1,153 @@
+
+<!--<div class="dropdown" (click)="$event.stopPropagation()">-->
+<!--  &lt;!&ndash; Three-Dot Button &ndash;&gt;-->
+<!--  <button class="playlist-btn" (click)="toggleDropdown($event)">-->
+<!--    <i class="fas fa-ellipsis-h"></i>-->
+<!--  </button>-->
+
+<!--  &lt;!&ndash; Dropdown Menu &ndash;&gt;-->
+<!--  @if (openDropdown) {-->
+<!--    <div class="dropdown-menu" [@fadeIn] (click)="$event.stopPropagation()">-->
+<!--      <button (click)="openAddToPlaylistModal()">-->
+<!--        <i class="fas fa-plus"></i> Add to Playlist-->
+<!--      </button>-->
+<!--      <button (click)="goToAlbum.emit(song())">-->
+<!--        <i class="fas fa-compact-disc"></i> Go to Album-->
+<!--      </button>-->
+<!--      <button (click)="shareSong.emit(song())">-->
+<!--        <i class="fas fa-share"></i> Share-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  }-->
+<!--</div>-->
+
+
+
+<!--<ng-template #addToPlaylistModal let-modal>-->
+<!--  <div class="modal-content bg-dark text-white p-4 rounded">-->
+<!--    &lt;!&ndash; Modal Header &ndash;&gt;-->
+<!--    <div class="d-flex justify-content-between align-items-center mb-3">-->
+<!--      <h5 class="modal-title fw-bold">Add to Playlist</h5>-->
+<!--      <button class="btn-close btn-close-white" (click)="modal.dismiss()"></button>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Search Bar &ndash;&gt;-->
+<!--    <div class="search-container mb-4">-->
+<!--      <input-->
+<!--        class="form-input w-100"-->
+<!--        [(ngModel)]="searchQuery"-->
+<!--        placeholder="Find a playlist"-->
+<!--      />-->
+<!--      <i class="fas fa-search search-icon"></i>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Playlist List &ndash;&gt;-->
+<!--    <div class="playlist-list">-->
+<!--      @for (playlist of filteredPlaylists(); track playlist.id) {-->
+<!--        <div class="playlist-item d-flex align-items-center justify-content-between p-3">-->
+<!--          <label class="d-flex align-items-center w-100">-->
+<!--            <input-->
+<!--              type="checkbox"-->
+<!--              [checked]="isPlaylistSelected(playlist)"-->
+<!--              (change)="togglePlaylistSelection(playlist)"-->
+<!--              class="me-3"-->
+<!--            />-->
+<!--            <app-small-playlist-card [playlist]="playlist"></app-small-playlist-card>-->
+<!--          </label>-->
+<!--        </div>-->
+<!--      }-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Footer Section &ndash;&gt;-->
+<!--    <div class="mt-4">-->
+<!--      <button-->
+<!--        class="btn btn-light w-100 py-2 fw-bold"-->
+<!--        (click)="addToSelectedPlaylists(); modal.close()"-->
+<!--        [disabled]="selectedPlaylists.size === 0"-->
+<!--      >-->
+<!--        Add to Playlists-->
+<!--      </button>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Legal Note &ndash;&gt;-->
+<!--    <p class="text-secondary text-center mt-3 small">-->
+<!--      By continuing, you agree to Spotify's terms and conditions.-->
+<!--    </p>-->
+<!--  </div>-->
+<!--</ng-template>-->
+<div class="dropdown" (click)="$event.stopPropagation()">
+  <!-- Three-Dot Button -->
+  <button class="playlist-btn" (click)="toggleDropdown($event)">
+    <i class="fas fa-ellipsis-h"></i>
+  </button>
+
+  <!-- Dropdown Menu -->
+  @if (openDropdown) {
+    <div class="dropdown-menu" [@fadeIn] (click)="$event.stopPropagation()">
+      <button (click)="openAddToPlaylistModal()">
+        <i class="fas fa-plus"></i> Add to Playlist
+      </button>
+      <button (click)="goToAlbum.emit(song())">
+        <i class="fas fa-compact-disc"></i> Go to Album
+      </button>
+      <button (click)="shareSong.emit(song())">
+        <i class="fas fa-share"></i> Share
+      </button>
+    </div>
+  }
+</div>
+
+<!-- Add to Playlist Modal -->
+<!-- Add to Playlist Modal -->
+<ng-template #addToPlaylistModal let-modal>
+  <div class="modal-content bg-dark text-white p-4 rounded">
+    <!-- Modal Header -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="modal-title fw-bold">Add to Playlist</h5>
+      <button class="btn-close btn-close-white" (click)="modal.dismiss()"></button>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container mb-4">
+      <input
+        class="form-input w-100"
+        [(ngModel)]="searchQuery"
+        placeholder="Find a playlist"
+      />
+      <i class="fas fa-search search-icon"></i>
+    </div>
+
+    <!-- Playlist List -->
+    <div class="playlist-list">
+      @for (playlist of filteredPlaylists(); track playlist.id) {
+        <div class="playlist-item d-flex align-items-center justify-content-between p-3">
+          <label class="d-flex align-items-center w-100">
+            <input
+              type="checkbox"
+              [checked]="isPlaylistSelected(playlist)"
+              (change)="togglePlaylistSelection(playlist)"
+              class="me-3"
+            />
+            <app-small-playlist-card [playlist]="playlist"></app-small-playlist-card>
+          </label>
+        </div>
+      }
+    </div>
+
+    <!-- Footer Section -->
+    <div class="mt-4">
+      <button
+        class="btn btn-light w-100 py-2 fw-bold"
+        (click)="addToSelectedPlaylists(); modal.close()"
+        [disabled]="selectedPlaylists.size === 0"
+      >
+        Add to Playlists
+      </button>
+    </div>
+
+    <!-- Legal Note -->
+    <p class="text-secondary text-center mt-3 small">
+      By continuing, you agree to Spotify's terms and conditions.
+    </p>
+  </div>
+</ng-template>

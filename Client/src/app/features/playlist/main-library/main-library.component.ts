@@ -10,8 +10,11 @@ import {FavoriteSongBtnComponent} from "../../../shared/favorite-song-btn/favori
 import {favouriteRequest} from "../../../service/model/favourite.model";
 import {FavouriteService} from "../../../service/favourite.service";
 import {State} from "../../../shared/model/state.model";
-import {CreatedArtist} from "../../../service/model/artist.model";
 import {ToastService} from "../../../service/toast.service";
+import {PlaylistBtnComponent} from "../../../shared/playlist-btn/playlist-btn.component";
+import {Router} from "@angular/router";
+import {PlaylistService} from "../../../service/playlist.service";
+import {AddSongToPlaylistRequest, Playlist, RemoveSongFromPlaylistRequest} from "../../../service/model/playlist.model";
 
 @Component({
   selector: 'app-main-library',
@@ -21,43 +24,57 @@ import {ToastService} from "../../../service/toast.service";
     FaIconComponent,
     NgClass,
     SongCardComponent,
-    FavoriteSongBtnComponent
+    FavoriteSongBtnComponent,
+    PlaylistBtnComponent
   ],
   templateUrl: './main-library.component.html',
   styleUrl: './main-library.component.scss'
 })
 export class MainLibraryComponent implements OnInit, OnDestroy {
 
-
+  router = inject(Router);
   songService = inject(SongService);
   songContentService = inject(SongContentService);
   favouriteService= inject(FavouriteService);
   toastService = inject(ToastService);
+  playlistService = inject(PlaylistService)
+
 
   isLoading = false;
   loadingCreation = false;
+  loading = true;
 
   songs: Array<ReadSong> = [];
+  playlists: Array<Playlist> = [];
 
   constructor() {
     this.listenFetchAll();
+    this.listenToFetchMyPlaylists();
     this.listenFavouriteItemAddition();
     this.listenFavouriteItemRemoval();
+    this.listenPlaylistItemAddition();
+    this.listenPlaylistItemRemoval();
   }
 
   ngOnInit(): void {
     this.fetchSongs();
+    this.loadUserPlaylist();
   }
 
   ngOnDestroy(): void {
     this.songService.resetGetAllState();
     this.favouriteService.resetAddToFavouritesState();
     this.favouriteService.resetRemoveFromFavouritesState();
+    this.playlistService.resetAddSongState();
+    this.playlistService.resetRemoveSongState();
   }
 
 
 
 
+  loadUserPlaylist(): void {
+    this.playlistService.getAllPlaylists();
+  }
 
   private fetchSongs() {
     this.isLoading = true;
@@ -75,8 +92,21 @@ export class MainLibraryComponent implements OnInit, OnDestroy {
       }
       this.isLoading = false;
     });
-
   }
+
+  private listenToFetchMyPlaylists(): void {
+    effect(() => {
+      const myPlaylistState = this.playlistService.getAllSig();
+      if (myPlaylistState.status === 'OK') {
+        this.loading = false;
+        this.playlists = myPlaylistState.value || [];
+      } else if (myPlaylistState.status === 'ERROR') {
+        this.loading = false;
+        this.toastService.show('Error when fetching Your PlayList', "DANGER");
+      }
+    });
+  }
+
 
 
   isGridView: boolean = false; // Default to list view
@@ -84,6 +114,23 @@ export class MainLibraryComponent implements OnInit, OnDestroy {
   toggleView(): void {
     this.isGridView = !this.isGridView;
   }
+
+  handleAddedToPlaylist(event: { song: ReadSong, playlist: Playlist }) {
+    const request: AddSongToPlaylistRequest = {
+      playlistId: event.playlist.id,
+      songId: event.song.id,
+    };
+    this.playlistService.addSongToPlaylist(request);
+  }
+
+  handleRemovedFromPlaylist(event: { song: ReadSong, playlist: Playlist }) {
+    const request: RemoveSongFromPlaylistRequest = {
+      playlistId: event.playlist.id,
+      songId: event.song.id,
+    };
+    this.playlistService.removeSongFromPlaylist(request);
+  }
+
 
 
   addToWishList(song: ReadSong) {
@@ -97,6 +144,8 @@ export class MainLibraryComponent implements OnInit, OnDestroy {
   removedFromWishList(song: ReadSong) {
     this.favouriteService.removeFromFavourites(song.id);
   }
+
+
 
   listenFavouriteItemAddition() {
     effect(() => {
@@ -120,9 +169,41 @@ export class MainLibraryComponent implements OnInit, OnDestroy {
     });
   }
 
+  listenPlaylistItemAddition() {
+    effect(() => {
+      let addItemToPlaylistState = this.playlistService.addSongSig();
+      if (addItemToPlaylistState.status === "OK") {
+        this.onPlaylistAdditionOk(addItemToPlaylistState);
+      } else if ((addItemToPlaylistState.status === "ERROR")) {
+        this.onPlaylistAdditionError();
+      }
+    });
+  }
+
+  private listenPlaylistItemRemoval(): void {
+    effect(() => {
+      let removeItemFromPlaylistState = this.playlistService.removeSongSig(); // Track state for item removal
+      if (removeItemFromPlaylistState.status === 'OK') {
+        this.onPlaylistItemRemovalOk(removeItemFromPlaylistState);
+      } else if (removeItemFromPlaylistState.status === 'ERROR') {
+        this.onPlaylistItemRemovalError();
+      }
+    });
+  }
+
   onWishlistAdditionOk(state: State<void>) {
     this.loadingCreation = false;
     this.toastService.show("Song added successfully to your wishlist.", "SUCCESS");
+  }
+
+  onPlaylistAdditionOk(state: State<void>) {
+    this.loadingCreation = false;
+    this.toastService.show("Song added successfully to your playlist.", "SUCCESS");
+  }
+
+  onPlaylistAdditionError() {
+    this.loadingCreation = false;
+    this.toastService.show("Failed to add Song to playlist.", "DANGER");
   }
 
   onWishlistAdditionError() {
@@ -134,10 +215,42 @@ export class MainLibraryComponent implements OnInit, OnDestroy {
     this.loadingCreation = false; // Set loading state to false
     this.toastService.show("removed successfully from your WishList.", "SUCCESS");
   }
+
   private onFavouriteItemRemovalError(): void {
     this.loadingCreation = false; // Set loading state to false
     this.toastService.show("Couldn't remove the song from your WishList, please try again.", "DANGER")
   }
+
+  onPlaylistItemRemovalOk(removeItemFromFavouriteState: State<void>): void {
+    this.loadingCreation = false; // Set loading state to false
+    this.toastService.show("removed successfully from your Playlist.", "SUCCESS");
+  }
+
+  private onPlaylistItemRemovalError(): void {
+    this.loadingCreation = false; // Set loading state to false
+    this.toastService.show("Couldn't remove the song from your Playlist, please try again.", "DANGER")
+  }
+
+
+
+  handleAddToPlaylist(event: { song: any, playlist: any }) {
+    event.playlist.songs.push(event.song);
+    console.log(`Added ${event.song.name} to ${event.playlist.name}`);
+  }
+
+  handleCreatePlaylist(name: string) {
+
+  }
+
+
+  handleGoToAlbum(song: ReadSong) {
+    this.router.navigate(['/music-item', song.id]);
+  }
+
+  handleShareSong(song: any) {
+    console.log(`Sharing ${song.name}`);
+  }
+
 
 
 

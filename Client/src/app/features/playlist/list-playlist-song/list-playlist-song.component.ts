@@ -1,4 +1,4 @@
-import {Component, effect, inject, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, effect, inject, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Playlist} from "../../../service/model/playlist.model";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {FavoriteSongBtnComponent} from "../../../shared/favorite-song-btn/favorite-song-btn.component";
@@ -25,7 +25,7 @@ import {favouriteRequest} from "../../../service/model/favourite.model";
   templateUrl: './list-playlist-song.component.html',
   styleUrl: './list-playlist-song.component.scss'
 })
-export class ListPlaylistSongComponent implements OnInit ,OnDestroy {
+export class ListPlaylistSongComponent implements  OnChanges ,OnDestroy {
 
   @Input("playlist") playlist : Playlist | undefined;
 
@@ -50,12 +50,13 @@ export class ListPlaylistSongComponent implements OnInit ,OnDestroy {
   }
 
 
-
-  ngOnInit(): void {
-    if (this.playlist?.id) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['playlist'] && this.playlist?.id) {
       this.fetchSongsInPlaylist(this.playlist.id);
     }
   }
+
+
 
   fetchSongsInPlaylist(playlistId: number): void {
     this.playlistService.getSongsInPlaylist(playlistId)

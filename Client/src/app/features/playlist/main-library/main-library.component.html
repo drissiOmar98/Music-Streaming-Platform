@@ -63,6 +63,16 @@
           <app-favorite-song-btn (addedToWishList)="addToWishList($event)"
                                  (removedFromWishList)="removedFromWishList($event)"
                                  [song]="song"></app-favorite-song-btn>
+          <app-playlist-btn
+            [song]="song"
+            [userPlaylists]="playlists"
+            (addedToPlaylist)="handleAddedToPlaylist($event)"
+            (removedFromPlaylist)="handleRemovedFromPlaylist($event)"
+            (createPlaylist)="handleCreatePlaylist($event)"
+            (goToAlbum)="handleGoToAlbum($event)"
+            (shareSong)="handleShareSong($event)">
+          </app-playlist-btn>
+
         </div>
       }
     }
