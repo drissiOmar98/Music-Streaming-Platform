@@ -30,6 +30,10 @@
               (removedFromWishList)="removedFromWishList($event)"
               [song]="song">
             </app-favorite-song-btn>
+            <!-- Delete Button -->
+            <button class="delete-btn" (click)="onDeleteSong(song)">
+              <fa-icon [icon]="['fas', 'minus']"></fa-icon>
+            </button>
           </div>
         }
       }
@@ -59,6 +63,9 @@
                       (removedFromWishList)="removedFromWishList($event)">
                     </app-favorite-song-btn>
                   </div>
+                  <button class="delete-btn-container" (click)="onDeleteSong(song)">
+                    <fa-icon [icon]="['fas', 'minus']"></fa-icon>
+                  </button>
                 </div>
               }
             </div>

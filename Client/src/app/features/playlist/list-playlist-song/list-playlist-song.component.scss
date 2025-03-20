@@ -186,4 +186,68 @@
     right: 10px;
     z-index: 2; // Ensure the button is above the card content
   }
+  .delete-btn-container {
+    position: absolute; // Position the delete button absolutely within the card
+    top: 10px; // Position from the top
+    right: 10px; // Position from the right
+    background: rgba(255, 255, 255, 0.1); // Subtle semi-transparent background
+    border: 1px solid rgba(255, 255, 255, 0.2); // Light border for definition
+    border-radius: 50%; // Make it circular
+    width: 32px; // Slightly larger width
+    height: 32px; // Slightly larger height
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #ffffff; // White color for better visibility
+    transition: all 0.2s ease; // Smooth transition for all properties
+    z-index: 3; // Ensure the button is above the card content
+
+    &:hover {
+      background: rgba(255, 77, 77, 0.2); // Light red background on hover
+      border-color: rgba(255, 77, 77, 0.5); // Red border on hover
+      color: #ff4d4d; // Red color on hover for delete
+    }
+
+    &:active {
+      transform: scale(0.95); // Slightly shrink on click for tactile feedback
+    }
+
+    fa-icon {
+      font-size: 14px; // Adjust icon size
+    }
+  }
 }
+
+
+.delete-btn {
+  background: rgba(255, 255, 255, 0.1); // Subtle semi-transparent background
+  border: 1px solid rgba(255, 255, 255, 0.2); // Light border for definition
+  border-radius: 50%; // Make it circular
+  width: 25px; // Slightly larger width
+  height: 25px; // Slightly larger height
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #ffffff; // White color for better visibility
+  transition: all 0.2s ease; // Smooth transition for all properties
+  margin-left: 16px; // Add spacing between the favorite button and delete button
+
+  &:hover {
+    background: rgba(255, 77, 77, 0.2); // Light red background on hover
+    border-color: rgba(255, 77, 77, 0.5); // Red border on hover
+    color: #ff4d4d; // Red color on hover for delete
+  }
+
+  &:active {
+    transform: scale(0.95); // Slightly shrink on click for tactile feedback
+  }
+
+  fa-icon {
+    font-size: 14px; // Adjust icon size
+  }
+}
+
+
+

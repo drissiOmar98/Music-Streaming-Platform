@@ -26,3 +26,149 @@
   color: $secondary;
   font-size: $font-size-small;
 }
+
+//.spotify-swal-container {
+//  font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+//  backdrop-filter: blur(6px); /* Adds a blur effect for a glassmorphic look */
+//}
+//
+//.spotify-swal-popup {
+//  background: #000000; /* Solid black background */
+//  color: #ffffff; /* White text */
+//  border-radius: 14px;
+//  padding: 25px;
+//  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); /* Subtle shadow */
+//  transition: transform 0.2s ease, opacity 0.3s ease;
+//
+//  &.swal2-show {
+//    animation: fadeIn 0.3s ease-out; /* Smooth fade-in animation */
+//  }
+//}
+//
+//@keyframes fadeIn {
+//  from { opacity: 0; transform: scale(0.9); }
+//  to { opacity: 1; transform: scale(1); }
+//}
+//
+//.spotify-swal-title {
+//  color: #ffffff; /* White title */
+//  font-size: 22px;
+//  font-weight: bold;
+//  text-align: center;
+//}
+//
+//.spotify-swal-content {
+//  color: #b3b3b3; /* Light gray text */
+//  font-size: 16px;
+//  margin-bottom: 20px;
+//  text-align: center;
+//}
+//
+//.spotify-swal-confirm-btn,
+//.spotify-swal-cancel-btn {
+//  border: none;
+//  border-radius: 22px; /* Rounded buttons */
+//  padding: 12px 24px;
+//  font-size: 16px;
+//  font-weight: bold;
+//  cursor: pointer;
+//  transition: all 0.3s ease-in-out;
+//  display: inline-flex;
+//  align-items: center;
+//  justify-content: center;
+//  text-transform: uppercase;
+//
+//  &:hover {
+//    transform: scale(1.05); /* Slight scale on hover */
+//  }
+//
+//  &:active {
+//    transform: scale(0.95); /* Slight scale on click */
+//  }
+//}
+//
+//.spotify-swal-confirm-btn {
+//  background: #1DB954; /* Spotify green */
+//  color: #ffffff; /* White text */
+//
+//  &:hover {
+//    background: #1ed760; /* Slightly lighter green on hover */
+//  }
+//}
+//
+//.spotify-swal-cancel-btn {
+//  background: #ffffff; /* White background */
+//  color: #000000; /* Black text */
+//
+//  &:hover {
+//    background: #f1f1f1; /* Light gray on hover */
+//  }
+//}
+.spotify-swal-container {
+  font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* Remove backdrop-filter to avoid interference */
+}
+
+.spotify-swal-popup {
+  background: #000000; /* Solid black background */
+  color: #ffffff; /* White text */
+  border-radius: 14px;
+  padding: 25px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4); /* Subtle shadow */
+  /* Remove transition and custom animations to avoid interference */
+}
+
+.spotify-swal-title {
+  color: #ffffff; /* White title */
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.spotify-swal-content {
+  color: #b3b3b3; /* Light gray text */
+  font-size: 16px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.spotify-swal-confirm-btn,
+.spotify-swal-cancel-btn {
+  border: none;
+  border-radius: 22px; /* Rounded buttons */
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+
+  &:hover {
+    transform: scale(1.05); /* Slight scale on hover */
+  }
+
+  &:active {
+    transform: scale(0.95); /* Slight scale on click */
+  }
+}
+
+.spotify-swal-confirm-btn {
+  background: #1DB954; /* Spotify green */
+  color: #ffffff; /* White text */
+
+  &:hover {
+    background: #1ed760; /* Slightly lighter green on hover */
+  }
+}
+
+.spotify-swal-cancel-btn {
+  background: #ffffff; /* White background */
+  color: #000000; /* Black text */
+
+  &:hover {
+    background: #f1f1f1; /* Light gray on hover */
+  }
+}
