@@ -1,4 +1,4 @@
-import {computed, inject, Injectable, signal, WritableSignal} from '@angular/core';
+import {computed, inject, Injectable, Signal, signal, WritableSignal} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {State} from "../shared/model/state.model";
 
@@ -135,12 +135,42 @@ export class PlaylistService {
     });
   }
 
+  private isSongInPlaylistMap$: Map<string, WritableSignal<State<boolean>>> = new Map();
+
+  getIsSongInPlaylistSignal(playlistId: number, songId: number): WritableSignal<State<boolean>> {
+    const key = `${playlistId}-${songId}`; // Create a unique key for the playlist-song combination
+    if (!this.isSongInPlaylistMap$.has(key)) {
+      this.isSongInPlaylistMap$.set(key, signal(State.Builder<boolean>().forInit()));
+    }
+    return this.isSongInPlaylistMap$.get(key)!;
+  }
+
+
+  getIsSongInPlaylistSignalComputed(playlistId: number, songId: number): Signal<State<boolean>> {
+    return computed(() => this.getIsSongInPlaylistSignal(playlistId, songId)());
+  }
+
   // Check if a song is in a playlist
+  // isSongInPlaylist(playlistId: number, songId: number): void {
+  //   this.http.get<boolean>(`${environment.API_URL}/playlists/${playlistId}/contains-song/${songId}`).subscribe({
+  //     next: (contains) => this.containsSong$.set(State.Builder<boolean>().forSuccess(contains)),
+  //     error: (err) => this.containsSong$.set(State.Builder<boolean>().forError(err)),
+  //   });
+  // }
   isSongInPlaylist(playlistId: number, songId: number): void {
-    this.http.get<boolean>(`${environment.API_URL}/playlists/${playlistId}/contains-song/${songId}`).subscribe({
-      next: (contains) => this.containsSong$.set(State.Builder<boolean>().forSuccess(contains)),
-      error: (err) => this.containsSong$.set(State.Builder<boolean>().forError(err)),
-    });
+    const songStateSignal = this.getIsSongInPlaylistSignal(playlistId, songId);
+
+    this.http
+      .get<boolean>(`${environment.API_URL}/playlists/${playlistId}/contains-song/${songId}`)
+      .subscribe({
+        next: (contains) => {
+          songStateSignal.set(State.Builder<boolean>().forSuccess(contains));
+        },
+        error: (err) => {
+          console.error(`Error checking songId ${songId} in playlist ${playlistId}:`, err);
+          songStateSignal.set(State.Builder<boolean>().forError(err));
+        },
+      });
   }
 
   // Reorder songs in a playlist
