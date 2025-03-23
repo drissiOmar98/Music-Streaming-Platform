@@ -1,0 +1,40 @@
+<div class="song-container">
+  <div class="song-header">
+    <div class="album-cover">
+      <img [src]="'data:' + track?.coverContentType + ';base64,' + track?.cover" alt="Album Cover">
+    </div>
+    <div class="song-info">
+      <p class="label">Title</p>
+      <h1 class="song-title">{{ track?.title }}</h1>
+      <p class="artist">
+        <img class="artist-avatar" [src]="'data:' + track?.artistInfo?.cover?.fileContentType + ';base64,' + track?.artistInfo?.cover?.file" alt="Artist Profile Picture">
+        <span class="bold">{{ track?.artistInfo?.name }}</span>  • {{ track?.title  }} • {{ track?.genre }}
+<!--        • {{ track?.album }} • {{ track?.year }} • {{ track?.duration }}-->
+      </p>
+    </div>
+  </div>
+</div>
+
+  <div class="song-controls">
+    <button class="play-btn"><i class="fas fa-play"></i></button>
+
+    <button class="add-btn"><i class="fas fa-plus"></i></button>
+    <!-- Add Favorite Button Here -->
+    @if (track) {
+      <app-favorite-song-btn
+        [song]="track"
+        (addedToWishList)="onAddedToWishList($event)"
+        (removedFromWishList)="onRemovedFromWishList($event)">
+      </app-favorite-song-btn>
+    }
+    <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+  </div>
+
+  <div class="artist-section">
+    <img class="artist-avatar-big" [src]="'data:' + track?.artistInfo?.cover?.fileContentType + ';base64,' + track?.artistInfo?.cover?.file" alt="Artist Profile Picture">
+    <div>
+      <p class="label">Artist</p>
+      <h2>{{ track?.artistInfo?.name }}</h2>
+    </div>
+  </div>
+
