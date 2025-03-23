@@ -1,0 +1,63 @@
+<div class="library-container">
+  <!-- Action Buttons -->
+  <div class="library-actions">
+    <button class="view-toggle-btn" (click)="toggleView()">
+      <fa-icon [icon]="isGridView ? ['fas', 'list'] : ['fas', 'th-large']"></fa-icon>
+    </button>
+  </div>
+
+  @if (!isGridView) {
+    <div class="song-container" [ngClass]="{'grid-view': isGridView, 'list-view': !isGridView}">
+      @if (isLoading) {
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <div class="spinner-grow text-primary loader" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      } @else {
+        @for (song of tracks; track song.id) {
+          <div class="song-item">
+            <app-small-song-card [song]="song" (songToPlay$)="onPlaySong($event)"/>
+            <app-favorite-song-btn (addedToWishList)="addToWishList($event)"
+                                   (removedFromWishList)="removedFromWishList($event)"
+                                   [song]="song"></app-favorite-song-btn>
+          </div>
+        }
+      }
+    </div>
+  }
+
+  <!-- Grid View -->
+  @if (isGridView) {
+    <div class="grid-view">
+      @if (tracks.length > 0) {
+        <div class="list">
+          @if (isLoading) {
+            <div class="d-flex justify-content-center align-items-center">
+              <div class="spinner-grow text-primary loader" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          } @else {
+            <div class="d-flex flex-wrap">
+              @for (song of tracks; track song.id) {
+                <div class="card song-card-background mt-0 mb-4 ms-0 me-4">
+                  <app-song-card [song]="song" (songToPlay$)="onPlaySong($event)"/>
+                  <div class="favorite-btn-container">
+                    <app-favorite-song-btn [song]="song"
+                                           (addedToWishList)="addToWishList($event)"
+                                           (removedFromWishList)="removedFromWishList($event)">
+                    </app-favorite-song-btn>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      } @else {
+        <p>No songs found.</p>
+      }
+    </div>
+  }
+
+</div>
