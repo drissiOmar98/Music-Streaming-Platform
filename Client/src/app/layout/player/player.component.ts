@@ -1,4 +1,4 @@
-import {Component, effect, inject} from '@angular/core';
+import {Component, effect, inject, OnDestroy} from '@angular/core';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {FormsModule} from "@angular/forms";
 import {SmallSongCardComponent} from "../../shared/small-song-card/small-song-card.component";
@@ -6,19 +6,27 @@ import {ReadSong, SongContent} from "../../service/model/song.model";
 import {SongContentService} from "../../service/song-content.service";
 import {Howl} from "howler";
 import {NgClass} from "@angular/common";
+import {PlaybackService} from "../../service/playback.service";
+import {FavoriteSongBtnComponent} from "../../shared/favorite-song-btn/favorite-song-btn.component";
+import {favouriteRequest} from "../../service/model/favourite.model";
+import {ToastService} from "../../service/toast.service";
+import {FavouriteService} from "../../service/favourite.service";
 
 @Component({
   selector: 'app-player',
   standalone: true,
   imports: [FontAwesomeModule,
     FormsModule,
-    SmallSongCardComponent, NgClass,],
+    SmallSongCardComponent, NgClass, FavoriteSongBtnComponent,],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss'
 })
-export class PlayerComponent {
+export class PlayerComponent implements  OnDestroy  {
 
   songContentService = inject(SongContentService);
+  playbackService = inject(PlaybackService);
+  toastService = inject(ToastService);
+  favouriteService = inject(FavouriteService);
 
   public currentSong: SongContent | undefined = undefined;
   currentHowlInstance: Howl | undefined;
@@ -31,6 +39,8 @@ export class PlayerComponent {
 
   private nextQueue: Array<SongContent> = [];
   private previousQueue: Array<SongContent> = [];
+
+  loadingCreation = false;
 
   constructor() {
     effect(() => {
@@ -45,6 +55,12 @@ export class PlayerComponent {
         this.onNextSong();
       }
     });
+
+    this.playbackService.isPlaying$.subscribe(state => {
+      this.isPlaying = state.isPlaying;
+    });
+
+
   }
 
   private onNewQueue(newQueue: Array<ReadSong>): void {
@@ -102,11 +118,13 @@ export class PlayerComponent {
 
   private onPlay(): void {
     this.isPlaying = true;
+    this.playbackService.setPlayingState(this.currentSong?.artistId, true);
     this.startProgressTracking();
   }
 
   private onPause(): void {
     this.isPlaying = false;
+    this.playbackService.setPlayingState(this.currentSong?.artistId, false);
     if (this.progressInterval) {
       clearInterval(this.progressInterval);
     }
@@ -237,6 +255,37 @@ export class PlayerComponent {
     // Implement fullscreen functionality
     console.log('Fullscreen clicked');
   }
+
+  addToWishList(song: ReadSong | SongContent) {
+    this.loadingCreation = true;
+    const songId = song.id || song.songId;
+    if (!songId) {
+      console.error("Song ID is undefined.");
+      this.loadingCreation = false;
+      return;
+    }
+    const favRequest: favouriteRequest = {
+      songId: songId,
+    };
+    this.favouriteService.addToFavourites(favRequest);
+  }
+
+  removedFromWishList(song: ReadSong | SongContent) {
+    const songId = song.id || song.songId; // Use `id` if available, otherwise fall back to `songId`
+
+    if (!songId) {
+      console.error("Song ID is undefined.");
+      return;
+    }
+    this.favouriteService.removeFromFavourites(songId);
+  }
+
+  ngOnDestroy(): void {
+    this.favouriteService.resetAddToFavouritesState();
+    this.favouriteService.resetRemoveFromFavouritesState();
+  }
+
+
 
 
 
