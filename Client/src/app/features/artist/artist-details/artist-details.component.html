@@ -37,5 +37,21 @@
     </div>
   </div>
 
-
 </div>
+
+<!-- Action Buttons -->
+<div class="library-actions">
+  <button  *ngIf="!showPlayPlaylist" class="play-btn" (click)="togglePlayPausePlaylist()"><i class="fas fa-play"></i></button>
+  <button  *ngIf=" showPlayPlaylist" class="play-btn" (click)="togglePlayPausePlaylist()"><i class="fas fa-pause"></i></button>
+  @if (cardArtist){
+    <app-follow-artist-btn [artist]="cardArtist"
+                           (followArtist)="followArtist($event)"
+                           (unfollowArtist)="unfollowArtist($event)">
+    </app-follow-artist-btn>
+  }
+<!--  <button class="add-btn"><i class="fas fa-plus"></i></button>-->
+  <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+</div>
+
+<!-- List Artist Songs -->
+<app-list-artist-song [tracks]="songs" [artist]="artist" (songToPlay$)="onPlaySong($event)"></app-list-artist-song>
