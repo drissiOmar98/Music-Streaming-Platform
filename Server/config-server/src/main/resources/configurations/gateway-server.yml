@@ -35,5 +35,10 @@ spring:
           predicates:
             - Path=/api/v1/follows/**
 
+        - id: playlist-service
+          uri: http://localhost:8020
+          predicates:
+            - Path=/api/v1/playlists/**
+
 
 
