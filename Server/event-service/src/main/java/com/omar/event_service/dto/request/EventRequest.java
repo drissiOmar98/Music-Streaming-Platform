@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 public record EventRequest(
-        Long id,
 
         @NotNull(message = "Event info is required")
         @Valid

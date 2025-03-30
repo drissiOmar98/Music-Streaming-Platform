@@ -8,12 +8,15 @@ import com.omar.event_service.model.Event;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = {EventPictureMapper.class})
 public interface EventMapper {
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "title", source = "infos.title")
     @Mapping(target = "description", source = "infos.description")
     @Mapping(target = "startDateTime", source = "dateRange.startDateTime")
@@ -23,14 +26,25 @@ public interface EventMapper {
 
 
     // Convert List of Entities to DisplayCard DTOs
-    @Mapping(target = "artists", source = "artists")
-    @Mapping(target = "cover", source = "pictures")
-    List<DisplayCardEventDTO> eventToDisplayCardEventDTOs(List<Event> events,Set<DisplayCardArtistDTO> artists);
+//    @Mapping(target = "artists", source = "artists")
+//    @Mapping(target = "cover", source = "pictures")
+//    List<DisplayCardEventDTO> eventToDisplayCardEventDTOs(List<Event> events,Set<DisplayCardArtistDTO> artists);
+    default List<DisplayCardEventDTO> eventToDisplayCardEventDTOs(
+            List<Event> events,
+            Set<DisplayCardArtistDTO> artists
+    ) {
+        if (events == null) {
+            return Collections.emptyList();
+        }
+        return events.stream()
+                .map(event -> eventToDisplayCardEventDTO(event, artists))
+                .collect(Collectors.toList());
+    }
 
 
     // Convert Entity to DisplayCard DTO
     @Mapping(target = "artists", source = "artists")
-    @Mapping(target = "cover", source = "pictures", qualifiedByName = "extract-cover")
+    @Mapping(target = "cover", source = "event.pictures", qualifiedByName = "extract-cover")
     DisplayCardEventDTO eventToDisplayCardEventDTO(Event event, Set<DisplayCardArtistDTO> artists);
 
     // Convert Entity to full Display DTO
