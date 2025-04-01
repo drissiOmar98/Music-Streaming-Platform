@@ -40,5 +40,15 @@ spring:
           predicates:
             - Path=/api/v1/playlists/**
 
+        - id: event-service
+          uri: http://localhost:8010
+          predicates:
+            - Path=/api/v1/events/**
+
+        - id: assets
+          uri: http://localhost:8010  # event-service
+          predicates:
+            - Path=/assets/**
+
 
 

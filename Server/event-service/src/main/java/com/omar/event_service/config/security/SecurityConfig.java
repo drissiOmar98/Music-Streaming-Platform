@@ -4,6 +4,7 @@ package com.omar.event_service.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -41,6 +42,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 freeResourceUrls)
                         .permitAll() // Public endpoints
+                        .requestMatchers(HttpMethod.GET, "assets/*").permitAll()
                         .anyRequest().authenticated()// All other endpoints require authentication
                 )
                 .sessionManagement(session -> session
