@@ -1,0 +1,45 @@
+<div class="px-4">
+  @switch (this.currentStep.id) {
+    @case (INFO) {
+      <app-event-info-step [eventInfos]="newEvent.infos"
+                             (infoChange)="onInfoChange($event)"
+                             (stepValidityChange)="onValidityChange($event)" ></app-event-info-step>
+
+    }
+    @case (PHOTOS) {
+      <app-pictures-step [pictures]="newEvent.pictures"
+                         context="event"
+                         (picturesChange)="onPictureChange($event)"
+                         (stepValidityChange)="onValidityChange($event)"></app-pictures-step>
+    }
+    @case (ARTISTS) {
+      <!-- For multiple selection (events) -->
+      <app-artist-step [selectedArtist]="newEvent.artistIds"
+                       selectionMode="multiple"
+                       (artistsSelected)="onArtistsSelected($event)"
+                       (stepValidityChange)="onValidityChange($event)"></app-artist-step>
+    }
+    @case (VIDEOS){
+      <app-video-step [video]="newEvent.video"
+                      (videoChange)="onVideoChange($event)"
+                      (stepValidityChange)="onValidityChange($event)"></app-video-step>
+    }
+    @case (LOCATION) {
+      <app-location-step [location]="newEvent.location"
+                         (locationChange)="onLocationChange($event)"
+                         (stepValidityChange)="onValidityChange($event)"></app-location-step>
+    }
+    @case (DATES) {
+      <app-date-range-step [dateRange]="newEvent.dateRange"
+                         (datesChange)="onDatesChange($event)"
+                         (stepValidityChange)="onValidityChange($event)"></app-date-range-step>
+    }
+  }
+</div>
+<app-footer-step [currentStep]="currentStep"
+                 [isAllStepsValid]="isAllStepsValid()"
+                 [loading]="loadingCreation"
+                 (finish)="createEvent()"
+                 (next)="nextStep()"
+                 (previous)="previousStep()">
+</app-footer-step>

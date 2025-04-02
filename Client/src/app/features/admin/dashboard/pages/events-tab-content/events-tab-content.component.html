@@ -1,0 +1,18 @@
+<div class="card">
+  <div class="card-header">
+    <div class="flex items-center justify-between w-full">
+      <div>
+        <h2 class="text-3xl font-bold text-white">Events Library</h2>
+        <p class="text-zinc-400">Manage your Event</p>
+      </div>
+      <!-- Add Song Button -->
+      <button
+        (click)="openAddEventModal()"
+        class="btn btn-primary"
+        aria-label="Add Event"
+      > <fa-icon [icon]="['fas', 'plus']" class="text-3xl font-bold"></fa-icon> Add Event
+
+      </button>
+    </div>
+  </div>
+</div>

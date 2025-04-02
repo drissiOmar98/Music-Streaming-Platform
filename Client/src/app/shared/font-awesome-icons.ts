@@ -43,9 +43,9 @@ import {
   faShuffle,
   faExpand,
   faListUl,
-  faThLarge, faList, faUpload,faMinus
+  faThLarge, faList, faUpload,faMinus,
 } from "@fortawesome/free-solid-svg-icons";
-import {faSpotify} from "@fortawesome/free-brands-svg-icons";
+import {faSpotify, faYoutube} from "@fortawesome/free-brands-svg-icons";
 
 export const fontAwesomeIcons: IconDefinition[] = [
   faCirclePlay,
@@ -97,7 +97,8 @@ export const fontAwesomeIcons: IconDefinition[] = [
   faList,
   faSpotify,
   faUpload,
-  faMinus
+  faMinus,
+  faYoutube
 
 
 
