@@ -1,0 +1,59 @@
+<div class="location-step-container">
+  <div class="location-glass-card">
+    <div class="location-header">
+      <h1 class="location-title">Where's Your Event?</h1>
+      <h2 class="location-subtitle">Pin your exact spot - only shared with ticket holders</h2>
+    </div>
+
+    <div class="location-search-section">
+      <div class="location-search-card">
+        <div class="location-search-wrapper">
+          <i class="fas fa-search location-search-icon"></i>
+          <p-autoComplete
+            [styleClass]="'location-autocomplete'"
+            [panelStyleClass]="'location-autocomplete-panel'"
+            [ngModel]="currentLocation"
+            (onSelect)="onLocationChange($event)"
+            [suggestions]="filteredCountries"
+            (completeMethod)="search($event)"
+            [dropdown]="true"
+            [optionLabel]="'name.common'"
+            [placeholder]="'Search for a location'"
+            [dropdownMode]="'current'"
+            [minLength]="1"
+            [scrollHeight]="'400px'">
+            <ng-template let-country pTemplate="item">
+              <div class="location-country-item">
+                <div class="location-flag-container">
+                  <img [src]="'https://flagcdn.com/32x24/' + country.cca2.toLowerCase() + '.png'"
+                       class="location-country-flag"
+                       alt="Flag of {{country.name.common}}"/>
+                </div>
+                <div class="location-country-info">
+                  <span class="location-country-name">{{ country.name.common }}</span>
+                  <span class="location-country-region">{{ country.region }} • {{ country.capital?.[0] }}</span>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="dropdownicon">
+              <i class="fas fa-chevron-down location-dropdown-icon"></i>
+            </ng-template>
+          </p-autoComplete>
+        </div>
+      </div>
+    </div>
+
+    <div class="location-map-container">
+      <div leaflet
+           [leafletOptions]="options"
+           [leafletLayersControl]="layersControl"
+           (leafletMapReady)="onMapReady($event)"
+           class="location-spotify-map">
+      </div>
+<!--      <div class="location-map-pin">-->
+<!--        <div class="location-pin-pulse"></div>-->
+<!--        <i class="fas fa-map-marker-alt location-pin-icon"></i>-->
+<!--      </div>-->
+    </div>
+  </div>
+</div>
