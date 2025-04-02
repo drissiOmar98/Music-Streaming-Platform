@@ -1,0 +1,60 @@
+<div class="info-step-container">
+  <div class="info-glass-card">
+    <div class="info-header">
+      <h1 class="info-title">Let's create your event</h1>
+      <h2 class="info-subtitle">Start with a great title and description</h2>
+    </div>
+
+    <form #formDescription="ngForm" novalidate class="info-form">
+      <!-- Title Input -->
+      <div class="info-input-group" [class.error]="titleInput.dirty && titleInput.invalid">
+        <label for="title" class="info-input-label">Event Title</label>
+        <div class="info-input-container">
+          <i class="fas fa-heading info-input-icon"></i>
+          <input
+            #titleInput="ngModel"
+            id="title"
+            name="title"
+            placeholder="Enter your event title"
+            required
+            class="info-input"
+            type="text"
+            [ngModel]="eventInfos().title"
+            (ngModelChange)="onTitleChange($event)"
+          />
+        </div>
+        @if (titleInput.dirty && titleInput.invalid) {
+          <div class="info-error-message">
+            <i class="fas fa-exclamation-circle"></i>
+            Title is required
+          </div>
+        }
+      </div>
+
+      <!-- Description Input -->
+      <div class="info-input-group" [class.error]="descriptionInput.dirty && descriptionInput.invalid">
+        <label for="description" class="info-input-label">Event Description</label>
+        <div class="info-input-container">
+          <i class="fas fa-align-left info-input-icon"></i>
+          <textarea
+            #descriptionInput="ngModel"
+            id="description"
+            name="description"
+            class="info-textarea"
+            required
+            placeholder="Provide a description for the event"
+            rows="5"
+            [ngModel]="eventInfos().description"
+            (ngModelChange)="onDescriptionChange($event)"
+          ></textarea>
+        </div>
+        @if (descriptionInput.dirty && descriptionInput.invalid) {
+          <div class="info-error-message">
+            <i class="fas fa-exclamation-circle"></i>
+            Description is required
+          </div>
+        }
+      </div>
+    </form>
+  </div>
+</div>
