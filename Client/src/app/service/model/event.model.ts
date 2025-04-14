@@ -1,6 +1,7 @@
 import {CardArtist, DisplayPicture} from "./artist.model";
 import {NewEventPicture} from "./picture.model";
 
+
 export interface CreatedEvent {
   id: number;
 }
@@ -20,8 +21,8 @@ export interface NewEventInfo {
 }
 
 export interface DateRange {
-  startDateTime : Date,
-  endDateTime : Date
+  startDateTime: Date;
+  endDateTime: Date;
 }
 
 export interface EventVideo {
@@ -30,7 +31,6 @@ export interface EventVideo {
   fileContentType?: string;
   videoUrl?: string;
 }
-
 
 export interface CardEvent {
   id: number;
@@ -46,6 +46,7 @@ export interface Event extends CardEvent {
   description: string;
   pictures: DisplayPicture[];
 }
+
 
 
 
