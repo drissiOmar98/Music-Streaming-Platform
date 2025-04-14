@@ -5,6 +5,7 @@ import {SongsTabContentComponent} from "./pages/songs-tab-content/songs-tab-cont
 import {ArtistsTabContentComponent} from "./pages/artists-tab-content/artists-tab-content.component";
 import {CommonModule} from "@angular/common";
 import {TabService} from "../../../service/tab.service";
+import {EventsTabContentComponent} from "./pages/events-tab-content/events-tab-content.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,7 @@ import {TabService} from "../../../service/tab.service";
     DashboardHeaderComponent,
     DashboardStatsComponent,
     SongsTabContentComponent,
-    ArtistsTabContentComponent, CommonModule
+    ArtistsTabContentComponent, CommonModule, EventsTabContentComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'

@@ -1,31 +1,51 @@
-<div class="mb-3">
-  <h1 class="mb-1">Add photos of your Artist</h1>
-  <!-- Upload Button -->
-  <div class="flex align-items-center justify-content-center mt-3">
-    <input
-      type="file"
-      id="pictures"
-      accept=".jpg,.jpeg,.png,.svg"
-      multiple
-      (change)="onUploadNewPicture($event.target)">
-  </div>
-</div>
+<div class="pictures-step-container">
+  <div class="pictures-glass-card">
+    <div class="pictures-header">
+      <h1 class="pictures-title">{{ context() === 'artist' ? 'Add Artist Photos' : 'Add Event Photos' }}</h1>
+      <h2 class="pictures-subtitle">{{ context() === 'artist' ? 'Showcase your artist with great photos' : 'Capture your event with beautiful images' }}</h2>
+    </div>
 
-<!-- Photo Gallery -->
-@if (pictures()) {
-  <div class="mt-2 flex flex-wrap w-full h-full gallery-container">
-    @for (picture of pictures(); track picture.file.name) {
-      <div class="border-1 relative border-transparent border-round-3xl container-picture">
-        <!-- Trash Icon -->
-        <button class="absolute trash-btn p-button" (click)="onTrashPicture(picture)">
-          <fa-icon icon="trash-can"></fa-icon>
-        </button>
-        <!-- Display Image -->
-        <div
-          class="border-1 border-transparent border-round-3xl bg-cover bg-no-repeat gallery-item"
-          [style.background-image]="'url(' + picture.urlDisplay + ')'">
+    <!-- Upload Area -->
+    <div class="pictures-upload-area">
+      <input
+        type="file"
+        id="pictures"
+        accept=".jpg,.jpeg,.png,.webp"
+        multiple
+        (change)="onUploadNewPicture($event.target)"
+        class="pictures-file-input"
+      >
+      <label for="pictures" class="pictures-drop-zone">
+        <div class="pictures-drop-content">
+          <i class="fas fa-cloud-upload-alt pictures-upload-icon"></i>
+          <h3 class="pictures-drop-title">Drag & drop photos here</h3>
+          <p class="pictures-drop-subtitle">or click to browse files</p>
+          <p class="pictures-file-types">JPG, PNG, or WEBP</p>
+          <button class="pictures-upload-button">
+            <i class="fas fa-plus"></i> Select Photos
+          </button>
+        </div>
+      </label>
+    </div>
+
+    <!-- Photo Gallery -->
+    @if (pictures() && pictures().length > 0) {
+      <div class="pictures-gallery">
+        <h3 class="pictures-gallery-title">Your Photos</h3>
+        <div class="pictures-grid">
+          @for (picture of pictures(); track picture.file.name) {
+            <div class="pictures-item">
+              <div
+                class="pictures-image"
+                [style.background-image]="'url(' + picture.urlDisplay + ')'"
+              ></div>
+              <button class="pictures-remove-button" (click)="onTrashPicture(picture)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          }
         </div>
       </div>
     }
   </div>
-}
+</div>

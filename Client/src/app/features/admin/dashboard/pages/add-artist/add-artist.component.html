@@ -10,6 +10,7 @@
   }
   @case (PHOTOS) {
     <app-pictures-step [pictures]="newArtist.pictures"
+                       context="artist"
                       (picturesChange)="onPictureChange($event)"
                       (stepValidityChange)="onValidityChange($event)"></app-pictures-step>
   }

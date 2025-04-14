@@ -1,5 +1,5 @@
 import {Component, EventEmitter, input, Output} from '@angular/core';
-import {NewArtistPicture} from "../../../../../../../service/model/picture.model";
+import {NewArtistPicture, NewEventPicture} from "../../../../../../../service/model/picture.model";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @Component({
@@ -13,10 +13,12 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 })
 export class PicturesStepComponent {
 
-  pictures = input.required<Array<NewArtistPicture>>();
+  pictures = input.required<Array<NewArtistPicture | NewEventPicture>>();
+
+  context = input<'artist' | 'event'>('artist'); // Default to artist
 
   @Output()
-  picturesChange = new EventEmitter<Array<NewArtistPicture>>();
+  picturesChange = new EventEmitter<Array<NewArtistPicture | NewEventPicture>>();
 
   @Output()
   stepValidityChange = new EventEmitter<boolean>();
@@ -37,7 +39,7 @@ export class PicturesStepComponent {
       for(let i = 0 ; i < picturesFileList.length; i++) {
         const picture = picturesFileList.item(i);
         if (picture !== null) {
-          const displayPicture: NewArtistPicture = {
+          const displayPicture: NewArtistPicture | NewEventPicture = {
             file: picture,
             urlDisplay: URL.createObjectURL(picture)
           }

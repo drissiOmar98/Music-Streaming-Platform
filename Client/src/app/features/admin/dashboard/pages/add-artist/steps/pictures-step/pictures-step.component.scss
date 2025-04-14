@@ -1,78 +1,257 @@
-//.trash-btn {
-//  left: calc(100% - 70px);
-//  top: 10px;
-//}
-//
-//.container-picture {
-//  width: 50%;
-//}
-/* Base styling for the gallery */
-.gallery-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
+@import 'primeflex/primeflex.scss';
+
+/* Base Container */
+.pictures-step-container {
+  padding: 2rem;
+  max-width: 950px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.container-picture {
-  position: relative;
-  width: 32%;
-  max-width: 300px;
-  border-radius: 12px;
+/* Glass Card Effect */
+.pictures-glass-card {
+  background: rgba(18, 18, 18, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  padding: 3rem;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
   &:hover {
-    transform: scale(1.03);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    box-shadow:
+      0 25px 60px rgba(29, 185, 84, 0.3),
+      inset 0 0 0 1px rgba(29, 185, 84, 0.2);
   }
 }
 
-/* Individual gallery image item */
-.gallery-item {
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 8px;
+/* Header Styles */
+.pictures-header {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  .pictures-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #1db954, #1ed760);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 20px rgba(29, 185, 84, 0.4);
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
+  .pictures-subtitle {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    margin: 0 auto;
+    max-width: 600px;
+    line-height: 1.6;
+  }
 }
 
-/* Trash button */
-.trash-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: rgba(255, 0, 0, 0.8);
+/* Upload Area */
+.pictures-upload-area {
+  margin-bottom: 3rem;
+}
+
+.pictures-file-input {
+  display: none;
+}
+
+.pictures-drop-zone {
+  display: block;
+  border: 2px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 3rem 2rem;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: rgba(30, 30, 30, 0.5);
+  cursor: pointer;
+
+  &:hover {
+    border-color: #1db954;
+    background: rgba(29, 185, 84, 0.05);
+
+    .pictures-upload-icon {
+      color: #1db954;
+    }
+  }
+}
+
+.pictures-drop-content {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.pictures-upload-icon {
+  font-size: 3.5rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.pictures-drop-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.pictures-drop-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.5rem;
+}
+
+.pictures-file-types {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 1.5rem;
+}
+
+.pictures-upload-button {
+  background: rgba(255, 255, 255, 0.1);
   color: white;
   border: none;
-  border-radius: 50%;
-  padding: 6px 8px;
+  border-radius: 50px;
+  padding: 0.75rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
 
   &:hover {
-    background: rgba(255, 0, 0, 1);
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
   }
 
-  fa-icon {
+  i {
     font-size: 1rem;
   }
 }
 
-/* Responsive Design */
+/* Gallery Styles */
+.pictures-gallery {
+  margin-top: 2rem;
+}
+
+.pictures-gallery-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pictures-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.pictures-item {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  aspect-ratio: 1 / 1;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+
+    .pictures-remove-button {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.pictures-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.pictures-remove-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(233, 20, 41, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(233, 20, 41, 1);
+  }
+
+  i {
+    font-size: 1rem;
+  }
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  .container-picture {
-    width: 48%; /* Adjust to 2 columns */
+  .pictures-step-container {
+    padding: 1.5rem;
+  }
+
+  .pictures-glass-card {
+    padding: 2rem;
+  }
+
+  .pictures-header {
+    .pictures-title {
+      font-size: 2rem;
+    }
+
+    .pictures-subtitle {
+      font-size: 1.1rem;
+    }
+  }
+
+  .pictures-drop-zone {
+    padding: 2rem 1.5rem;
+  }
+
+  .pictures-upload-icon {
+    font-size: 3rem;
+  }
+
+  .pictures-drop-title {
+    font-size: 1.3rem;
+  }
+
+  .pictures-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 
 @media (max-width: 480px) {
-  .container-picture {
-    width: 100%; /* Full width for mobile */
+  .pictures-grid {
+    grid-template-columns: 1fr;
   }
-}
-h1 {
-  margin-bottom: 2rem;
-  text-align: center;
-  font-size: 1.875rem; /* 3xl font size */
-  font-weight: bold;
 }

@@ -20,6 +20,13 @@
           >
             Artists
           </button>
+          <button
+            (click)="setActiveTab('events')"
+            [class.active]="(tabService.activeTab$ | async) === 'events'"
+            class="tab-button transition-all duration-300 ease-in-out hover:text-emerald-500"
+          >
+            Events
+          </button>
         </div>
 
         <!-- Tab Content -->
@@ -28,11 +35,16 @@
             <div class="fade-in">
               <app-songs-tab-content></app-songs-tab-content>
             </div>
-          } @else if ((tabService.activeTab$ | async) === 'artists') {
+          } @if ((tabService.activeTab$ | async) === 'artists') {
             <div class="fade-in">
               <app-artists-tab-content></app-artists-tab-content>
             </div>
           }
+           @else if ((tabService.activeTab$ | async) === 'events') {
+          <div class="fade-in">
+            <app-events-tab-content></app-events-tab-content>
+          </div>
+        }
         </div>
       </div>
     </div>

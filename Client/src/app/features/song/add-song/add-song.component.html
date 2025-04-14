@@ -10,9 +10,16 @@
       </div>
     }
     @case (ARTIST) {
-      <app-artist-step [selectedArtist]="newSong.artistId"
-                         (artistSelected)="onArtistSelected($event)"
-                         (stepValidityChange)="onValidityChange($event)"></app-artist-step>
+<!--      <app-artist-step [selectedArtist]="newSong.artistId"-->
+<!--                         (artistSelected)="onArtistSelected($event)"-->
+<!--                         (stepValidityChange)="onValidityChange($event)"></app-artist-step>-->
+  <!-- For single selection (songs) -->
+      <app-artist-step
+        [selectedArtist]="newSong.artistId"
+        selectionMode="single"
+        (artistSelected)="onArtistSelected($event)"
+        (stepValidityChange)="onValidityChange($event)">
+      </app-artist-step>
     }
     @case (DETAILS) {
       <app-details-step

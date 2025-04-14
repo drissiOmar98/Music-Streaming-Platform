@@ -1,12 +1,11 @@
 import {Component, effect, inject, OnDestroy} from '@angular/core';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {NgbActiveModal, NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
-import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
 import {NewSong} from "../../../service/model/song.model";
 import {SongService} from "../../../service/song.service";
 import {Router} from "@angular/router";
 import {ToastService} from "../../../service/toast.service";
-import {CreateSongFormContent} from "./add-song-form.model";
 import {FooterStepComponent} from "../../admin/dashboard/pages/add-artist/footer-step/footer-step.component";
 import {InfosStepComponent} from "../../admin/dashboard/pages/add-artist/steps/infos-step/infos-step.component";
 import {
@@ -21,7 +20,7 @@ import {State} from "../../../shared/model/state.model";
 import {CreatedArtist} from "../../../service/model/artist.model";
 
 
-type FlowStatus = 'init' | 'validation-file-error' | 'validation-cover-error' | 'success' | 'error';
+
 
 @Component({
   selector: 'app-add-song',
