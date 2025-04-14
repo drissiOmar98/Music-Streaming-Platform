@@ -5,4 +5,5 @@ export const environment = {
     clientId: "Spotify_Clone"
   },
   API_URL: "http://localhost:8222/api/v1",
+  ASSETS_URL: "http://localhost:8222/assets"
 };

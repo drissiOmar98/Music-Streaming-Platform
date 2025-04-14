@@ -1,0 +1,114 @@
+<div class="video-step-container">
+  <div class="video-glass-card">
+    <div class="video-header">
+      <h1 class="video-title">Add Video Content</h1>
+      <h2 class="video-subtitle">Upload your video or link to YouTube</h2>
+    </div>
+
+    <div class="video-tabs">
+      <button
+        class="video-tab-button"
+        [class.active]="selectedTab === 'upload'"
+        [class.disabled]="isTabDisabled('upload')"
+        [disabled]="isTabDisabled('upload')"
+        (click)="onTabChange('upload')">
+        <i class="fas fa-upload video-tab-icon"></i>
+        Upload Video
+      </button>
+      <button
+        class="video-tab-button youtube-tab"
+        [class.active]="selectedTab === 'youtube'"
+        [class.disabled]="isTabDisabled('youtube')"
+        [disabled]="isTabDisabled('youtube')"
+        (click)="onTabChange('youtube')">
+        <i class="fab fa-youtube video-tab-icon youtube-icon"></i>
+        YouTube Link
+      </button>
+    </div>
+
+    <div class="video-content">
+      <!-- Upload Tab -->
+      @if (selectedTab === 'upload'){
+        <div class="video-upload-section">
+          <div class="video-drop-area" [class.error]="validationErrors.file">
+            <input #fileInput type="file" class="video-file-input" accept="video/mp4,video/webm,video/quicktime" (change)="onFileChange($event)"/>
+            <div class="video-drop-message">
+              <i class="fas fa-play-circle video-drop-icon"></i>
+              <p>Drag & drop your video here, or <span>browse files</span></p>
+              <p class="video-file-types">MP4, WebM, or QuickTime</p>
+            </div>
+          </div>
+
+          @if (video().file){
+            <div class="video-file-preview">
+              <div class="video-thumbnail">
+                <i class="fas fa-play video-thumbnail-icon"></i>
+              </div>
+              <div class="video-file-info">
+                <p class="video-file-name">{{ video().file?.name }}</p>
+                <p class="video-file-size">{{ getFileSize(video().file?.size) }}</p>
+              </div>
+              <button class="video-remove-button" (click)="removeVideo()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          }
+          @if (validationErrors.file){
+            <div class="video-error-message">
+              <i class="fas fa-exclamation-circle"></i>
+              {{ validationErrors.file }}
+            </div>
+          }
+          @if (video().file){
+            <div class="video-upload-progress">
+              <div class="video-progress-container">
+                <div class="video-progress-bar" [style.width.%]="uploadProgress"></div>
+              </div>
+              <span class="video-progress-text">Uploading... {{ uploadProgress }}%</span>
+            </div>
+          }
+        </div>
+      }
+
+
+      <!-- YouTube Tab -->
+      @if(selectedTab === 'youtube'){
+
+        <div class="video-youtube-section">
+          <div class="video-youtube-input" [class.error]="validationErrors.youtubeUrl">
+            <i class="fas fa-link video-input-icon"></i>
+            <input #youtubeUrlInput
+                   type="text"
+                   class="video-youtube-url"
+                   placeholder="Paste YouTube URL here..."
+                   [value]="video().videoUrl || ''"
+                   (input)="onYoutubeUrlChange($any($event).target.value)"/>
+          </div>
+
+          @if (validationErrors.youtubeUrl){
+            <div  class="video-error-message">
+              <i class="fas fa-exclamation-circle"></i>
+              {{ validationErrors.youtubeUrl }}
+            </div>
+          }
+
+          @if(youtubeVideoId){
+            <div class="video-youtube-preview">
+              <div class="video-preview-container">
+                <iframe [src]="'https://www.youtube.com/embed/' + youtubeVideoId + '?enablejsapi=1'"
+                        frameborder="0"
+                        allowfullscreen
+                        class="video-youtube-iframe"></iframe>
+              </div>
+              <button class="video-youtube-remove-button" (click)="removeVideo()">
+                <i class="fas fa-times"></i> Remove Video
+              </button>
+            </div>
+          }
+        </div>
+      }
+
+
+    </div>
+  </div>
+</div>
