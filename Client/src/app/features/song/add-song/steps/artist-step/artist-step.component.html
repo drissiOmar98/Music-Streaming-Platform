@@ -1,35 +1,72 @@
+<div class="artist-step-container">
+  <div class="artist-glass-card">
+    <div class="artist-header">
+      <h1 class="artist-title">
+        {{ selectionMode() === 'single' ? 'Select Your Artist' : 'Select Event Artists' }}
+      </h1>
+      <h2 class="artist-subtitle">
+        {{ selectionMode() === 'single' ? 'Choose the main artist for your event' : 'Select all artists performing at your event' }}
+      </h2>
+    </div>
 
-<div class="categories flex flex-column align-items-center py-5">
-  <h1 class="text-white text-xl font-bold mb-4">Select Your Favorite Artist</h1>
-
-  <!-- Search Bar -->
-  <div class="search-container">
-    <fa-icon [icon]="faSearch" class="search-icon"></fa-icon>
-    <input type="text" class="search-input" placeholder="Search for an artist..." (input)="onSearch($event)">
-  </div>
-
-
-  <!-- Artists Grid -->
-  <div class="artist-container flex flex-wrap align-items-center justify-content-center gap-4">
-    @for (artist of artists; track artist.id) {
-      <div
-        class="artist-card cursor-pointer p-4 flex flex-column align-items-center justify-content-center border-round-xl"
-        [class.artist-selected]="selectedArtist() === artist.id"
-        (click)="onSelectArtist(artist.id)"
+    <!-- Search Bar -->
+    <div class="artist-search-container">
+      <i class="fas fa-search artist-search-icon"></i>
+      <input
+        type="text"
+        class="artist-search-input"
+        placeholder="{{ selectionMode() === 'single' ? 'Search artists...' : 'Search artists...' }}"
+        (input)="onSearch($event)"
       >
-        <div class="image-container">
-          <div
-            [style.background-image]="'url(' + 'data:' + artist.cover.fileContentType + ';base64,' + artist.cover.file + ')' "
-            class="artist-image"
-          ></div>
+    </div>
+
+    <!-- Selected Count (for multiple selection) -->
+<!--    @if (selectionMode() === 'multiple' && selectedArtist().length > 0) {-->
+<!--      <div class="artist-selected-count">-->
+<!--        <i class="fas fa-check-circle"></i>-->
+<!--        {{ selectedArtist().length }} {{ selectedArtist().length === 1 ? 'artist' : 'artists' }} selected-->
+<!--      </div>-->
+<!--    }-->
+
+    <!-- Artists Grid -->
+    <div class="artist-grid">
+      @for (artist of artists; track artist.id) {
+        <div
+          class="artist-card"
+          [class.artist-selected]="isArtistSelected(artist.id)"
+          (click)="onSelectArtist(artist.id)"
+        >
+          <div class="artist-image-container">
+            <div
+              class="artist-image"
+              [style.background-image]="'url(' + 'data:' + artist.cover.fileContentType + ';base64,' + artist.cover.file + ')'"
+            ></div>
+            @if (isArtistSelected(artist.id)) {
+              <div class="artist-selection-badge">
+                <i class="fas fa-check"></i>
+              </div>
+            }
+          </div>
+          <h3 class="artist-name">{{ artist.name }}</h3>
+          <div class="artist-hover-effect"></div>
         </div>
-        <h2 class="artist-name">{{ artist.name }}</h2>
+      }
+    </div>
+
+    <!-- Loading Indicator -->
+    @if (loadingFetchAll) {
+      <div class="artist-loading">
+        <i class="fas fa-spinner fa-spin"></i>
+        <span>Loading artists...</span>
+      </div>
+    }
+
+    <!-- Empty State -->
+    @if (!loadingFetchAll && artists?.length === 0) {
+      <div class="artist-empty-state">
+        <i class="fas fa-music"></i>
+        <p>No artists found</p>
       </div>
     }
   </div>
-
-  <!-- Loading Indicator -->
-  @if (loadingFetchAll) {
-    <p class="loading-text">Loading artists...</p>
-  }
 </div>

@@ -20,9 +20,16 @@ export class ArtistStepComponent  implements OnInit, OnDestroy {
   toastService = inject(ToastService);
   artistService = inject (ArtistService);
 
-  selectedArtist = input.required<Number>();
+  //selectedArtist = input.required<Number>();
+  // Input can be either a single ID or array of IDs
+  selectedArtist = input.required<number | number[]>();
+
+  // New input to determine selection mode
+  selectionMode = input<'single' | 'multiple'>('single');
 
   @Output() artistSelected = new EventEmitter<number>();
+
+  @Output() artistsSelected = new EventEmitter<number[]>();
 
   @Output()
   stepValidityChange = new EventEmitter<boolean>();
@@ -63,10 +70,45 @@ export class ArtistStepComponent  implements OnInit, OnDestroy {
     });
   }
 
-  onSelectArtist(categoryId: number) {
-    this.artistSelected.emit(categoryId);
-    this.stepValidityChange.emit(true);
+
+  onSelectArtist(artistId: number) {
+    if (this.selectionMode() === 'single') {
+      // Single selection mode
+      this.artistSelected.emit(artistId);
+      this.stepValidityChange.emit(true);
+    } else {
+      // Multiple selection mode
+      const currentSelection = this.getCurrentSelectionArray();
+
+      let newSelection: number[];
+
+      if (currentSelection.includes(artistId)) {
+        // Remove artist if already selected
+        newSelection = currentSelection.filter(id => id !== artistId);
+      } else {
+        // Add artist if not selected
+        newSelection = [...currentSelection, artistId];
+      }
+
+      this.artistsSelected.emit(newSelection);
+      this.stepValidityChange.emit(newSelection.length > 0);
+    }
   }
+
+  isArtistSelected(artistId: number): boolean {
+    if (this.selectionMode() === 'single') {
+      return this.selectedArtist() === artistId;
+    } else {
+      return this.getCurrentSelectionArray().includes(artistId);
+    }
+  }
+
+  // Helper method to always get an array of selected artist IDs
+  private getCurrentSelectionArray(): number[] {
+    const selection = this.selectedArtist();
+    return Array.isArray(selection) ? selection : (selection !== undefined ? [selection] : []);
+  }
+
 
   onSearch(event: Event) {
     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
@@ -77,4 +119,5 @@ export class ArtistStepComponent  implements OnInit, OnDestroy {
 
 
   protected readonly faSearch = faSearch;
+  protected readonly Array = Array;
 }
