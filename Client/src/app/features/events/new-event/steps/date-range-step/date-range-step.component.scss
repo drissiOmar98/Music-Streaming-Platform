@@ -1,0 +1,427 @@
+/* date-range-step.component.scss */
+@import 'primeflex/primeflex.scss';
+
+.date-range-container {
+  padding: 1.5rem;
+  max-width: 950px; /* Increased width */
+  margin: 0 auto;
+}
+
+.glass-card {
+  background: rgba(18, 18, 18, 0.95); /* Slightly more opaque */
+  backdrop-filter: blur(16px); /* Stronger blur */
+  border-radius: 28px; /* More rounded corners */
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  padding: 3rem; /* More padding */
+  overflow: visible; /* Changed to visible for calendar overflow */
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    box-shadow:
+      0 20px 50px rgba(29, 185, 84, 0.3),
+      inset 0 0 0 1px rgba(29, 185, 84, 0.15);
+  }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem; /* More spacing */
+
+  .title {
+    font-size: 2.4rem; /* Larger title */
+    font-weight: 800; /* Bolder */
+    margin-bottom: 0.75rem;
+    background: linear-gradient(90deg, #1db954, #1ed760);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 15px rgba(29, 185, 84, 0.4);
+    letter-spacing: -0.5px;
+  }
+
+  .subtitle {
+    font-size: 1.2rem; /* Slightly larger */
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 400;
+    margin-top: 0;
+    letter-spacing: 0.25px;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+.date-selector {
+  display: flex;
+  justify-content: space-between;
+  gap: 2.5rem; /* More gap between columns */
+  margin-bottom: 2.5rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+.date-column {
+  flex: 1;
+  background: rgba(30, 30, 30, 0.7);
+  border-radius: 20px; /* More rounded */
+  padding: 2rem; /* More padding */
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 1;
+
+  &:hover {
+    background: rgba(40, 40, 40, 0.7);
+    box-shadow:
+      0 12px 28px rgba(0, 0, 0, 0.35),
+      inset 0 0 0 1px rgba(29, 185, 84, 0.25);
+    transform: translateY(-4px);
+  }
+}
+
+.date-header {
+  display: flex;
+  align-items: center;
+  gap: 14px; /* Slightly more gap */
+  margin-bottom: 2rem; /* More space below */
+
+  .icon {
+    font-size: 1.6rem; /* Larger icons */
+    color: #1db954;
+    filter: drop-shadow(0 0 8px rgba(29, 185, 84, 0.5));
+    transition: all 0.3s ease;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.3rem; /* Slightly larger */
+    font-weight: 700; /* Bolder */
+    color: white;
+    letter-spacing: 0.3px;
+  }
+}
+
+.datetime-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* More space between elements */
+}
+
+.time-inputs {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.25rem; /* More gap between inputs */
+  margin-top: 1.5rem;
+}
+
+.time-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* More gap */
+
+  label {
+    font-size: 0.95rem; /* Slightly larger */
+    color: rgba(255, 255, 255, 0.8); /* More visible */
+    font-weight: 500;
+    padding-left: 0.5rem;
+  }
+}
+
+.time-separator {
+  font-size: 1.6rem; /* Larger */
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.75rem;
+  font-weight: 300;
+}
+
+.date-separator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem; /* More padding */
+  position: relative;
+  z-index: 0;
+
+  .line {
+    flex: 1;
+    width: 3px; /* Thicker */
+    background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(29, 185, 84, 0.6) 50%,
+      transparent 100%);
+  }
+
+  .fa-arrow-right {
+    color: #1db954;
+    font-size: 1.5rem; /* Larger */
+    margin: 1rem 0; /* More space */
+    filter: drop-shadow(0 0 6px rgba(29, 185, 84, 0.5));
+    padding: 0.5rem;
+    background: rgba(18, 18, 18, 0.9);
+    border-radius: 50%;
+    border: 1px solid rgba(29, 185, 84, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    padding: 1.5rem 0;
+
+    .line {
+      height: 3px;
+      width: auto;
+      flex: 1;
+      background: linear-gradient(to right,
+        transparent 0%,
+        rgba(29, 185, 84, 0.6) 50%,
+        transparent 100%);
+    }
+
+    .fa-arrow-right {
+      transform: rotate(90deg);
+      margin: 0 1rem;
+    }
+  }
+}
+
+.duration-display {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem; /* More space */
+  animation: fadeIn 0.6s ease-out;
+}
+
+.duration-card {
+  display: flex;
+  align-items: center;
+  gap: 14px; /* More gap */
+  background: rgba(30, 215, 96, 0.15);
+  border: 1px solid rgba(30, 215, 96, 0.3);
+  border-radius: 16px; /* More rounded */
+  padding: 1.25rem 2rem; /* More padding */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(4px);
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(29, 185, 84, 0.35);
+    background: rgba(30, 215, 96, 0.2);
+  }
+
+  .duration-icon {
+    font-size: 1.5rem; /* Larger */
+    color: #1db954;
+    filter: drop-shadow(0 0 8px rgba(29, 185, 84, 0.5));
+  }
+
+  .duration-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .label {
+      font-size: 1rem; /* Larger */
+      color: rgba(255, 255, 255, 0.8);
+      letter-spacing: 0.5px;
+    }
+
+    .value {
+      font-size: 1.3rem; /* Larger */
+      font-weight: 700; /* Bolder */
+      color: white;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+/* Enhanced Calendar Styles */
+::ng-deep .spotify-calendar {
+  background: #282828 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+  color: white !important;
+  overflow: visible !important; /* Changed to visible */
+  font-family: 'Circular', sans-serif !important;
+  width: 350px !important; /* Fixed width */
+  transform: translateY(5px); /* Slight offset */
+
+  .p-datepicker-header {
+    background: linear-gradient(90deg, #1db954, #1ed760) !important;
+    color: white !important;
+    border-radius: 18px 18px 0 0 !important;
+    padding: 1.25rem !important;
+    border: none !important;
+    font-size: 1.1rem;
+  }
+
+  .p-datepicker-title {
+    .p-datepicker-year, .p-datepicker-month {
+      color: white !important;
+      font-weight: 700 !important;
+      font-size: 1.1rem;
+    }
+  }
+
+  .p-datepicker-calendar {
+    padding: 1rem !important;
+
+    th {
+      color: rgba(255, 255, 255, 0.8) !important;
+      font-weight: 600 !important;
+      padding: 0.75rem !important;
+      font-size: 0.95rem;
+    }
+
+    td {
+      padding: 0.25rem !important;
+
+      > span {
+        color: white !important;
+        border-radius: 10px !important;
+        transition: all 0.3s ease !important;
+        padding: 0.75rem !important;
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 0.95rem;
+
+        &:not(.p-disabled):hover {
+          background: rgba(29, 185, 84, 0.25) !important;
+          transform: scale(1.1);
+          box-shadow: 0 2px 8px rgba(29, 185, 84, 0.3);
+        }
+      }
+    }
+
+    td.p-datepicker-today > span {
+      background: rgba(29, 185, 84, 0.4) !important;
+      color: white !important;
+      font-weight: 700 !important;
+      border: 1px solid rgba(29, 185, 84, 0.6);
+    }
+
+    td > span.p-highlight {
+      background: linear-gradient(135deg, #1db954, #1ed760) !important;
+      color: white !important;
+      font-weight: 700 !important;
+      box-shadow: 0 4px 12px rgba(29, 185, 84, 0.5) !important;
+      transform: scale(1.05);
+    }
+  }
+
+  .p-timepicker {
+    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding: 1.25rem !important;
+    background: rgba(40, 40, 40, 0.6);
+
+    button {
+      color: white !important;
+      transition: all 0.3s ease !important;
+      width: 2rem !important;
+      height: 2rem !important;
+
+      &:hover {
+        background: rgba(29, 185, 84, 0.3) !important;
+        transform: scale(1.15);
+      }
+    }
+
+    .p-hour-picker, .p-minute-picker, .p-second-picker {
+      font-weight: 600 !important;
+      font-size: 1.1rem;
+    }
+  }
+
+  .p-button {
+    background: #1db954 !important;
+    border-color: #1db954 !important;
+    font-weight: 700 !important;
+    transition: all 0.3s ease !important;
+    padding: 0.75rem 1.25rem !important;
+    border-radius: 12px !important;
+
+    &:hover {
+      background: #1ed760 !important;
+      border-color: #1ed760 !important;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(29, 185, 84, 0.5) !important;
+    }
+  }
+}
+
+/* Enhanced InputNumber Styles */
+::ng-deep .p-inputnumber {
+  .p-inputnumber-input {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: white !important;
+    width: 90px !important; /* Wider */
+    border-radius: 12px !important;
+    padding: 0.75rem 1rem !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem;
+    transition: all 0.3s ease !important;
+    height: auto !important;
+
+    &:hover, &:focus {
+      border-color: #1db954 !important;
+      box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.3) !important;
+      background: rgba(255, 255, 255, 0.12) !important;
+    }
+  }
+
+  .p-inputnumber-button {
+    background: rgba(29, 185, 84, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    color: white !important;
+    transition: all 0.3s ease !important;
+    width: 2.5rem !important;
+
+    &:hover {
+      background: rgba(29, 185, 84, 0.4) !important;
+      transform: scale(1.1);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.3) !important;
+    }
+
+    .p-button-icon {
+      font-size: 1rem !important;
+    }
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Floating animation for calendar */
+::ng-deep .p-datepicker {
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
+}
