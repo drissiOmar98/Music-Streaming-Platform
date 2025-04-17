@@ -5,8 +5,11 @@ import com.omar.event_service.dto.common.EventVideoDTO;
 import com.omar.event_service.dto.common.PictureDTO;
 import com.omar.event_service.dto.request.EventRequest;
 import com.omar.event_service.dto.response.DisplayCardEventDTO;
+import com.omar.event_service.dto.response.DisplayEventDTO;
 import com.omar.event_service.exception.FileProcessingException;
 import com.omar.event_service.services.EventService;
+import com.omar.event_service.shared.state.State;
+import com.omar.event_service.shared.state.StatusNotification;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import org.springframework.data.domain.Page;
@@ -15,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -99,8 +103,6 @@ public class EventController {
 
 
 
-
-
     @GetMapping("/get-all")
     public ResponseEntity<Page<DisplayCardEventDTO>> getAllEvents(Pageable pageable) {
         return ResponseEntity.ok(eventService.getAllEvents(pageable));
@@ -124,6 +126,20 @@ public class EventController {
             Pageable pageable) {
         return ResponseEntity.ok(eventService.getPastEvents(pageable));
     }
+
+    @GetMapping("/{eventId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public ResponseEntity<DisplayEventDTO> getEventById(@PathVariable Long eventId) {
+        State<DisplayEventDTO, String> displayEventState = eventService.getEventById(eventId);
+        if (displayEventState.getStatus().equals(StatusNotification.OK)) {
+            return ResponseEntity.ok(displayEventState.getValue());
+        } else {
+            ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, displayEventState.getError());
+            return ResponseEntity.of(problemDetail).build();
+        }
+    }
+
+
 
 
 

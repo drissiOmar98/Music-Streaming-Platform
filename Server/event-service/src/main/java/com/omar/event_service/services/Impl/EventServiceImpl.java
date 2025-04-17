@@ -109,6 +109,14 @@ public class EventServiceImpl implements EventService {
         return mapEventsToDisplayCards(eventPage);
     }
 
+    @Override
+    public State<DisplayEventDTO, String> getEventById(Long eventId) {
+        Event event = getEventOrThrow(eventId);
+        Set<DisplayCardArtistDTO> artists = fetchArtistsForEvent(event);
+        DisplayEventDTO displayEventDTO = eventMapper.eventToDisplayEventDTO(event, artists);
+        return State.<DisplayEventDTO, String>builder().forSuccess(displayEventDTO);
+    }
+
 
 
     private Event getEventOrThrow(Long eventId) {
@@ -132,6 +140,11 @@ public class EventServiceImpl implements EventService {
         }
     }
 
+    private Set<DisplayCardArtistDTO> fetchArtistsForEvent(Event event) {
+        return event.getArtistIds().stream()
+                .map(artistClient::getArtistDetailsById)
+                .collect(Collectors.toSet());
+    }
 
     private Page<DisplayCardEventDTO> mapEventsToDisplayCards(Page<Event> eventPage) {
         if (eventPage.isEmpty()) {
@@ -159,6 +172,7 @@ public class EventServiceImpl implements EventService {
 
         return new PageImpl<>(content, eventPage.getPageable(), eventPage.getTotalElements());
     }
+
 
 
 

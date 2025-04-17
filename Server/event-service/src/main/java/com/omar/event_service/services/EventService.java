@@ -24,5 +24,7 @@ public interface EventService {
 
     Page<DisplayCardEventDTO> getPastEvents(Pageable pageable);
 
+    State<DisplayEventDTO, String> getEventById(Long eventId);
+
 
 }
