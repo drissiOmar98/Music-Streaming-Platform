@@ -20,6 +20,13 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     Page<Event> findAllWithCoverOnly(Pageable pageable);
 
 
+    @Query("SELECT event " +
+            "FROM Event event " +
+            "LEFT JOIN FETCH event.pictures picture " +
+            "WHERE :artistId MEMBER OF event.artistIds " +
+            "AND picture.isCover = true ")
+    Page<Event> findByArtistIdsContaining(@Param("artistId") Long artistId, Pageable pageable);
+
 
 
 }

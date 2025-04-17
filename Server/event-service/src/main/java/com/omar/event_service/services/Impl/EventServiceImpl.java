@@ -88,7 +88,23 @@ public class EventServiceImpl implements EventService {
         return mapEventsToDisplayCards(events);
     }
 
+    @Override
+    public Page<DisplayCardEventDTO> getEventsByArtist(Long artistId, Pageable pageable) {
+        validateArtistExists(artistId);
+        Page<Event> events= eventRepository.findByArtistIdsContaining(artistId, pageable);
+        return mapEventsToDisplayCards(events);
+    }
 
+
+
+
+    private Event getEventOrThrow(Long eventId) {
+        return eventRepository.findById(eventId)
+                .orElseThrow(() -> new EventNotFoundException(
+                        EVENT_NOT_FOUND + eventId
+                        )
+                );
+    }
 
 
     private void validateArtistIds(Set<Long> artistIds) {
@@ -102,7 +118,6 @@ public class EventServiceImpl implements EventService {
             throw new ArtistNotFoundException(ARTIST_NOT_FOUND + artistId);
         }
     }
-
 
 
     private Page<DisplayCardEventDTO> mapEventsToDisplayCards(Page<Event> eventPage) {
@@ -131,6 +146,10 @@ public class EventServiceImpl implements EventService {
 
         return new PageImpl<>(content, eventPage.getPageable(), eventPage.getTotalElements());
     }
+
+
+
+
 
 
 

@@ -106,6 +106,14 @@ public class EventController {
         return ResponseEntity.ok(eventService.getAllEvents(pageable));
     }
 
+    @GetMapping("/artist/{artistId}")
+    public ResponseEntity<Page<DisplayCardEventDTO>> getEventsByArtist(
+            @PathVariable Long artistId,
+            Pageable pageable) {
+        return ResponseEntity.ok(eventService.getEventsByArtist(artistId, pageable) );
+    }
+
+
 
     /**
      * Utility function to map a MultipartFile to a PictureDTO.
