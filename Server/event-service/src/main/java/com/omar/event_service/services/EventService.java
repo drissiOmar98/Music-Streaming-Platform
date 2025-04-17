@@ -26,5 +26,7 @@ public interface EventService {
 
     State<DisplayEventDTO, String> getEventById(Long eventId);
 
+    Optional<EventVideoDTO> getEventContentById(Long eventId);
+
 
 }

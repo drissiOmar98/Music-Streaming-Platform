@@ -2,6 +2,7 @@ package com.omar.event_service.handlerException;
 
 
 import com.omar.event_service.exception.ArtistNotFoundException;
+import com.omar.event_service.exception.EventContentNotFoundException;
 import com.omar.event_service.exception.EventNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,9 +43,16 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
-
-
-
+    @ExceptionHandler(EventContentNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> handleEventContentNotFoundException(EventContentNotFoundException ex) {
+        ExceptionResponse response = ExceptionResponse.builder()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .message(ex.getMessage())
+                .error(HttpStatus.NOT_FOUND.getReasonPhrase())
+                .timestamp(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<ExceptionResponse> handleMaxUploadSizeExceededException(MaxUploadSizeExceededException ex) {

@@ -109,12 +109,20 @@ public class EventServiceImpl implements EventService {
         return mapEventsToDisplayCards(eventPage);
     }
 
+
     @Override
     public State<DisplayEventDTO, String> getEventById(Long eventId) {
         Event event = getEventOrThrow(eventId);
         Set<DisplayCardArtistDTO> artists = fetchArtistsForEvent(event);
         DisplayEventDTO displayEventDTO = eventMapper.eventToDisplayEventDTO(event, artists);
         return State.<DisplayEventDTO, String>builder().forSuccess(displayEventDTO);
+    }
+
+    @Override
+    public Optional<EventVideoDTO> getEventContentById(Long eventId) {
+        getEventOrThrow(eventId);
+        return eventVideoRepository.findById(eventId)
+                .map(eventVideoMapper::toDto);
     }
 
 
@@ -172,6 +180,8 @@ public class EventServiceImpl implements EventService {
 
         return new PageImpl<>(content, eventPage.getPageable(), eventPage.getTotalElements());
     }
+
+
 
 
 

@@ -139,6 +139,13 @@ public class EventController {
         }
     }
 
+    @GetMapping("/get-content")
+    public ResponseEntity<EventVideoDTO> getEventVideoContent(@RequestParam Long eventId) {
+        return eventService.getEventContentById(eventId)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 
 
 
