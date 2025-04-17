@@ -147,6 +147,19 @@ public class EventController {
     }
 
 
+    @GetMapping("/exists/{eventId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public ResponseEntity<Boolean> existsById(@PathVariable Long eventId) {
+        return ResponseEntity.ok(this.eventService.existsById(eventId));
+    }
+
+    @GetMapping("/{eventId}/has-artist/{artistId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public ResponseEntity<Boolean> isArtistInEvent(
+            @PathVariable Long eventId,
+            @PathVariable Long artistId) {
+        return ResponseEntity.ok(eventService.isArtistInEvent(eventId, artistId));
+    }
 
 
 

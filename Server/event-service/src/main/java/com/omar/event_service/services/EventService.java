@@ -29,4 +29,9 @@ public interface EventService {
     Optional<EventVideoDTO> getEventContentById(Long eventId);
 
 
+    boolean existsById(Long eventId);
+
+    boolean isArtistInEvent(Long eventId, Long artistId);
+
+
 }

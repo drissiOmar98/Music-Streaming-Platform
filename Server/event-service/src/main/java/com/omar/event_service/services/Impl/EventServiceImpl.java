@@ -126,6 +126,19 @@ public class EventServiceImpl implements EventService {
     }
 
 
+    @Override
+    public boolean existsById(Long eventId) {
+        return eventRepository.findById(eventId).isPresent();
+    }
+
+    @Override
+    public boolean isArtistInEvent(Long eventId, Long artistId) {
+        Event event = getEventOrThrow(eventId);
+        return event.getArtistIds().contains(artistId);
+    }
+
+
+
 
     private Event getEventOrThrow(Long eventId) {
         return eventRepository.findById(eventId)
