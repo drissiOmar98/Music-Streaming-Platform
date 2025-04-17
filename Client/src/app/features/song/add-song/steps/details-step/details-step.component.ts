@@ -1,35 +1,10 @@
-import {
-  Component,
-  effect, ElementRef,
-  EventEmitter,
-  inject,
-  Input,
-  input,
-  OnDestroy,
-  OnInit,
-  Output,
-  signal,
-  ViewChild
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  NgForm,
-  ReactiveFormsModule,
-  Validators
-} from "@angular/forms";
-
-
+import {Component, ElementRef, EventEmitter, input, Output, ViewChild} from '@angular/core';
+import {FormsModule, NgForm, ReactiveFormsModule,} from "@angular/forms";
 import {NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {NewSong, NewSongCover} from "../../../../../service/model/song.model";
-import {NgIf} from "@angular/common";
 
 
-
-type FlowStatus = 'init' | 'validation-file-error' | 'validation-cover-error' | 'success' | 'error';
 @Component({
   selector: 'app-details-step',
   standalone: true,

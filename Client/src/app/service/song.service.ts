@@ -1,8 +1,8 @@
 import {computed, inject, Injectable, signal, WritableSignal} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {State} from "../shared/model/state.model";
-import {CreatedSong, NewSong, ReadSong} from "./model/song.model";
-import {CreatedArtist} from "./model/artist.model";
+import {CreatedSong, NewSong, ReadSong, SongContent} from "./model/song.model";
+import {Artist, CreatedArtist} from "./model/artist.model";
 import {environment} from "../../environments/environment";
 import {Oauth2AuthService} from "../auth/oauth2-auth.service";
 
@@ -21,6 +21,13 @@ export class SongService {
 
   private getAll$: WritableSignal<State<Array<ReadSong>>> = signal(State.Builder<Array<ReadSong>>().forInit());
   getAllSig = computed(() => this.getAll$());
+
+  private getSongsByArtist$: WritableSignal<State<Array<ReadSong>>> = signal(State.Builder<Array<ReadSong>>().forInit());
+  getSongsByArtistSig = computed(() => this.getSongsByArtist$());
+
+  private songInfoById$ : WritableSignal<State<ReadSong>> = signal(State.Builder<ReadSong>().forInit());
+  songInfoByIdSig= computed(()=>this.songInfoById$())
+
 
   add(newSong: NewSong): void {
     const formData = new FormData();
@@ -48,6 +55,25 @@ export class SongService {
         this.getAll$.set(State.Builder<Array<ReadSong>>().forError(err));
       },
     });
+  }
+
+  getSongsByArtist(artistId: number): void {
+    this.http.get<Array<ReadSong>>(`${environment.API_URL}/songs/artist/${artistId}`)
+      .subscribe({
+        next: songs => this.getSongsByArtist$.set(State.Builder<Array<ReadSong>>().forSuccess(songs)),
+        error: err => this.getSongsByArtist$.set(State.Builder<Array<ReadSong>>().forError(err)),
+      });
+  }
+
+  fetchSongInfoById(songInfo : ReadSong) : void {
+    const queryParam = new HttpParams().set('songId', songInfo.id!);
+    this.http.get<ReadSong>(`${environment.API_URL}/songs/get-info`, {params: queryParam})
+      .subscribe({
+        next: song => {
+          this.songInfoById$.set(State.Builder<ReadSong>().forSuccess(song))
+        },
+        error: err => this.songInfoById$.set(State.Builder<ReadSong>().forError(err))
+      })
   }
 
   // getSongs(): void {

@@ -36,13 +36,15 @@ export class FollowService {
   }
 
 
-  checkArtistInFollowedList(songId: number): void {
-    const artistStateSignal = this.getIsArtistInFollowingListSignal(songId);
+  checkArtistInFollowedList(artistId: number): void {
+    const artistStateSignal = this.getIsArtistInFollowingListSignal(artistId);
+    console.log("Checking artist in followedList:", artistId);
     this.http
-      .get<boolean>(`${environment.API_URL}/follows/is-following/${songId}`)
+      .get<boolean>(`${environment.API_URL}/follows/is-following/${artistId}`)
       .subscribe({
-        next: (isFavourite) => {
-          artistStateSignal.set(State.Builder<boolean>().forSuccess(isFavourite));
+        next: (isFollowed) => {
+          console.log("Backend response:", isFollowed);
+          artistStateSignal.set(State.Builder<boolean>().forSuccess(isFollowed));
         },
         error: (err) => {
           artistStateSignal.set(State.Builder<boolean>().forError(err));

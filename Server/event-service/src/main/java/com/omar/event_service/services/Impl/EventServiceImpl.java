@@ -95,6 +95,19 @@ public class EventServiceImpl implements EventService {
         return mapEventsToDisplayCards(events);
     }
 
+    @Override
+    public Page<DisplayCardEventDTO> getUpcomingEvents(Pageable pageable) {
+        Date currentDate = new Date();
+        Page<Event> eventPage = eventRepository.findUpcomingEventsWithCover(currentDate, pageable);
+        return mapEventsToDisplayCards(eventPage);
+    }
+
+    @Override
+    public Page<DisplayCardEventDTO> getPastEvents(Pageable pageable) {
+        Date currentDate = new Date();
+        Page<Event> eventPage = eventRepository.findPastEventsWithCover(currentDate, pageable);
+        return mapEventsToDisplayCards(eventPage);
+    }
 
 
 
@@ -146,9 +159,6 @@ public class EventServiceImpl implements EventService {
 
         return new PageImpl<>(content, eventPage.getPageable(), eventPage.getTotalElements());
     }
-
-
-
 
 
 

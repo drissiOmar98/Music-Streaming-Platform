@@ -27,6 +27,19 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "AND picture.isCover = true ")
     Page<Event> findByArtistIdsContaining(@Param("artistId") Long artistId, Pageable pageable);
 
+    @Query("SELECT event FROM Event event " +
+            "LEFT JOIN FETCH event.pictures picture " +
+            "WHERE event.startDateTime > :currentDate " +
+            "AND  picture.isCover = true")
+    Page<Event> findUpcomingEventsWithCover(@Param("currentDate") Date currentDate, Pageable pageable);
+
+    @Query("SELECT event FROM Event event " +
+            "LEFT JOIN FETCH event.pictures picture " +
+            "WHERE event.endDateTime < :currentDate " +
+            "AND picture.isCover = true")
+    Page<Event> findPastEventsWithCover(@Param("currentDate") Date currentDate, Pageable pageable);
+
+
 
 
 }

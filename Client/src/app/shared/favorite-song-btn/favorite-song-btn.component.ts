@@ -36,7 +36,7 @@ export class FavoriteSongBtnComponent implements OnInit {
     const songId = song.id || song.songId; // Use `id` if available, otherwise fall back to `songId`
 
     if (songId) {
-      console.log("Song ID in FavoriteSongBtnComponent:", songId); // Debugging
+      //console.log("Song ID in FavoriteSongBtnComponent:", songId); // Debugging
       this.checkSongInWishlist(songId);
     } else {
       console.error("Song ID is undefined.");
@@ -49,7 +49,7 @@ export class FavoriteSongBtnComponent implements OnInit {
       const songId = song.id || song.songId; // Use `id` if available, otherwise fall back to `songId`
 
       if (!songId) {
-        console.error("Song ID is undefined.");
+        //console.error("Song ID is undefined.");
         return;
       }
 
@@ -57,16 +57,16 @@ export class FavoriteSongBtnComponent implements OnInit {
       const state = itemStateSignal();
       if (state.status === "OK") {
         this.inWishlist.set(songId, state.value ?? false);
-        console.log("Song in wishList:", songId, state.value);
+        //console.log("Song in wishList:", songId, state.value);
       } else if (state.status === "ERROR") {
         this.toastService.show("Failed to check song status", "DANGER");
-        console.error("Error fetching song in wishlist state");
+        //console.error("Error fetching song in wishlist state");
       }
     });
   }
 
   private checkSongInWishlist(songId: number): void {
-    console.log("Checking if song is in Favourite List:", songId);
+    //console.log("Checking if song is in Favourite List:", songId);
     this.favouriteService.checkSongInWishList(songId);
   }
 
@@ -74,11 +74,11 @@ export class FavoriteSongBtnComponent implements OnInit {
     const songId = song.id || song.songId; // Use `id` if available, otherwise fall back to `songId`
 
     if (!songId) {
-      console.error("Song ID is undefined.");
+      //console.error("Song ID is undefined.");
       return;
     }
 
-    console.log("inWishList before action:", this.inWishlist.get(songId));
+    //console.log("inWishList before action:", this.inWishlist.get(songId));
     if (this.inWishlist.get(songId)) {
       this.removedFromWishList.emit(song); // Emit event for removal
       this.favouriteService.getIsSongInWishListSignal(songId).set(State.Builder<boolean>().forSuccess(false));
@@ -86,7 +86,7 @@ export class FavoriteSongBtnComponent implements OnInit {
       this.addedToWishList.emit(song); // Emit event for addition
       this.favouriteService.getIsSongInWishListSignal(songId).set(State.Builder<boolean>().forSuccess(true));
     }
-    console.log("inWishList after action:", this.inWishlist.get(songId));
+    //console.log("inWishList after action:", this.inWishlist.get(songId));
   }
 
   getButtonLikeClass(songId: number): IconProp {

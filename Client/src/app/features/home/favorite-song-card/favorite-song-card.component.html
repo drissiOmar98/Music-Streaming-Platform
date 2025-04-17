@@ -1,7 +1,7 @@
 <div class="card song-card-background playlist-card">
-  <div class="card-body p-1 d-flex w-100 rounded-2" routerLink="favorites">
+  <div class="card-body p-1 d-flex w-100 rounded-2"  [routerLink]="['/liked']">
     <img class="rounded-2" width="55px" height="55px"
-         [src]="'./assets/images/like.png'" alt="like songs">
+         [src]="'./assets/images/likedsong.png'" alt="like songs">
     <div class="d-flex flex-column justify-content-center ms-2">
       <div class="mb-1 title">Liked song</div>
     </div>

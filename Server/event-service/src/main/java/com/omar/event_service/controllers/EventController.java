@@ -113,6 +113,18 @@ public class EventController {
         return ResponseEntity.ok(eventService.getEventsByArtist(artistId, pageable) );
     }
 
+    @GetMapping("/upcoming")
+    public ResponseEntity<Page<DisplayCardEventDTO>> getUpcomingEvents(
+            Pageable pageable) {
+        return ResponseEntity.ok(eventService.getUpcomingEvents(pageable));
+    }
+
+    @GetMapping("/past")
+    public ResponseEntity<Page<DisplayCardEventDTO>> getPastEvents(
+            Pageable pageable) {
+        return ResponseEntity.ok(eventService.getPastEvents(pageable));
+    }
+
 
 
     /**

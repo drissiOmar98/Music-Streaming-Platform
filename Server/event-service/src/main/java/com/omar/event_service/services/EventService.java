@@ -20,5 +20,9 @@ public interface EventService {
 
     Page<DisplayCardEventDTO> getEventsByArtist(Long artistId, Pageable pageable);
 
+    Page<DisplayCardEventDTO> getUpcomingEvents(Pageable pageable);
+
+    Page<DisplayCardEventDTO> getPastEvents(Pageable pageable);
+
 
 }

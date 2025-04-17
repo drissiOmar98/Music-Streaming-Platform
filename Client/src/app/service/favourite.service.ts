@@ -37,15 +37,16 @@ export class FavouriteService {
   }
 
 
+
   checkSongInWishList(songId: number): void {
     const songStateSignal = this.getIsSongInWishListSignal(songId);
-    console.log("Checking song in wishList for songId:", songId);
+    //console.log("Checking song in wishList for songId:", songId);
 
     this.http
       .get<boolean>(`${environment.API_URL}/favourites/is-favourite/${songId}`)
       .subscribe({
         next: (isFavourite) => {
-          console.log("Backend response:", isFavourite);
+          //console.log("Backend response:", isFavourite);
           songStateSignal.set(State.Builder<boolean>().forSuccess(isFavourite));
         },
         error: (err) => {

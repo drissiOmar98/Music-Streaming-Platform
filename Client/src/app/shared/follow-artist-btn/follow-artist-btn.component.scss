@@ -27,13 +27,13 @@
   }
 
   &.following {
-    background-color: #1ed760;
-    color: #000;
-    border-color: #1ed760;
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.5);
 
     &:hover {
-      background-color: #1db954;
-      border-color: #1db954;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: #fff;
 
       .unfollow-text {
         opacity: 1;
