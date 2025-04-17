@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -17,8 +19,8 @@ public class DisplayEventDTO {
     private String title;
     private String description;
     private String location;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
+    private Date startDateTime;
+    private Date endDateTime;
     private List<PictureDTO> pictures;
     private Set<DisplayCardArtistDTO> artists;
 }

@@ -55,7 +55,7 @@ public class EventPicture  extends AbstractAuditingEntity<Long> {
 
     @Override
     public String toString() {
-        return "ArtistPicture{" +
+        return "EventPicture{" +
                 "file=" + Arrays.toString(file) +
                 ", fileContentType='" + fileContentType + '\'' +
                 ", isCover=" + isCover +

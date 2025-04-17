@@ -2,7 +2,6 @@ package com.omar.event_service.dto.common;
 
 
 import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.URL;
 
@@ -12,27 +11,25 @@ import java.util.Objects;
 public record EventVideoDTO(
         Long eventId,
 
-        @Null(message = "File must be null when using URL")
-        @AssertTrue(message = "Either file or URL must be provided")
+
         byte[] file,
 
-        @Null(message = "Content type must be null when using URL")
         @Pattern(regexp = "video/(mp4|webm|quicktime)",
                 message = "Invalid video type. Allowed: mp4, webm, quicktime")
         String fileContentType,
 
-        @Null(message = "URL must be null when uploading file")
+
         @URL(message = "Invalid YouTube URL format")
         @Pattern(regexp = "^(https?://)?(www\\.)?(youtube\\.com|youtu\\.?be)/.+$",
                 message = "Must be a YouTube URL")
         String videoUrl
-
-
 ) {
 
-    @AssertTrue(message = "Either file or URL must be provided")
-    public boolean isFileOrUrlPresent() {
-        return (file != null && fileContentType != null) ^ (videoUrl != null);
+    // Validation for file or URL
+    @AssertTrue(message = "Either file or videoUrl must be provided, but not both")
+    public boolean isFileOrUrl() {
+        return (file != null && videoUrl == null) ||
+                (file == null && videoUrl != null);
     }
 
     @Override

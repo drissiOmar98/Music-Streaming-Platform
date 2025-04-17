@@ -4,7 +4,9 @@ package com.omar.event_service.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+
+
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,10 +34,10 @@ public class Event {
     private String location;
 
     @Column(name = "start_date_time", nullable = false)
-    private LocalDateTime startDateTime;
+    private Date startDateTime;
 
     @Column(name = "end_date_time", nullable = false)
-    private LocalDateTime endDateTime;
+    private Date endDateTime;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.REMOVE)
     private Set<EventPicture> pictures = new HashSet<>();

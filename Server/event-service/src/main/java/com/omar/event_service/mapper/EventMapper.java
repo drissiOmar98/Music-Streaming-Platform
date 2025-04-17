@@ -8,7 +8,10 @@ import com.omar.event_service.model.Event;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,16 +22,20 @@ public interface EventMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "title", source = "infos.title")
     @Mapping(target = "description", source = "infos.description")
-    @Mapping(target = "startDateTime", source = "dateRange.startDateTime")
-    @Mapping(target = "endDateTime", source = "dateRange.endDateTime")
+    @Mapping(target = "startDateTime", expression = "java(parseDate(request.dateRange().startDateTime()))")
+    @Mapping(target = "endDateTime", expression = "java(parseDate(request.dateRange().endDateTime()))")
     @Mapping(target = "artistIds", source = "artistIds")
     Event toEntity(EventRequest request);
 
+    default Date parseDate(String dateString) {
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateString);
+        } catch (ParseException e) {
+            throw new RuntimeException("Failed to parse date: " + dateString, e);
+        }
+    }
 
-    // Convert List of Entities to DisplayCard DTOs
-//    @Mapping(target = "artists", source = "artists")
-//    @Mapping(target = "cover", source = "pictures")
-//    List<DisplayCardEventDTO> eventToDisplayCardEventDTOs(List<Event> events,Set<DisplayCardArtistDTO> artists);
+
     default List<DisplayCardEventDTO> eventToDisplayCardEventDTOs(
             List<Event> events,
             Set<DisplayCardArtistDTO> artists
