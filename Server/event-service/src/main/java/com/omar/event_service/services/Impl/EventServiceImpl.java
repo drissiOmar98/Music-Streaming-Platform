@@ -166,6 +166,37 @@ public class EventServiceImpl implements EventService {
         eventRepository.deleteById(event.getId());
     }
 
+    @Override
+    @Transactional
+    public Long updateEvent(Long eventId, EventRequest request) {
+        Event existingEvent = getEventOrThrow(eventId);
+
+        // Update basic fields
+        existingEvent.setTitle(request.infos().title());
+        existingEvent.setDescription(request.infos().description());
+        existingEvent.setLocation(request.location());
+        existingEvent.setStartDateTime(eventMapper.parseDate(request.dateRange().startDateTime()));
+        existingEvent.setEndDateTime(eventMapper.parseDate(request.dateRange().endDateTime()));
+
+        // Update pictures if provided
+        if (request.pictures() != null && !request.pictures().isEmpty()) {
+            pictureService.updatePictures(existingEvent, request.pictures());
+        }
+
+        // Update video if provided - using mapper approach
+        if (request.video() != null) {
+            updateEventVideo(existingEvent, request);
+        }
+
+        // Update artists if needed
+        if (!existingEvent.getArtistIds().equals(request.artistIds())) {
+            validateArtistIds(request.artistIds());
+            existingEvent.setArtistIds(request.artistIds());
+        }
+
+        Event updatedEvent = eventRepository.save(existingEvent);
+        return updatedEvent.getId();
+    }
 
 
     private Event getEventOrThrow(Long eventId) {
@@ -224,6 +255,19 @@ public class EventServiceImpl implements EventService {
 
 
 
+
+    private void updateEventVideo(Event event, EventRequest request) {
+        Optional<EventVideo> existingVideo = eventVideoRepository.findByEventId(event.getId());
+        if (existingVideo.isPresent()) {
+            EventVideo video = existingVideo.get();
+            eventVideoMapper.updateVideoFromRequest(request, video);
+            eventVideoRepository.save(video);
+        } else {
+            EventVideo newVideo = eventVideoMapper.saveVideoToEvent(request);
+            newVideo.setEvent(event);
+            eventVideoRepository.save(newVideo);
+        }
+    }
 
 
 

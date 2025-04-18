@@ -41,5 +41,5 @@ public interface EventService {
 
     void deleteEvent(Long eventId);
 
-
+    Long updateEvent(Long eventId, EventRequest request);
 }

@@ -57,6 +57,18 @@ public class EventController {
         return ResponseEntity.ok(eventService.createEvent(completeRequest));
     }
 
+    @PutMapping(value = "/update/{eventId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Long> updateEvent(
+            @PathVariable Long eventId,
+            MultipartHttpServletRequest request,
+            @RequestPart(name = "videoFile", required = false) MultipartFile videoFile,
+            @RequestPart(name = "eventRequest") String eventRequestString
+    ) throws IOException {
+        EventRequest completeRequest = buildCompleteRequest(request, videoFile, eventRequestString);
+        return ResponseEntity.ok(eventService.updateEvent(eventId, completeRequest));
+    }
+
+
     @GetMapping("/get-all")
     public ResponseEntity<Page<DisplayCardEventDTO>> getAllEvents(Pageable pageable) {
         return ResponseEntity.ok(eventService.getAllEvents(pageable));
