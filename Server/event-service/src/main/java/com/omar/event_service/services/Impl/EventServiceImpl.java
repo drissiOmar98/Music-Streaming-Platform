@@ -6,6 +6,7 @@ import com.omar.event_service.client.artist.ArtistClient;
 import com.omar.event_service.client.artist.DisplayCardArtistDTO;
 import com.omar.event_service.dto.common.EventVideoDTO;
 import com.omar.event_service.dto.request.EventRequest;
+import com.omar.event_service.dto.request.UpdateEventArtistsRequest;
 import com.omar.event_service.dto.response.DisplayCardEventDTO;
 import com.omar.event_service.dto.response.DisplayEventDTO;
 import com.omar.event_service.exception.ArtistNotFoundException;
@@ -143,6 +144,29 @@ public class EventServiceImpl implements EventService {
         return event.getArtistIds().contains(artistId);
     }
 
+    @Override
+    public void addArtistsToEvent(UpdateEventArtistsRequest request) {
+        validateArtistIds(request.artistIds());
+        Event event = getEventOrThrow(request.eventId());
+        event.getArtistIds().addAll(request.artistIds());
+        eventRepository.save(event);
+    }
+
+    @Override
+    public void removeArtistsFromEvent(UpdateEventArtistsRequest request ) {
+        validateArtistIds(request.artistIds());
+        Event event = getEventOrThrow(request.eventId());
+        event.getArtistIds().removeAll(request.artistIds());
+        eventRepository.save(event);
+    }
+
+    @Override
+    public void deleteEvent(Long eventId) {
+        Event event = getEventOrThrow(eventId);
+        eventRepository.deleteById(event.getId());
+    }
+
+
 
     private Event getEventOrThrow(Long eventId) {
         return eventRepository.findById(eventId)
@@ -197,7 +221,6 @@ public class EventServiceImpl implements EventService {
 
         return new PageImpl<>(content, eventPage.getPageable(), eventPage.getTotalElements());
     }
-
 
 
 

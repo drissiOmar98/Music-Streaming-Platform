@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omar.event_service.dto.common.EventVideoDTO;
 import com.omar.event_service.dto.common.PictureDTO;
 import com.omar.event_service.dto.request.EventRequest;
+import com.omar.event_service.dto.request.UpdateEventArtistsRequest;
 import com.omar.event_service.dto.response.DisplayCardEventDTO;
 import com.omar.event_service.dto.response.DisplayEventDTO;
 import com.omar.event_service.exception.FileProcessingException;
@@ -11,6 +12,7 @@ import com.omar.event_service.services.EventService;
 import com.omar.event_service.shared.state.State;
 import com.omar.event_service.shared.state.StatusNotification;
 import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Valid;
 import jakarta.validation.Validator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,6 +49,7 @@ public class EventController {
 
 
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createEvent(
             MultipartHttpServletRequest request,
             @RequestPart(name = "videoFile", required = false) MultipartFile videoFile,
@@ -166,7 +169,27 @@ public class EventController {
         return ResponseEntity.ok(eventService.isArtistInEvent(eventId, artistId));
     }
 
+    @DeleteMapping("/{eventId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteEvent(@PathVariable Long eventId) {
+        eventService.deleteEvent(eventId);
+        return ResponseEntity.noContent().build();
+    }
 
+
+    @PostMapping("/artists/add")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> addArtistsToEvent(@Valid @RequestBody UpdateEventArtistsRequest request) {
+        eventService.addArtistsToEvent(request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/artists/remove")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> removeArtistsFromEvent(@Valid @RequestBody UpdateEventArtistsRequest request) {
+        eventService.removeArtistsFromEvent(request);
+        return ResponseEntity.noContent().build();
+    }
 
 
 

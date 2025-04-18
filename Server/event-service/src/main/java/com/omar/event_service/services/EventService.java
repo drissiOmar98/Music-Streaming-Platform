@@ -3,6 +3,7 @@ package com.omar.event_service.services;
 import com.omar.event_service.dto.common.EventVideoDTO;
 import com.omar.event_service.dto.request.EventRequest;
 
+import com.omar.event_service.dto.request.UpdateEventArtistsRequest;
 import com.omar.event_service.dto.response.DisplayCardEventDTO;
 import com.omar.event_service.dto.response.DisplayEventDTO;
 import com.omar.event_service.shared.state.State;
@@ -33,6 +34,12 @@ public interface EventService {
     boolean existsById(Long eventId);
 
     boolean isArtistInEvent(Long eventId, Long artistId);
+
+    void addArtistsToEvent(UpdateEventArtistsRequest request);
+
+    void removeArtistsFromEvent(UpdateEventArtistsRequest request);
+
+    void deleteEvent(Long eventId);
 
 
 }
