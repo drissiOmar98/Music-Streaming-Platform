@@ -28,6 +28,7 @@ public interface EventService {
 
     Optional<EventVideoDTO> getEventContentById(Long eventId);
 
+    Page<DisplayCardEventDTO> searchEvents(Pageable pageable, String query);
 
     boolean existsById(Long eventId);
 

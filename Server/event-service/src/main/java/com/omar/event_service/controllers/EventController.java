@@ -102,7 +102,6 @@ public class EventController {
     }
 
 
-
     @GetMapping("/get-all")
     public ResponseEntity<Page<DisplayCardEventDTO>> getAllEvents(Pageable pageable) {
         return ResponseEntity.ok(eventService.getAllEvents(pageable));
@@ -147,6 +146,12 @@ public class EventController {
     }
 
 
+    @GetMapping("/search")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    public ResponseEntity<Page<DisplayCardEventDTO>> searchEvents(@RequestParam String query, Pageable pageable) {
+        return ResponseEntity.ok(eventService.searchEvents(pageable, query));
+    }
+
     @GetMapping("/exists/{eventId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<Boolean> existsById(@PathVariable Long eventId) {
@@ -160,6 +165,9 @@ public class EventController {
             @PathVariable Long artistId) {
         return ResponseEntity.ok(eventService.isArtistInEvent(eventId, artistId));
     }
+
+
+
 
 
 

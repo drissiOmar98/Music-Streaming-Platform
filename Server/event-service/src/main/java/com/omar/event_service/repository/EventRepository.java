@@ -40,6 +40,12 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     Page<Event> findPastEventsWithCover(@Param("currentDate") Date currentDate, Pageable pageable);
 
 
-
+    @Query("SELECT e FROM Event e " +
+            "LEFT JOIN FETCH e.pictures pic " +
+            "WHERE pic.isCover = true " +
+            "AND (LOWER(e.title) LIKE LOWER(CONCAT('%', :query, '%')) " +
+            "OR LOWER(e.description) LIKE LOWER(CONCAT('%', :query, '%')) " +
+            "OR LOWER(e.location) LIKE LOWER(CONCAT('%', :query, '%')))")
+    Page<Event> searchEvents(@Param("query") String query, Pageable pageable);
 
 }

@@ -125,6 +125,12 @@ public class EventServiceImpl implements EventService {
                 .map(eventVideoMapper::toDto);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Page<DisplayCardEventDTO> searchEvents(Pageable pageable, String query) {
+        Page<Event> events= eventRepository.searchEvents(query,pageable);
+        return mapEventsToDisplayCards(events);
+    }
 
     @Override
     public boolean existsById(Long eventId) {
@@ -136,8 +142,6 @@ public class EventServiceImpl implements EventService {
         Event event = getEventOrThrow(eventId);
         return event.getArtistIds().contains(artistId);
     }
-
-
 
 
     private Event getEventOrThrow(Long eventId) {
@@ -193,7 +197,6 @@ public class EventServiceImpl implements EventService {
 
         return new PageImpl<>(content, eventPage.getPageable(), eventPage.getTotalElements());
     }
-
 
 
 
