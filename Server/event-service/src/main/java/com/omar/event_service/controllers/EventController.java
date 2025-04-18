@@ -47,63 +47,15 @@ public class EventController {
         this.validator = validator;
     }
 
-
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> createEvent(
+    public ResponseEntity<Long> createEvent(
             MultipartHttpServletRequest request,
             @RequestPart(name = "videoFile", required = false) MultipartFile videoFile,
             @RequestPart(name = "eventRequest") String eventRequestString
     ) throws IOException {
-
-        // 1. Process pictures
-        List<PictureDTO> pictures = request.getFileMap()
-                .values()
-                .stream()
-                .filter(file -> !file.getName().equals("videoFile"))
-                .map(mapMultipartFileToPictureDTO())
-                .toList();
-
-        // 2. Parse main request
-        EventRequest eventRequest = objectMapper.readValue(eventRequestString, EventRequest.class);
-
-        // 3. Process video with validation guards
-        EventVideoDTO videoDto;
-        try {
-            videoDto = videoFile != null
-                    ? new EventVideoDTO(null, videoFile.getBytes(), videoFile.getContentType(), null)
-                    : eventRequest.video();
-        } catch (IOException e) {
-            throw new FileProcessingException("Video file processing failed");
-        }
-
-        // 4. Build complete request
-        EventRequest completeRequest = new EventRequest(
-                eventRequest.infos(),
-                eventRequest.location(),
-                eventRequest.dateRange(),
-                pictures,
-                videoDto,
-                eventRequest.artistIds()
-        );
-
-        // 5. Validate ALL constraints (including EventVideoDTO rules)
-        Set<ConstraintViolation<EventRequest>> violations = validator.validate(completeRequest);
-        if (!violations.isEmpty()) {
-            String errorDetails = violations.stream()
-                    .map(v -> v.getPropertyPath() + ": " + v.getMessage())
-                    .collect(Collectors.joining("; "));
-
-            return ResponseEntity.badRequest()
-                    .body(ProblemDetail.forStatusAndDetail(
-                            HttpStatus.BAD_REQUEST,
-                            "Validation failed: " + errorDetails
-                    ));
-        }
-
+        EventRequest completeRequest = buildCompleteRequest(request, videoFile, eventRequestString);
         return ResponseEntity.ok(eventService.createEvent(completeRequest));
     }
-
 
     @GetMapping("/get-all")
     public ResponseEntity<Page<DisplayCardEventDTO>> getAllEvents(Pageable pageable) {
@@ -215,6 +167,55 @@ public class EventController {
                 );
             }
         };
+    }
+
+    private EventRequest buildCompleteRequest(
+            MultipartHttpServletRequest request,
+            MultipartFile videoFile,
+            String eventRequestString
+    ) throws IOException {
+        // 1. Process pictures
+        List<PictureDTO> pictures = request.getFileMap()
+                .values()
+                .stream()
+                .filter(file -> !file.getName().equals("videoFile"))
+                .map(mapMultipartFileToPictureDTO())
+                .toList();
+
+        // 2. Parse main request
+        EventRequest eventRequest = objectMapper.readValue(eventRequestString, EventRequest.class);
+
+        // 3. Process video with validation guards
+        EventVideoDTO videoDto;
+        try {
+            videoDto = videoFile != null
+                    ? new EventVideoDTO(null, videoFile.getBytes(), videoFile.getContentType(), null)
+                    : eventRequest.video();
+        } catch (IOException e) {
+            throw new FileProcessingException("Video file processing failed");
+        }
+
+        // 4. Build complete request
+        EventRequest completeRequest = new EventRequest(
+                eventRequest.infos(),
+                eventRequest.location(),
+                eventRequest.dateRange(),
+                pictures,
+                videoDto,
+                eventRequest.artistIds()
+        );
+
+        // 5. Validate ALL constraints
+        Set<ConstraintViolation<EventRequest>> violations = validator.validate(completeRequest);
+        if (!violations.isEmpty()) {
+            String errorDetails = violations.stream()
+                    .map(v -> v.getPropertyPath() + ": " + v.getMessage())
+                    .collect(Collectors.joining("; "));
+
+            throw new IllegalArgumentException("Validation failed: " + errorDetails);
+        }
+
+        return completeRequest;
     }
 
 }
