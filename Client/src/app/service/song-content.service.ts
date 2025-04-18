@@ -46,7 +46,5 @@ export class SongContentService {
     songContent.coverContentType = songToPlay.coverContentType;
     songContent.title = songToPlay.title;
     songContent.artistInfo = songToPlay.artistInfo;
-    // songContent.author = songToPlay.author;
-    // songContent.favorite = songToPlay.favorite;
   }
 }

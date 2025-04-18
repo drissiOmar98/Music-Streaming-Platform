@@ -47,6 +47,10 @@ export interface Event extends CardEvent {
   pictures: DisplayPicture[];
 }
 
+export interface UpdateEventArtistsRequest{
+  eventId: number,
+  artistIds: number[];
+}
 
 
 
