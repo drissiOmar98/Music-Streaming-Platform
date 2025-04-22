@@ -1,114 +1,540 @@
-/* Global styles for card container */
-.card {
-  background-color: #181818;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-}
+/* events-tab-content.component.scss */
+@import 'primeflex/primeflex.scss';
 
-/* Card header with a clean Spotify-like look */
-.card-header {
-  padding: 16px;
+/* Main Container Styles */
+.events-container {
+  position: relative;
+  padding: 2rem;
   background-color: #121212;
-  border-bottom: 1px solid #333;
-}
-
-.card-header h2 {
-  font-size: 2.5rem;
-  font-weight: bold;
   color: white;
+  min-height: 100vh;
+  border-radius: 28px;
+  margin: 1.5rem;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    box-shadow:
+      0 20px 50px rgba(29, 185, 84, 0.3),
+      inset 0 0 0 1px rgba(29, 185, 84, 0.15);
+  }
 }
 
-.card-header  p{
-  color: #b3b3b3;
-  font-size: 1rem;
-}
-
-/* Add Song Button positioning */
-.card-header .flex {
+/* Header Section */
+.calendar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  h2 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin: 0;
+    background: linear-gradient(90deg, #1db954, #1ed760);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 15px rgba(29, 185, 84, 0.4);
+    letter-spacing: -0.5px;
+  }
 }
 
-/* Add Song Button styling */
-.card-header button {
-  background-color: #1db954; /* Spotify Green */
+/* Add Event Button */
+.btn-spotify {
+  background: linear-gradient(135deg, #1db954, #1ed760);
   color: white;
   border: none;
-  border-radius: 10%;
-  padding: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.card-header button:hover {
-  background-color: #1ed760; /* Lighter Spotify Green */
-}
-
-/* Card content */
-.card-content {
-  padding: 24px;
-  background-color: #121212;
-}
-
-/* Table Styles */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: 'Helvetica Neue', sans-serif;
-  color: #f3f3f3;
-}
-
-table th,
-table td {
-  padding: 16px;
-  text-align: left;
-}
-
-table th {
+  border-radius: 500px;
+  padding: 0.75rem 2rem;
+  font-weight: 700;
   font-size: 1rem;
-  color: #a8a8a8;
-  border-bottom: 2px solid #333;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow:
+    0 4px 15px rgba(29, 185, 84, 0.3),
+    0 1px 3px rgba(0, 0, 0, 0.12);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 25px rgba(29, 185, 84, 0.5),
+      0 3px 6px rgba(0, 0, 0, 0.16);
+    background: linear-gradient(135deg, #1ed760, #2efd72);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  i {
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
+  }
 }
 
-table td {
-  font-size: 1rem;
-  color: #ccc;
+/* Calendar Wrapper */
+.calendar-wrapper {
+  background: rgba(18, 18, 18, 0.95);
+  backdrop-filter: blur(16px);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  &:hover {
+    box-shadow:
+      0 20px 50px rgba(29, 185, 84, 0.3),
+      inset 0 0 0 1px rgba(29, 185, 84, 0.15);
+  }
 }
 
-table tr:hover {
-  background-color: #333333;
+/* FullCalendar Customization */
+::ng-deep {
+  .fc {
+    font-family: 'Circular', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Toolbar */
+    .fc-toolbar {
+      margin-bottom: 2rem;
+
+      .fc-toolbar-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: white;
+        letter-spacing: -0.5px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    /* Buttons */
+    .fc-button {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      text-transform: capitalize;
+      border-radius: 8px;
+      padding: 0.5rem 1.25rem;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: none;
+      text-shadow: none;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
+      }
+
+      &:active, &.fc-button-active {
+        background: linear-gradient(135deg, #1db954, #1ed760);
+        color: white;
+        box-shadow: 0 4px 12px rgba(29, 185, 84, 0.4);
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    /* Header cells */
+    .fc-col-header-cell {
+      background: rgba(30, 30, 30, 0.8);
+      border-color: rgba(255, 255, 255, 0.1);
+      padding: 0.75rem 0;
+
+      .fc-col-header-cell-cushion {
+        color: white;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        padding: 0.5rem;
+      }
+    }
+
+    /* Day cells */
+    .fc-daygrid-day, .fc-timegrid-slot {
+      background: rgba(30, 30, 30, 0.6);
+      border-color: rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(40, 40, 40, 0.6);
+      }
+
+      .fc-daygrid-day-number {
+        color: white;
+        font-weight: 600;
+        padding: 0.5rem;
+      }
+    }
+
+    /* Today highlight */
+    .fc-day-today {
+      background: rgba(30, 215, 96, 0.1) !important;
+
+      .fc-daygrid-day-number {
+        color: #1db954;
+        font-weight: 800;
+      }
+    }
+
+    /* Events */
+    .fc-event {
+      .fc-event-content {
+        display: flex;
+        flex-direction: column;
+        padding: 4px;
+        gap: 4px;
+
+        .fc-event-title {
+          font-size: 0.8rem;
+          font-weight: 600;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .fc-event-artists-covers {
+          display: flex;
+          gap: 4px;
+          align-items: center;
+          flex-wrap: wrap;
+
+          .artist-cover-container {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+
+            .artist-cover-image {
+              width: 100%;
+              height: 100%;
+              background-size: cover;
+              background-position: center;
+            }
+          }
+
+          .extra-artists-indicator {
+            font-size: 0.6rem;
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 2px;
+          }
+        }
+
+        .fc-event-cover {
+          width: 100%;
+          height: 40px;
+          border-radius: 4px;
+          background-size: cover;
+          background-position: center;
+          margin-top: 4px;
+        }
+      }
+    }
+
+    /* Event colors */
+    .fc-event-past {
+      background-color: #535353;
+      border-color: #535353;
+    }
+
+    .fc-event-ongoing {
+      background-color: #1DB954;
+      border-color: #1DB954;
+    }
+
+    .fc-event-upcoming {
+      background-color: #1E88E5;
+      border-color: #1E88E5;
+    }
+
+    /* TimeGrid view */
+    .fc-timegrid-axis {
+      background: rgba(30, 30, 30, 0.8);
+      border-color: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .fc-timegrid-slot-label {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.85rem;
+    }
+
+    /* List view */
+    .fc-list {
+      background: transparent;
+      border-color: rgba(255, 255, 255, 0.1);
+
+      .fc-list-day-cushion {
+        background: rgba(30, 30, 30, 0.8);
+        color: white;
+        font-weight: 600;
+        padding: 0.75rem 1rem;
+      }
+
+      .fc-list-event {
+        background: rgba(40, 40, 40, 0.6);
+        border-color: rgba(255, 255, 255, 0.05);
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: rgba(50, 50, 50, 0.6);
+          transform: translateX(4px);
+        }
+
+        .fc-list-event-title {
+          color: white;
+          font-weight: 500;
+        }
+
+        .fc-list-event-time {
+          color: rgba(255, 255, 255, 0.7);
+        }
+      }
+    }
+  }
+
+  /* Custom Event Content */
+  .fc-event-content {
+    .fc-event-content {
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      .fc-event-title {
+        margin-top: 6px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        line-height: 1.2;
+        color: white;
+      }
+
+      .fc-event-artists {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 400;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .fc-event-cover {
+        width: 100%;
+        height: 60px;
+        background-size: cover;
+        background-position: center;
+        border-radius: 4px;
+        margin-top: 0.5rem;
+      }
+    }
+  }
 }
 
-table img {
+/* Loading Overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeIn 0.4s ease-out forwards;
+
+  .loading-spinner {
+    color: #1DB954;
+    font-size: 3.5rem;
+    text-shadow: 0 0 20px rgba(29, 185, 84, 0.7);
+    animation: spin 1.5s linear infinite, pulse 2s ease-in-out infinite;
+  }
+}
+
+/* Modal Styles */
+::ng-deep .spotify-modal {
+  .modal-content {
+    background: #181818;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 30px 60px rgba(0, 0, 0, 0.5),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+
+    .modal-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      background: linear-gradient(to right, #1db954, #1ed760);
+
+      .modal-title {
+        color: white;
+        font-weight: 800;
+        font-size: 1.5rem;
+      }
+
+      .btn-close {
+        filter: brightness(0) invert(1);
+        opacity: 0.8;
+        transition: all 0.3s ease;
+
+        &:hover {
+          opacity: 1;
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    .modal-body {
+      padding: 2rem;
+      background: rgba(24, 24, 24, 0.9);
+    }
+
+    .modal-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      background: rgba(30, 30, 30, 0.8);
+    }
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .events-container {
+    margin: 0.5rem;
+    padding: 1.5rem;
+    border-radius: 20px;
+  }
+
+  .calendar-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+
+    h2 {
+      font-size: 2rem;
+    }
+  }
+
+  .calendar-wrapper {
+    padding: 1rem;
+  }
+
+  ::ng-deep {
+    .fc {
+      .fc-toolbar {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+
+        .fc-toolbar-chunk {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .events-container {
+    padding: 1rem;
+    border-radius: 16px;
+  }
+
+  .calendar-header {
+    h2 {
+      font-size: 1.8rem;
+    }
+  }
+
+  ::ng-deep {
+    .fc {
+      .fc-toolbar-title {
+        font-size: 1.4rem;
+      }
+
+      .fc-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+      }
+    }
+  }
+}
+/* Artist covers in calendar events */
+.fc-event-artists-covers {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.artist-cover-container {
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
 }
 
-/* Action button styles */
-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+.artist-cover-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
 }
 
-/* Trash button style */
-button.text-red-400 {
-  color: #f56565;
-  background-color: transparent;
-  border: none;
+.extra-artists-indicator {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 2px;
 }
-
-button.text-red-400:hover {
-  color: white;
-}
-
-/* Add Song Button styling */
-button.bg-green-500 {
-  background-color: #1db954;
-  color: white;
-}
-
-button.bg-green-500:hover {
-  background-color: #1ed760;
-}
-

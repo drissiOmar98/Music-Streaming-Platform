@@ -1,18 +1,25 @@
 <div class="card">
-  <div class="card-header">
-    <div class="flex items-center justify-between w-full">
-      <div>
-        <h2 class="text-3xl font-bold text-white">Events Library</h2>
-        <p class="text-zinc-400">Manage your Event</p>
-      </div>
-      <!-- Add Song Button -->
-      <button
-        (click)="openAddEventModal()"
-        class="btn btn-primary"
-        aria-label="Add Event"
-      > <fa-icon [icon]="['fas', 'plus']" class="text-3xl font-bold"></fa-icon> Add Event
 
+
+  <div class="events-container">
+    <!-- Calendar View -->
+    <div class="calendar-header">
+      <h2>Events Calendar</h2>
+      <button class="btn btn-spotify" (click)="openAddEventModal()">
+        <i class="fas fa-plus"></i> Add Event
       </button>
     </div>
+
+    <div class="calendar-wrapper">
+      <full-calendar [options]="calendarOptions"></full-calendar>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="loadingFetchAll" class="loading-overlay">
+      <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin fa-3x"></i>
+      </div>
+    </div>
+
   </div>
 </div>
