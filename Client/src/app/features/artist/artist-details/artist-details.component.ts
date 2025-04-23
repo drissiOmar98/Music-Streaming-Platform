@@ -15,6 +15,10 @@ import {FollowRequest} from "../../../service/model/follow.model";
 import {FollowService} from "../../../service/follow.service";
 import {State} from "../../../shared/model/state.model";
 import {PlaybackService} from "../../../service/playback.service";
+import {ListArtistEventComponent} from "../list-artist-event/list-artist-event.component";
+import {EventService} from "../../../service/event.service";
+import {CardEvent} from "../../../service/model/event.model";
+import {Pagination} from "../../../shared/model/request.model";
 
 @Component({
   selector: 'app-artist-details',
@@ -25,7 +29,8 @@ import {PlaybackService} from "../../../service/playback.service";
     NgIf,
     FaIconComponent,
     ListArtistSongComponent,
-    FollowArtistBtnComponent
+    FollowArtistBtnComponent,
+    ListArtistEventComponent
   ],
   templateUrl: './artist-details.component.html',
   styleUrl: './artist-details.component.scss'
@@ -37,6 +42,7 @@ export class ArtistDetailsComponent implements OnInit , OnDestroy   {
   songService = inject(SongService);
   followService = inject(FollowService);
   playbackService = inject(PlaybackService);
+  eventService = inject(EventService);
   songContentService = inject(SongContentService);
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
@@ -44,6 +50,10 @@ export class ArtistDetailsComponent implements OnInit , OnDestroy   {
   artist: Artist | undefined;
   cardArtist: CardArtist | undefined;
   songs: Array<ReadSong> = [];
+  fullEventList: Array<CardEvent> = [];
+  events: Array<CardEvent> | undefined = [];
+  loadingFetchAll = false;
+  pageRequest: Pagination = {size: 20, page: 0, sort: ["title", "ASC"]};
   loading = true;
   currentArtistId!: number;
   activeIndex: number = 0;
@@ -71,12 +81,14 @@ export class ArtistDetailsComponent implements OnInit , OnDestroy   {
     this.followService.resetAllIsArtistInFollowedStates();
     this.followService.resetFollowArtistState();
     this.followService.resetUnfollowArtistState();
+    this.eventService.resetGetEventsByArtist();
   }
 
 
   constructor() {
     this.listenToFetchArtist();
     this.listenToFetchSongs();
+    this.listenToFetchEvents();
     this.listenFollowArtist();
     this.listenToUnfollowArtist();
   }
@@ -91,6 +103,7 @@ export class ArtistDetailsComponent implements OnInit , OnDestroy   {
           this.currentArtistId=artistId;
           this.fetchArtistDetails(artistId);
           this.fetchSongsByArtist(artistId);
+          this.fetchEventsByArtist(artistId);
         } else {
           this.toastService.
           show("Invalid artist ID", "DANGER");
@@ -111,6 +124,11 @@ export class ArtistDetailsComponent implements OnInit , OnDestroy   {
   private fetchSongsByArtist(artistId: number) {
     this.songService.getSongsByArtist(artistId);
   }
+
+  private fetchEventsByArtist(artistId: number) {
+    this.eventService.getEventsByArtist(artistId,this.pageRequest);
+  }
+
 
 
   private listenToFetchArtist() {
@@ -167,6 +185,20 @@ export class ArtistDetailsComponent implements OnInit , OnDestroy   {
       }
     });
   }
+
+  private listenToFetchEvents() {
+    effect(() => {
+      const eventsByArtistState = this.eventService.getEventsByArtistSig();
+      if (eventsByArtistState.status === "OK") {
+        this.loadingFetchAll = false;
+        this.fullEventList = eventsByArtistState.value?.content || [];
+        this.events = [...this.fullEventList];
+      } else if (eventsByArtistState.status === "ERROR") {
+        this.toastService.show("Error fetching events", "DANGER");
+      }
+    });
+  }
+
 
 
 

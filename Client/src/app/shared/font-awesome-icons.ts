@@ -43,7 +43,7 @@ import {
   faShuffle,
   faExpand,
   faListUl,
-  faThLarge, faList, faUpload,faMinus,
+  faThLarge, faList, faUpload, faMinus, faCalendarTimes, faClock, faMapMarkerAlt, faInfoCircle, faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import {faSpotify, faYoutube} from "@fortawesome/free-brands-svg-icons";
 
@@ -98,7 +98,14 @@ export const fontAwesomeIcons: IconDefinition[] = [
   faSpotify,
   faUpload,
   faMinus,
-  faYoutube
+  faYoutube,
+  faCalendarTimes,
+  faClock,
+  faMapMarkerAlt,
+  faInfoCircle,
+  faCalendarAlt,
+
+
 
 
 
