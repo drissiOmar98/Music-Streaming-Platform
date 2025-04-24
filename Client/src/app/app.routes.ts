@@ -8,6 +8,7 @@ import {MainLibraryComponent} from "./features/playlist/main-library/main-librar
 import {ShowAllComponent} from "./features/home/show-all/show-all.component";
 import {LikedComponent} from "./features/liked/liked/liked.component";
 import {PlaylistComponent} from "./features/playlist/playlist/playlist.component";
+import {EventItemComponent} from "./shared/event-item/event-item.component";
 
 
 
@@ -30,8 +31,9 @@ export const routes: Routes = [
     path: 'search',
     component: SearchComponent
   },
-  { path: 'artist/:id', component: ArtistDetailsComponent }, // Route for artist details
+  { path: 'artist/:id', component: ArtistDetailsComponent },
   { path: 'music-item/:id', component: MusicItemComponent },
+  { path: 'event-item/:id', component: EventItemComponent },
   { path: 'library', component: MainLibraryComponent },
   { path: 'section', component: ShowAllComponent },
   {

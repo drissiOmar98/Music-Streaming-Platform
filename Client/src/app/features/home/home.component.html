@@ -68,6 +68,16 @@
       </div>
     }
 
+    @if(section.type === 'event'){
+      <div class="list">
+        <div class="d-flex flex-wrap">
+          @for (event of events; track event.id) {
+            <app-event-card class="card song-card-background mt-0 mb-4 ms-0 me-4" [event]="event" />
+          }
+        </div>
+      </div>
+    }
+
 <!--    <div class="list" *ngIf="section.type === 'playlist'">-->
 <!--      <app-playlist-card *ngFor="let playlist of playlists" [playlist]="playlist"></app-playlist-card>-->
 <!--    </div>-->
