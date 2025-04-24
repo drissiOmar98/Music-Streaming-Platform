@@ -1,0 +1,20 @@
+
+<div  (click)="navigateToEventDetails()"
+     (mouseover)="onHoverDate(true)"
+     (mouseleave)="onHoverDate(false)">
+  <div class="card-body">
+    <img class="card-img-top card-img-bottom"
+         [src]="'data:' + event().cover.fileContentType + ';base64,' + event().cover.file"
+         alt="{{event().title}}"/>
+    <h5 class="title mt-3">{{ event().title }}</h5>
+    <p class="author">
+      <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon> {{ event().location }}
+    </p>
+  </div>
+  @if (eventDisplay.displayDate) {
+    <div class="date-badge position-absolute d-flex flex-column align-items-center" [@inOutAnimation]>
+      <span class="date-day">{{ event().startDateTime | date:'d' }}</span>
+      <span class="date-month">{{ event().startDateTime | date:'MMM' | uppercase }}</span>
+    </div>
+  }
+</div>
