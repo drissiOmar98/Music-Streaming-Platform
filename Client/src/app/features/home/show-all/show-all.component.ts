@@ -12,6 +12,9 @@ import {ArtistService} from "../../../service/artist.service";
 import {Router} from "@angular/router";
 import {SectionService} from "../../../service/section.service";
 import {SongContentService} from "../../../service/song-content.service";
+import {EventService} from "../../../service/event.service";
+import {CardEvent} from "../../../service/model/event.model";
+import {EventCardComponent} from "../event-card/event-card.component";
 
 @Component({
   selector: 'app-show-all',
@@ -22,7 +25,8 @@ import {SongContentService} from "../../../service/song-content.service";
     HomeCategoryComponent,
     NgForOf,
     NgIf,
-    NgStyle
+    NgStyle,
+    EventCardComponent
   ],
   templateUrl: './show-all.component.html',
   styleUrl: './show-all.component.scss'
@@ -33,12 +37,15 @@ export class ShowAllComponent implements OnInit {
   toastService= inject(ToastService);
   artistService = inject(ArtistService);
   sectionService = inject(SectionService);
+  eventService= inject(EventService);
   songContentService = inject(SongContentService)
   router = inject(Router);
 
   section: Section | undefined;
   artists: CardArtist[] = [];
   songs: ReadSong[] = [];
+  events: CardEvent[] = [];
+  loadingFetchAllEvents = false;
   // playlists: Playlist[] = [];
   // albums: Album[] = [];
 
@@ -49,7 +56,7 @@ export class ShowAllComponent implements OnInit {
     // Listen to signal changes
     this.listenFetchArtists();
     this.listenFetchSongs();
-    //this.listenFetchPlaylists();
+    this.listenFetchEvents();    //this.listenFetchPlaylists();
     //this.listenFetchAlbums();
   }
 
@@ -70,11 +77,6 @@ export class ShowAllComponent implements OnInit {
   }
 
 
-
-
-
-
-
   loadItems() {
     this.isLoading = true;
     if (this.section?.type === 'artist') {
@@ -83,8 +85,8 @@ export class ShowAllComponent implements OnInit {
       this.songService.getSongs();
     } else if (this.section?.type === 'playlist') {
       //this.playlistService.getPlaylists();
-    } else if (this.section?.type === 'album') {
-      //this.albumService.getAlbums();
+    } else if (this.section?.type === 'event') {
+      this.eventService.getAll({ size: 100, page: 0, sort: ['title', 'ASC'] });
     }
   }
 
@@ -111,6 +113,19 @@ export class ShowAllComponent implements OnInit {
         this.toastService.show('An error occurred when fetching songs.', 'DANGER');
         this.isLoading = false;
       }
+    });
+  }
+
+  private listenFetchEvents() {
+    effect(() => {
+      const allEventState = this.eventService.getAllEventSig();
+      if (allEventState.status === "OK" && allEventState.value) {
+        this.loadingFetchAllEvents = false;
+        this.isLoading = false;
+        this.events = allEventState.value.content || [];
+      } else if (allEventState.status === "ERROR") {
+        this.toastService.show("Error when fetching the events.", "DANGER");
+        this.isLoading = false;      }
     });
   }
 

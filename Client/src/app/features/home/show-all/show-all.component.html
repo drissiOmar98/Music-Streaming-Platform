@@ -56,6 +56,29 @@
       <p>No songs found.</p>
     }
   </div>
+
+  <div class="list" *ngIf="section?.type === 'event'">
+    @if (events.length > 0) {
+      <div class="list">
+        @if (isLoading) {
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="spinner-grow text-primary loader" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        } @else {
+          <div class="d-flex flex-wrap">
+            @for (event of events; track event.id) {
+              <app-event-card class="card song-card-background mt-0 mb-4 ms-0 me-4"
+                             [event]="event" />
+            }
+          </div>
+        }
+      </div>
+    } @else {
+      <p>No Events found.</p>
+    }
+  </div>
 <!--  <div class="list" *ngIf="section?.type === 'playlist'">-->
 <!--    @if (playlists.length > 0) {-->
 <!--      <app-playlist-card *ngFor="let playlist of playlists" [playlist]="playlist"></app-playlist-card>-->
