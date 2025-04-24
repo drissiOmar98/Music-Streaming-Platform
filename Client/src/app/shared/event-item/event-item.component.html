@@ -1,0 +1,146 @@
+@if(event && !loading){
+  <div class="event-details-container">
+    <!-- Hero Section -->
+    <div class="event-hero-container">
+      <div class="hero-gradient-overlay"></div>
+      <div class="event-header">
+        <div class="event-cover">
+          <img [src]="coverPicture?.file ? 'data:' + coverPicture?.fileContentType + ';base64,' + coverPicture?.file : ''"
+               alt="{{event.title}}" class="cover-image">
+        </div>
+        <div class="event-info">
+          <p class="label">EVENT</p>
+          <h1 class="event-title">{{event.title}}</h1>
+          <p class="event-meta">
+          <span class="date">
+            <fa-icon [icon]="['fas', 'calendar-day']"></fa-icon>
+            {{event.startDateTime | date:'fullDate'}} - {{event.endDateTime | date:'shortTime'}}
+          </span>
+            <span class="separator">•</span>
+            <span class="location">
+            <fa-icon [icon]="['fas', 'map-marker-alt']"></fa-icon>
+              {{event.location}}
+          </span>
+          </p>
+          <div class="action-buttons">
+            <button class="play-button">
+              <fa-icon [icon]="['fas', 'play']"></fa-icon>
+            </button>
+            <button class="ticket-button">
+              <fa-icon [icon]="['fas', 'ticket-alt']"></fa-icon>
+              GET TICKETS
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="event-main-content">
+      <!-- Left Column -->
+      <div class="event-left-column">
+        <h2 class="section-title">
+          <fa-icon [icon]="['fas', 'info-circle']" class="section-icon"></fa-icon>
+          About This Event
+        </h2>
+        <p class="event-description">{{event.description}}</p>
+
+        <h2 class="section-title">
+          <fa-icon [icon]="['fas', 'users']" class="section-icon"></fa-icon>
+          Featured Artists
+        </h2>
+        <div class="artists-grid">
+          @for (artist of event.artists; track artist.id){
+            <div class="artist-card"  [routerLink]="['/artist', artist.id]">
+              <div class="artist-avatar-container">
+                <div class="artist-avatar">
+                  <img [src]="'data:' + artist.cover?.fileContentType + ';base64,' + artist.cover?.file"
+                       alt="{{artist.name}}" class="artist-image">
+                  <div class="artist-hover-content">
+                    <span class="view-profile">View Profile</span>
+                  </div>
+                </div>
+                <h3 class="artist-name">{{artist.name}}</h3>
+              </div>
+            </div>
+          }
+        </div>
+        <!-- Gallery Section -->
+        @if (event.pictures.length > 0){
+          <div class="gallery-section">
+            <h2 class="section-title">
+              <fa-icon [icon]="['fas', 'images']" class="section-icon"></fa-icon>
+              Event Gallery
+            </h2>
+
+            <div class="gallery-container">
+              <div class="gallery-main-image">
+                <img [src]="'data:' + event.pictures[activeIndex]?.fileContentType + ';base64,' + event.pictures[activeIndex]?.file"
+                     alt="Gallery image {{activeIndex}}">
+              </div>
+              <div class="gallery-thumbnails">
+                <div class="thumbnail"
+                     *ngFor="let picture of event.pictures; let i = index"
+                     [class.active]="i === activeIndex"
+                     (click)="activeIndex = i">
+                  <img [src]="'data:' + picture.fileContentType + ';base64,' + picture.file"
+                       alt="Thumbnail {{i}}">
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Right Column -->
+      <div class="event-right-column">
+        <div class="event-card">
+          <h3 class="card-title">
+            <fa-icon [icon]="['fas', 'calendar-day']" class="card-icon"></fa-icon>
+            Event Details
+          </h3>
+          <div class="detail-item">
+            <fa-icon [icon]="['fas', 'clock']" class="detail-icon"></fa-icon>
+            <div>
+              <span class="detail-label">DATE & TIME</span>
+              <span class="detail-value">
+              {{event.startDateTime | date:'fullDate'}}<br>
+                {{event.startDateTime | date:'shortTime'}} - {{event.endDateTime | date:'shortTime'}}
+            </span>
+            </div>
+          </div>
+          <div class="detail-item">
+            <fa-icon [icon]="['fas', 'map-marker-alt']" class="detail-icon"></fa-icon>
+            <div>
+              <span class="detail-label">LOCATION</span>
+              <span class="detail-value">{{event.location}}</span>
+            </div>
+          </div>
+          <div class="detail-item">
+            <fa-icon [icon]="['fas', 'users']" class="detail-icon"></fa-icon>
+            <div>
+              <span class="detail-label">FEATURED ARTISTS</span>
+              <span class="detail-value">
+              <span *ngFor="let artist of event.artists; let last = last">
+                {{artist.name}}{{last ? '' : ', '}}
+              </span>
+            </span>
+            </div>
+          </div>
+          <button class="spotify-button">
+            <fa-icon [icon]="['fab', 'spotify']" class="button-icon"></fa-icon>
+            FOLLOW EVENT
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+
+@if (loading){
+  <div class="loading-spinner">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+}
+
