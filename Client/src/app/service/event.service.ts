@@ -175,6 +175,17 @@ export class EventService {
     });
   }
 
+
+  // Get event content
+  getEventContent(eventId: number): void {
+    this.http.get<EventVideo>(
+      `${environment.API_URL}/events/get-content?eventId=${eventId}`
+    ).subscribe({
+      next: content => this.getEventContent$.set(State.Builder<EventVideo>().forSuccess(content)),
+      error: err => this.getEventContent$.set(State.Builder<EventVideo>().forError(err))
+    });
+  }
+
   // Get upcoming events
   getUpcomingEvents(pageRequest: Pagination): void {
     const params = createPaginationOption(pageRequest);
@@ -311,6 +322,10 @@ export class EventService {
 
   resetUpdateEvent(): void {
     this.updateEvent$.set(State.Builder<CreatedEvent>().forInit());
+  }
+
+  resetGetEventContent(): void {
+    this.getEventContent$.set(State.Builder<EventVideo>().forInit());
   }
 
 
