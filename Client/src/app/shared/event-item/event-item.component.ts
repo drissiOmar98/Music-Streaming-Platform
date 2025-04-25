@@ -4,13 +4,14 @@ import {ActivatedRoute, RouterLink} from "@angular/router";
 import {EventService} from "../../service/event.service";
 import {map} from "rxjs";
 import {DisplayPicture} from "../../service/model/artist.model";
-import {Event} from "../../service/model/event.model";
+import {Event, EventVideo} from "../../service/model/event.model";
 import {GalleriaModule} from "primeng/galleria";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import {ButtonDirective} from "primeng/button";
 import {NgFor, NgIf} from "@angular/common";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {ImageModule} from "primeng/image";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-event-item',
@@ -32,9 +33,15 @@ export class EventItemComponent implements OnInit, OnDestroy  {
   toastService = inject(ToastService);
   activatedRoute = inject(ActivatedRoute);
   eventService = inject(EventService);
+  sanitizer = inject(DomSanitizer);
 
   event: Event | undefined;
   coverPicture?: DisplayPicture;
+
+  videoContent: EventVideo | undefined;
+  videoObjectUrl: string | null = null; // For storing object URLs for file content
+  safeYoutubeUrl: SafeResourceUrl | null = null; // For sanitized YouTube URLs
+  videoLoading = true;
 
   currentEventId!: number;
   loading = true;
@@ -43,6 +50,7 @@ export class EventItemComponent implements OnInit, OnDestroy  {
 
   constructor() {
     this.listenToFetchEventDetails();
+    this.listenToFetchEventVideoContent();
   }
 
   ngOnInit(): void {
@@ -59,6 +67,7 @@ export class EventItemComponent implements OnInit, OnDestroy  {
         if (eventId !== null) {
             this.currentEventId=eventId;
           this.fetchEventDetails(eventId);
+          this.fetchEventVideoContent(eventId);
         } else {
           this.toastService.
           show("Invalid event ID", "DANGER");
@@ -75,6 +84,12 @@ export class EventItemComponent implements OnInit, OnDestroy  {
     this.loading = true;
     this.currentEventId=eventId;
     this.eventService.getEventById(eventId);
+  }
+
+  private fetchEventVideoContent(eventId: number){
+    this.videoLoading= true;
+    this.currentEventId = eventId;
+    this.eventService.getEventContent(eventId);
   }
 
 
@@ -109,8 +124,80 @@ export class EventItemComponent implements OnInit, OnDestroy  {
   }
 
 
+  private listenToFetchEventVideoContent() {
+    effect(() => {
+      const videoState = this.eventService.getEventContentSig();
+
+      if (videoState.status === "OK") {
+        this.videoLoading = false;
+        this.videoContent = videoState.value;
+        this.prepareVideoContent();
+      } else if (videoState.status === "ERROR") {
+        this.videoLoading = false;
+        this.toastService.show("Error loading video content", "DANGER");
+      }
+    });
+  }
+
+  private prepareVideoContent(): void {
+    // Clean up previous URLs if they exist
+    this.cleanUpVideoResources();
+
+    if (!this.videoContent) return;
+
+    if (this.videoContent.videoUrl) {
+      // Handle YouTube URL
+      this.safeYoutubeUrl = this.sanitizeYoutubeUrl(this.videoContent.videoUrl);
+    } else if (this.videoContent.file) {
+      // Handle file content
+      this.videoObjectUrl = this.createObjectUrl(this.videoContent.file, this.videoContent.fileContentType);
+    }
+  }
+
+  private sanitizeYoutubeUrl(url: string): SafeResourceUrl {
+    const embedUrl = this.convertToEmbedUrl(url);
+    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+  }
+
+  private createObjectUrl(file: File | Blob | string, contentType?: string): string {
+    if (file instanceof File) {
+      return URL.createObjectURL(file);
+    } else if (file instanceof Blob) {
+      return URL.createObjectURL(file);
+    } else {
+      // Handle base64 string
+      const byteCharacters = atob(file);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: contentType });
+      return URL.createObjectURL(blob);
+    }
+  }
+  private convertToEmbedUrl(url: string): string {
+    // Handle various YouTube URL formats
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    const videoId = (match && match[2].length === 11) ? match[2] : null;
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+  }
+
+  private cleanUpVideoResources(): void {
+    if (this.videoObjectUrl) {
+      URL.revokeObjectURL(this.videoObjectUrl);
+      this.videoObjectUrl = null;
+    }
+    this.safeYoutubeUrl = null;
+  }
+
+
+
   ngOnDestroy(): void {
     this.eventService.resetGetEventById();
+    this.cleanUpVideoResources();
+    this.eventService.resetGetEventContent();
   }
 
 

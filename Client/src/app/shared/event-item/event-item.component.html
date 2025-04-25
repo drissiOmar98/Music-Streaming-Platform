@@ -45,6 +45,43 @@
         </h2>
         <p class="event-description">{{event.description}}</p>
 
+        <!-- Video Section -->
+        @if (videoContent) {
+          <div class="video-section">
+            <h2 class="section-title">
+              <fa-icon [icon]="['fas', 'video']" class="section-icon"></fa-icon>
+              Event Video
+            </h2>
+
+            <div class="video-player-container">
+              @if (videoLoading) {
+                <div class="video-loading">
+                  <p-progressSpinner [style]="{width: '50px', height: '50px'}"
+                                     strokeWidth="8" fill="var(--surface-ground)"
+                                     animationDuration=".5s"></p-progressSpinner>
+                </div>
+              }
+              @else {
+                @if (videoContent.videoUrl && safeYoutubeUrl) {
+                  <div class="youtube-video-wrapper">
+                    <iframe [src]="safeYoutubeUrl" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                  </div>
+                }
+                @else if (videoContent.file && videoObjectUrl) {
+                  <div class="enhanced-video-wrapper">
+                    <video controls controlsList="nodownload" width="100%" height="auto">
+                      <source [src]="videoObjectUrl" [type]="videoContent.fileContentType">
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                }
+              }
+            </div>
+          </div>
+        }
+
         <h2 class="section-title">
           <fa-icon [icon]="['fas', 'users']" class="section-icon"></fa-icon>
           Featured Artists

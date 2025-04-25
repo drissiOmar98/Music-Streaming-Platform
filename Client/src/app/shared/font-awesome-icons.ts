@@ -52,7 +52,7 @@ import {
   faMapMarkerAlt,
   faInfoCircle,
   faCalendarAlt,
-  faTicketAlt, faImages, faCalendarDay,
+  faTicketAlt, faImages, faCalendarDay, faVideo,
 } from "@fortawesome/free-solid-svg-icons";
 import {faSpotify, faYoutube} from "@fortawesome/free-brands-svg-icons";
 
@@ -117,6 +117,7 @@ export const fontAwesomeIcons: IconDefinition[] = [
   faTicketAlt,
   faImages,
   faCalendarDay,
+  faVideo
 
 
 
