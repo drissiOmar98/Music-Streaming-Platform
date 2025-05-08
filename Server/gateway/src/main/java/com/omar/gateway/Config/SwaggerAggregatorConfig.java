@@ -32,6 +32,9 @@ public class SwaggerAggregatorConfig {
     @Value("${event-service.url}")
     private String eventServiceUrl;
 
+    @Value("${event-participation-service.url}")
+    private String eventAttendeesServiceUrl;
+
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
@@ -69,6 +72,11 @@ public class SwaggerAggregatorConfig {
                 .route("event-service-api-docs", r -> r.path("/aggregate/event-service/v3/api-docs")
                         .filters(f -> f.rewritePath("/aggregate/event-service/v3/api-docs", "/v3/api-docs"))
                         .uri(eventServiceUrl))
+
+                // Route for Event Attendees Service API Docs
+                .route("event-participation-service-api-docs", r -> r.path("/aggregate/event-participation-service/v3/api-docs")
+                        .filters(f -> f.rewritePath("/aggregate/event-participation-service/v3/api-docs", "/v3/api-docs"))
+                        .uri(eventAttendeesServiceUrl))
 
                 .build();
     }

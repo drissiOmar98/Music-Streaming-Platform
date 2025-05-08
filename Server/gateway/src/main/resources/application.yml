@@ -29,6 +29,8 @@ springdoc:
         url: /aggregate/playlist-service/v3/api-docs
       - name: Event Service
         url: /aggregate/event-service/v3/api-docs
+      - name: Event Attendees Service
+        url: /aggregate/event-participation-service/v3/api-docs
 
 music-service.url: http://localhost:8060
 artist-service.url: http://localhost:8050
@@ -37,3 +39,4 @@ favorites-service.url: http://localhost:8040
 follow-service.url: http://localhost:8030
 playlist-service.url: http://localhost:8020
 event-service.url: http://localhost:8010
+event-participation-service.url: http://localhost:8015
