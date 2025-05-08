@@ -29,6 +29,7 @@
 	<properties>
 		<java.version>21</java.version>
 		<spring-cloud.version>2024.0.1</spring-cloud.version>
+		<mapstruct.version>1.5.5.Final</mapstruct.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -78,7 +79,20 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<version>1.18.36</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>${mapstruct.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -89,6 +103,15 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -108,25 +131,24 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.10.1</version>
 				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 					<annotationProcessorPaths>
-						<path>
+						<!-- Lombok first, so it generates getters/setters -->
+						<annotationProcessorPath>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-						</path>
+							<version>1.18.36</version>
+						</annotationProcessorPath>
+						<!-- Then MapStruct, to map using those getters/setters -->
+						<annotationProcessorPath>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>1.5.5.Final</version>
+						</annotationProcessorPath>
 					</annotationProcessorPaths>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
 				</configuration>
 			</plugin>
 		</plugins>
