@@ -37,6 +37,12 @@ public class EventParticipationController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/joined-events")
+    public ResponseEntity<List<EventParticipationResponse>> getJoinedEvents(
+            Authentication authentication) {
+        return ResponseEntity.ok(eventParticipationService.getJoinedEvents(authentication));
+    }
+
 
 
 }

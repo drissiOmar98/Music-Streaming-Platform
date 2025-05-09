@@ -56,6 +56,23 @@ public class EventParticipationImpl implements EventParticipationService {
         eventParticipationRepository.delete(participation);
     }
 
+    @Override
+    public List<EventParticipationResponse> getJoinedEvents(Authentication authentication) {
+        String userId = getAuthenticatedUserId(authentication);
+
+        List<EventParticipation> joinedEvents = eventParticipationRepository.findByUserId(userId);
+
+        return joinedEvents.stream()
+                .map(participation -> {
+                    // Fetch event details for each participation
+                    EventDTO eventDetails = eventClient.getEventDetailsById(participation.getEventId());
+                    return eventParticipationMapper.toParticipationResponse(participation, eventDetails);
+                })
+                .collect(Collectors.toList());
+    }
+
+
+
 
     private String getAuthenticatedUserId(Authentication authentication) {
         Jwt jwt = (Jwt) authentication.getPrincipal();
