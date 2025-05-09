@@ -29,6 +29,14 @@ public class EventParticipationController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @DeleteMapping("/leave/{eventId}")
+    public ResponseEntity<Void> leaveEvent(
+            @PathVariable Long eventId,
+            Authentication authentication) {
+        eventParticipationService.leaveEvent(eventId, authentication);
+        return ResponseEntity.noContent().build();
+    }
+
 
 
 }

@@ -49,6 +49,13 @@ public class EventParticipationImpl implements EventParticipationService {
         eventParticipationRepository.save(eventParticipation);
     }
 
+    @Override
+    public void leaveEvent(Long eventId, Authentication authentication) {
+        String userId = getAuthenticatedUserId(authentication);
+        EventParticipation participation = getParticipationOrThrow(userId, eventId);
+        eventParticipationRepository.delete(participation);
+    }
+
 
     private String getAuthenticatedUserId(Authentication authentication) {
         Jwt jwt = (Jwt) authentication.getPrincipal();
