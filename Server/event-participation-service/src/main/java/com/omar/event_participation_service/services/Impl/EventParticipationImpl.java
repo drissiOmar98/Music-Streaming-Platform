@@ -72,7 +72,19 @@ public class EventParticipationImpl implements EventParticipationService {
     }
 
 
+    @Override
+    public boolean isParticipating(Long eventId, Authentication authentication) {
+        String userId = getAuthenticatedUserId(authentication);
+        validateEventExists(eventId);
+        return eventParticipationRepository.existsByUserIdAndEventId(userId, eventId);
+    }
 
+    @Override
+    public void clearParticipations(Authentication authentication) {
+        String userId = getAuthenticatedUserId(authentication);
+        List<EventParticipation> joinedEvents = getUserParticipationOrThrow(userId);
+        eventParticipationRepository.deleteAll(joinedEvents);
+    }
 
     private String getAuthenticatedUserId(Authentication authentication) {
         Jwt jwt = (Jwt) authentication.getPrincipal();

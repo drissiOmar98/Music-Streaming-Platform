@@ -43,6 +43,17 @@ public class EventParticipationController {
         return ResponseEntity.ok(eventParticipationService.getJoinedEvents(authentication));
     }
 
+    @GetMapping("/check/{eventId}")
+    public ResponseEntity<Boolean> isParticipating(
+            @PathVariable Long eventId,
+            Authentication authentication) {
+        return ResponseEntity.ok(eventParticipationService.isParticipating(eventId, authentication));
+    }
 
+    @DeleteMapping("/clear")
+    public ResponseEntity<Void> clearParticipations(Authentication authentication) {
+        eventParticipationService.clearParticipations(authentication);
+        return ResponseEntity.noContent().build();
+    }
 
 }
