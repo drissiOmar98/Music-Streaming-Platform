@@ -50,5 +50,7 @@ spring:
           predicates:
             - Path=/assets/**
 
-
-
+        - id: event-participation-service
+          uri: http://localhost:8015
+          predicates:
+            - Path=/api/v1/attendances/**
