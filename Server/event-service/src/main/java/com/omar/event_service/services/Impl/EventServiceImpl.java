@@ -90,6 +90,15 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public DisplayCardEventDTO getEventDetailsWithCover(Long eventId) {
+        Event event = eventRepository.findEventWithCoverOnly(eventId)
+                .orElseThrow(() -> new EventNotFoundException(EVENT_NOT_FOUND + eventId));
+
+        Set<DisplayCardArtistDTO> artists = fetchArtistsForEvent(event);
+        return eventMapper.eventToDisplayCardEventDTO(event, artists);
+    }
+
+    @Override
     public Page<DisplayCardEventDTO> getEventsByArtist(Long artistId, Pageable pageable) {
         validateArtistExists(artistId);
         Page<Event> events= eventRepository.findByArtistIdsContaining(artistId, pageable);
@@ -132,6 +141,8 @@ public class EventServiceImpl implements EventService {
         Page<Event> events= eventRepository.searchEvents(query,pageable);
         return mapEventsToDisplayCards(events);
     }
+
+
 
     @Override
     public boolean existsById(Long eventId) {

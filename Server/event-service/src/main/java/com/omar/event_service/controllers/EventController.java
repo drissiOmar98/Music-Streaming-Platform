@@ -105,6 +105,12 @@ public class EventController {
         }
     }
 
+    @GetMapping("/get-one/{id}")
+    public ResponseEntity<DisplayCardEventDTO> getEventDetailsById(@PathVariable Long id) {
+        DisplayCardEventDTO eventDetails = eventService.getEventDetailsWithCover(id);
+        return ResponseEntity.ok(eventDetails);
+    }
+
     @GetMapping("/get-content")
     public ResponseEntity<EventVideoDTO> getEventVideoContent(@RequestParam Long eventId) {
         return eventService.getEventContentById(eventId)

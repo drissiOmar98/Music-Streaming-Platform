@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
@@ -18,6 +19,13 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "LEFT JOIN FETCH event.pictures picture" +
             " WHERE picture.isCover = true ")
     Page<Event> findAllWithCoverOnly(Pageable pageable);
+
+
+    @Query("SELECT e " +
+            "FROM Event e " +
+            "LEFT JOIN FETCH e.pictures pictures " +
+            "WHERE e.id = :id AND pictures.isCover = true")
+    Optional<Event> findEventWithCoverOnly(@Param("id") Long id);
 
 
     @Query("SELECT event " +

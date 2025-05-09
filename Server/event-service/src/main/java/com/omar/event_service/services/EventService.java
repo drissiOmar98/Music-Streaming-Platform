@@ -11,7 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
-import java.util.Set;
+
 
 public interface EventService {
 
@@ -30,6 +30,8 @@ public interface EventService {
     Optional<EventVideoDTO> getEventContentById(Long eventId);
 
     Page<DisplayCardEventDTO> searchEvents(Pageable pageable, String query);
+
+    DisplayCardEventDTO getEventDetailsWithCover(Long eventId);
 
     boolean existsById(Long eventId);
 
