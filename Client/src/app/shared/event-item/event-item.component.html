@@ -164,10 +164,16 @@
             </span>
             </div>
           </div>
-          <button class="spotify-button">
-            <fa-icon [icon]="['fab', 'spotify']" class="button-icon"></fa-icon>
-            FOLLOW EVENT
-          </button>
+          @if (cardEvent){
+            <app-interest-event-btn [event]="cardEvent"
+                                   (joinEvent)="joinEvent($event)"
+                                   (leaveEvent)="leaveEvent($event)">
+            </app-interest-event-btn>
+          }
+<!--          <button class="spotify-button">-->
+<!--            <fa-icon [icon]="['fab', 'spotify']" class="button-icon"></fa-icon>-->
+<!--            FOLLOW EVENT-->
+<!--          </button>-->
         </div>
       </div>
     </div>
