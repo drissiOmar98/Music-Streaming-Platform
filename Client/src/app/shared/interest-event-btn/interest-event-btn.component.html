@@ -1,0 +1,12 @@
+<button
+  (click)="joinOrLeaveEvent(event())"
+  [class]="getButtonClass(event().id)"
+  class="spotify-button"
+  [ngClass]="{'joined': isJoined.get(event().id)}"
+>
+  <fa-icon [icon]="['fab', 'spotify']" class="button-icon"></fa-icon>
+  <span *ngIf="!isJoined.get(event().id)" class="join-text">JOIN EVENT</span>
+  <span *ngIf="isJoined.get(event().id)" class="joined-text">
+    <fa-icon [icon]="faCheck"></fa-icon> JOINED
+  </span>
+</button>
