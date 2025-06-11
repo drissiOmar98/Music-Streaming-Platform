@@ -1,0 +1,227 @@
+@if(event && !loading) {
+  <div class="admin-event-details-container">
+    <!-- Header Section -->
+    <div class="admin-event-header">
+      <div class="cover-container">
+        <img [src]="coverPicture?.file ? 'data:' + coverPicture?.fileContentType + ';base64,' + coverPicture?.file : ''"
+             alt="{{event.title}}" class="cover-image">
+      </div>
+      <div class="header-content">
+        <h1 class="event-title">{{event.title}}</h1>
+        <div class="event-meta">
+          <span class="date">
+            <i class="fas fa-calendar-day"></i>
+            {{event.startDateTime | date:'mediumDate'}} - {{event.endDateTime | date:'shortTime'}}
+          </span>
+          <span class="separator">•</span>
+          <span class="location">
+            <i class="fas fa-map-marker-alt"></i>
+            {{event.location}}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <nav class="admin-event-tabs">
+      <ul>
+        <li [class.active]="activeTab() === 'details'" (click)="activeTab.set('details')">
+          <i class="fas fa-info-circle"></i> Details
+        </li>
+        <li [class.active]="activeTab() === 'photos'" (click)="activeTab.set('photos')">
+          <i class="fas fa-images"></i> Photos ({{event.pictures.length}})
+        </li>
+        <li [class.active]="activeTab() === 'video'" (click)="activeTab.set('video')">
+          <i class="fas fa-video"></i> Video
+        </li>
+        <li [class.active]="activeTab() === 'artists'" (click)="activeTab.set('artists')">
+          <i class="fas fa-users"></i> Artists ({{event.artists.length}})
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Tab Content -->
+    <div class="admin-event-tab-content">
+      <!-- Details Tab -->
+      @if (activeTab() === 'details') {
+        <div class="details-tab">
+          <div class="form-group">
+            <label>Event Title</label>
+            <input type="text" class="form-control" [(ngModel)]="event.title">
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control" rows="5" [(ngModel)]="event.description"></textarea>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Start Date & Time</label>
+                <input type="datetime-local" class="form-control" [(ngModel)]="event.startDateTime">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>End Date & Time</label>
+                <input type="datetime-local" class="form-control" [(ngModel)]="event.endDateTime">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Location</label>
+            <input type="text" class="form-control" [(ngModel)]="event.location">
+          </div>
+
+          <div class="action-buttons">
+            <button class="btn btn-primary">Save Changes</button>
+            <button class="btn btn-outline-danger">Delete Event</button>
+          </div>
+        </div>
+      }
+
+      <!-- Photos Tab -->
+      @if (activeTab() === 'photos') {
+        <div class="photos-tab">
+          <div class="gallery-actions">
+            <button class="btn btn-primary">
+              <i class="fas fa-plus"></i> Add Photos
+            </button>
+            <button class="btn btn-outline-secondary">
+              <i class="fas fa-sync-alt"></i> Reorder
+            </button>
+          </div>
+
+          <div class="gallery-grid">
+            @if (event.pictures.length > 0){
+              <div class="gallery-section">
+                <h2 class="section-title">
+                  <fa-icon [icon]="['fas', 'images']" class="section-icon"></fa-icon>
+                  Event Gallery
+                </h2>
+
+                <div class="gallery-container">
+                  <div class="gallery-main-image">
+                    <img [src]="'data:' + event.pictures[activeIndex]?.fileContentType + ';base64,' + event.pictures[activeIndex]?.file"
+                         alt="Gallery image {{activeIndex}}">
+                  </div>
+                  <div class="gallery-thumbnails">
+                    <div class="thumbnail"
+                         *ngFor="let picture of event.pictures; let i = index"
+                         [class.active]="i === activeIndex"
+                         (click)="activeIndex = i">
+                      <img [src]="'data:' + picture.fileContentType + ';base64,' + picture.file"
+                           alt="Thumbnail {{i}}">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Video Tab -->
+      @if (activeTab() === 'video') {
+        <div class="video-tab">
+          @if (videoContent) {
+            <div class="video-player-container">
+              @if (videoLoading) {
+                <div class="video-loading">
+                  <i class="fas fa-spinner fa-spin"></i> Loading video...
+                </div>
+              } @else {
+                @if (videoContent.videoUrl && safeYoutubeUrl) {
+                  <div class="youtube-video-wrapper">
+                    <iframe [src]="safeYoutubeUrl" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                  </div>
+                  <div class="video-source-info">
+                    <span class="badge bg-secondary">YouTube Video</span>
+                    <a [href]="videoContent.videoUrl" target="_blank">{{videoContent.videoUrl}}</a>
+                  </div>
+                } @else if (videoContent.file && videoObjectUrl) {
+                  <div class="uploaded-video-wrapper">
+                    <video controls controlsList="nodownload" width="100%" height="auto">
+                      <source [src]="videoObjectUrl" [type]="videoContent.fileContentType">
+                      Your browser does not support the video tag.
+                    </video>
+                    <div class="video-source-info">
+                      <span class="badge bg-secondary">Uploaded Video</span>
+                    </div>
+                  </div>
+                }
+              }
+            </div>
+
+<!--            <div class="video-upload-section">-->
+<!--              <h4>Update Video</h4>-->
+<!--              <div class="form-group">-->
+<!--                <label>YouTube URL</label>-->
+<!--                <input type="url" class="form-control" placeholder="https://www.youtube.com/watch?v=..."-->
+<!--                       [(ngModel)]="newVideoUrl">-->
+<!--              </div>-->
+<!--              <div class="form-group">-->
+<!--                <label>Or upload video file</label>-->
+<!--                <input type="file" class="form-control" (change)="onVideoFileChange($event)" accept="video/*">-->
+<!--              </div>-->
+<!--              <button class="btn btn-primary">Update Video</button>-->
+<!--            </div>-->
+          } @else {
+            <div class="no-video">
+              <i class="fas fa-video-slash"></i>
+              <p>No video content available for this event</p>
+              <button class="btn btn-primary">Add Video</button>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Artists Tab -->
+      @if (activeTab() === 'artists') {
+        <div class="artists-tab">
+          <div class="artists-actions">
+            <button class="btn btn-primary">
+              <i class="fas fa-plus"></i> Add Artists
+            </button>
+          </div>
+
+          <div class="artists-list">
+            @for (artist of event.artists; track artist.id) {
+              <div class="artist-card">
+                <div class="artist-avatar">
+                  <img [src]="'data:' + artist.cover?.fileContentType + ';base64,' + artist.cover?.file"
+                       alt="{{artist.name}}">
+                </div>
+                <div class="artist-info">
+                  <h5>{{artist.name}}</h5>
+                </div>
+                <div class="artist-actions">
+                  <button class="btn btn-sm btn-outline-danger">
+                    <i class="fas fa-times"></i> Remove
+                  </button>
+                </div>
+              </div>
+            }
+
+            @if (event.artists.length === 0) {
+              <div class="no-artists">
+                <i class="fas fa-users-slash"></i>
+                <p>No artists assigned to this event</p>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}
+
+@if (loading) {
+  <div class="loading-spinner">
+    <i class="fas fa-spinner fa-spin fa-3x"></i>
+  </div>
+}
