@@ -15,7 +15,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import {NgForOf, NgIf} from "@angular/common";
-import {CardArtist, DisplayPicture} from "../../../../../service/model/artist.model";
+import {CardArtist} from "../../../../../service/model/artist.model";
 import {EventDetailsModalComponent} from "../event-details-modal/event-details-modal.component";
 
 @Component({
@@ -209,9 +209,11 @@ export class EventsTabContentComponent implements OnInit ,OnDestroy{
     return '#1E88E5'; // Upcoming - blue
   }
 
-  // In your parent component (events-tab-content.component.ts)
+
+
   handleEventClick(clickInfo: EventClickArg) {
     const eventId = clickInfo.event.id;
+    // Find the event in your fullEventList
     const foundEvent = this.fullEventList.find(e => e.id.toString() === eventId);
 
     if (foundEvent) {
@@ -219,13 +221,12 @@ export class EventsTabContentComponent implements OnInit ,OnDestroy{
         size: 'lg',
         centered: true,
         windowClass: 'spotify-modal',
-        backdrop: 'static'
       });
 
-      // Set the input signal value
-      modalRef.componentInstance.event.set(foundEvent);
+      // Pass the event ID to the modal component
+      modalRef.componentInstance.eventId = foundEvent.id;
 
-      // Handle modal result if needed
+
       modalRef.result.then(
         (result) => {
           console.log('Modal closed', result);
